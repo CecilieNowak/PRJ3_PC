@@ -18,9 +18,10 @@ namespace PresentationLayer
     /// </summary>
     public partial class LoginWindow : Window
     {
+        private MainWindow _mainWRef;
+        private CheckLogin _logicRef;
 
-
-        public LoginWindow()
+        public LoginWindow(MainWindow mainW, CheckLogin logicRef)
         {
             InitializeComponent();
         }

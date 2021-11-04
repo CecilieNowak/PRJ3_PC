@@ -7,7 +7,7 @@ using DataAccessLayer;
 
 namespace BusinessLogicLayer
 {
-    class CheckLogin
+    public class CheckLogin
     {
         private readonly IData _dataObject;
 
