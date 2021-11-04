@@ -23,9 +23,38 @@ namespace PresentationLayer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private LoginWindow loginW;
+
+
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Puls_value_box_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void SaveData_button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Calibrate_button_Click(object sender, RoutedEventArgs e)
+        {
+            //Her skal der skrives noget kode, så når man klikker på kalibrer knappen, åbnes login vinduet. 
+        }
+
+        private void CPR_txtbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
