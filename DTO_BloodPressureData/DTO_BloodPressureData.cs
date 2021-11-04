@@ -10,7 +10,7 @@ namespace DTO_BloodPressureData
 
         public DTO_BloodPressureData()
         {
-
+            Console.WriteLine("Hej");
         }
     }
 }
