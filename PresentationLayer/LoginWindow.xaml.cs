@@ -24,6 +24,8 @@ namespace PresentationLayer
         public LoginWindow(MainWindow mainW, CheckLogin logicRef)
         {
             InitializeComponent();
+            _mainWRef = mainW;
+            _logicRef = logicRef;
         }
 
         
