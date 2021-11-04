@@ -14,7 +14,7 @@ namespace DataAccessLayer
         private SqlCommand _command;
         private const String DBlogin = "F21ST2ITS2au669338";
 
-        public DataBase()
+        public DataBase()  
         {}
 
         public bool IsUserRegistered(String username, String password)

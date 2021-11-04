@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BusinessLogicLayer;
 
 namespace PresentationLayer
 {
@@ -17,6 +18,8 @@ namespace PresentationLayer
     /// </summary>
     public partial class LoginWindow : Window
     {
+
+
         public LoginWindow()
         {
             InitializeComponent();
