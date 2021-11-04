@@ -7,20 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Rectangle HorizontalAlignment="Left" Height="434" Margin="613,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="187" Fill="#FFD0FFFF"/>
-        <TextBox x:Name="BP_value_box" HorizontalAlignment="Left" Margin="653,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="65"/>
+        <Rectangle HorizontalAlignment="Left" Height="76" Margin="0,358,0,0" Stroke="Black" VerticalAlignment="Top" Width="613"/>
+
+
+        <Rectangle HorizontalAlignment="Left" Height="434" Margin="613,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="187" Fill="#FFD0E4FF"/>
+        <TextBox x:Name="BP_value_box" HorizontalAlignment="Left" Margin="653,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="65" TextChanged="BP_value_box_TextChanged"/>
         <Label Content="BLODTRYK" HorizontalAlignment="Left" Margin="653,10,0,0" VerticalAlignment="Top" Width="120" FontSize="20"/>
         <Label Content="PULS" HorizontalAlignment="Left" Margin="653,112,0,0" VerticalAlignment="Top" Width="120" FontSize="20"/>
-        <TextBox x:Name="Puls_value_box" HorizontalAlignment="Left" Margin="653,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="65"/>
-        <Button x:Name="SaveData_button" Content="Gem Data" HorizontalAlignment="Left" Margin="653,224,0,0" VerticalAlignment="Top" Height="27" Width="120" FontSize="16" Background="#FFE2FFFB"/>
-        <Button x:Name="GetData_button" Content="Hent Data" HorizontalAlignment="Left" Margin="653,272,0,0" VerticalAlignment="Top" Height="27" Width="120" Background="#FFE2FFFB" FontSize="16"/>
-        <Button x:Name="Close_button" Content="Luk" HorizontalAlignment="Left" Margin="653,397,0,0" VerticalAlignment="Top" Height="27" Width="120" Background="#FFE2FFFB" FontSize="16"/>
-        <Button x:Name="Calibrate_button" Content="Kalibrer" HorizontalAlignment="Left" Margin="653,320,0,0" VerticalAlignment="Top" Height="28" Width="120" FontSize="16" Background="#FFE2FFFB"/>
+        <TextBox x:Name="Puls_value_box" HorizontalAlignment="Left" Margin="653,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="65" TextChanged="Puls_value_box_TextChanged"/>
+        <Button x:Name="SaveData_button" Content="Gem Data" HorizontalAlignment="Left" Margin="653,224,0,0" VerticalAlignment="Top" Height="27" Width="120" FontSize="16" Background="#FFE6FBFE" Click="SaveData_button_Click"/>
+        <Button x:Name="GetData_button" Content="Hent Data" HorizontalAlignment="Left" Margin="653,272,0,0" VerticalAlignment="Top" Height="27" Width="120" Background="#FFE6FBFE" FontSize="16"/>
+        <Button x:Name="Close_button" Content="Luk" HorizontalAlignment="Left" Margin="653,397,0,0" VerticalAlignment="Top" Height="27" Width="120" Background="#FFE6FBFE" FontSize="16"/>
+        <Button x:Name="Calibrate_button" Content="Kalibrer" HorizontalAlignment="Left" Margin="653,320,0,0" VerticalAlignment="Top" Height="28" Width="120" FontSize="16" Background="#FFE6FBFE" Click="Calibrate_button_Click"/>
         <DatePicker HorizontalAlignment="Left" Margin="506,397,0,0" VerticalAlignment="Top" SelectedDateFormat="Long"/>
-        <TextBox x:Name="CPR_txtbox" HorizontalAlignment="Left" Margin="269,397,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Height="28" FontSize="16"/>
+        <TextBox x:Name="CPR_txtbox" HorizontalAlignment="Left" Margin="269,397,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Height="28" FontSize="16" TextChanged="CPR_txtbox_TextChanged"/>
         <Label Content="CPR-NR" HorizontalAlignment="Left" Margin="198,395,0,0" VerticalAlignment="Top" FontSize="16"/>
         <TextBox HorizontalAlignment="Left" Margin="10,374,0,0" Text="Batteristatus" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" Height="52"/>
-        <Rectangle HorizontalAlignment="Left" Height="76" Margin="0,358,0,0" Stroke="Black" VerticalAlignment="Top" Width="613"/>
 
 
     </Grid>
