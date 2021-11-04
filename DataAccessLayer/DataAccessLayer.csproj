@@ -13,4 +13,9 @@
     <ProjectReference Include="..\DTO_BloodPressureData\DTO_BloodPressureData.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.NetCore" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
+  </ItemGroup>
+
 </Project>
