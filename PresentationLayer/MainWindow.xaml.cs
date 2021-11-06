@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using DTO_BloodPressureData;
 using LiveCharts;
 using LiveCharts.Wpf;
+using BusinessLogicLayer;
 
 namespace PresentationLayer
 {
@@ -23,13 +24,17 @@ namespace PresentationLayer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private LoginWindow loginW;
+        private CheckLogin _logicobj;
+        private LoginWindow _loginW;
 
-
+        public bool LoginOk { get; set; }
+        public String Username { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
+            _logicobj = new CheckLogin();
+            _loginW = new LoginWindow(this, _logicobj);
         }
 
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
@@ -50,6 +55,17 @@ namespace PresentationLayer
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
             //Her skal der skrives noget kode, så når man klikker på kalibrer knappen, åbnes login vinduet. 
+            this.Hide();
+            _loginW.ShowDialog();
+
+            if (LoginOk == true)
+            {
+                this.ShowDialog();
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
         private void CPR_txtbox_TextChanged(object sender, TextChangedEventArgs e)

@@ -14,7 +14,7 @@
         <Label Content="Brugernavn:" HorizontalAlignment="Left" Margin="258,128,0,0" VerticalAlignment="Top" Width="234" Height="46" FontSize="20"/>
         <Label Content="Kodeord:" HorizontalAlignment="Left" Margin="258,227,0,0" VerticalAlignment="Top" Width="234" Height="46" FontSize="20"/>
         <Button x:Name="Back_button" Content="Tilbage" HorizontalAlignment="Left" Margin="214,336,0,0" VerticalAlignment="Top" Height="38" Width="123" FontSize="16" Background="#FFE6FBFE"/>
-        <Button x:Name="LogIn_button" Content="Log ind" HorizontalAlignment="Left" Margin="400,336,0,0" VerticalAlignment="Top" Height="38" Width="123" FontSize="16" Background="#FFE6FBFE" RenderTransformOrigin="0.481,2.021"/>
+        <Button x:Name="LogIn_button" Content="Log ind" HorizontalAlignment="Left" Margin="400,336,0,0" VerticalAlignment="Top" Height="38" Width="123" FontSize="16" Background="#FFE6FBFE" RenderTransformOrigin="0.481,2.021" Click="LogIn_button_Click"/>
         <Label Content="Log ind" HorizontalAlignment="Left" Margin="343,48,0,0" VerticalAlignment="Top" FontSize="30"/>
         <TextBox HorizontalAlignment="Left" Margin="10,356,0,0" Text="batteri status" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" Height="68"/>
         <DatePicker HorizontalAlignment="Left" Margin="668,356,0,0" VerticalAlignment="Top" Height="62" Width="122"/>
