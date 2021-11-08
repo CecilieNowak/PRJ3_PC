@@ -16,7 +16,7 @@ namespace BusinessLogicLayer
             _dataObject = new DataBase();
         }
 
-        public bool Login(String username, String password)
+        public bool LoginCheck(String username, String password)
         {
             bool user = _dataObject.IsUserRegistered(username, password);
 
