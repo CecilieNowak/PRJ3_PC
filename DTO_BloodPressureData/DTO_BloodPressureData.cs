@@ -10,6 +10,7 @@ namespace DTO_BloodPressureData
 
         public DTO_BloodPressureData()
         {
+
         }
     }
 }
