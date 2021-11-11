@@ -30,7 +30,7 @@ namespace PresentationLayer
 
         private void LogIn_button_Click(object sender, RoutedEventArgs e)
         {
-            if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text) == true)
+            if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text) == true)           
             {
                 _mainWRef.LoginOk = true;
                 _mainWRef.Username = Username_txtbox.Text;
@@ -42,6 +42,20 @@ namespace PresentationLayer
                 Username_txtbox.Text = ""; 
                 Username_txtbox.Text = "";
                 Username_txtbox.Focus();
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Username_txtbox.Focus();
+            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
+        }
+
+        private void Password_txtbox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                LogIn_button_Click(this, new RoutedEventArgs());
             }
         }
     }

@@ -37,9 +37,15 @@ namespace PresentationLayer
             _loginW = new LoginWindow(this, _logicobj);
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
+            //Der skal måske også være kode til at vise tid her
+        }
+
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            
         }
 
         private void Puls_value_box_TextChanged(object sender, TextChangedEventArgs e)
@@ -54,23 +60,27 @@ namespace PresentationLayer
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
-            //Her skal der skrives noget kode, så når man klikker på kalibrer knappen, åbnes login vinduet. 
-            this.Hide();
-            _loginW.ShowDialog();
+            this.Hide();                                                                        //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            _loginW.ShowDialog();                                                               //og Loginvindue vises
 
-            if (LoginOk == true)
+            if (LoginOk == true)                                                                
             {
-                this.ShowDialog();
+                this.ShowDialog();                                                              //Hvis Login er ok, fuldføres login, og vi kommer tilbage til hovedvinduet
             }
             else
             {
-                this.Close();
+                this.Close();                                                                   //Hvis Login er forkert, kommer vi ikke tilbage til hovedvinduet
             }
         }
 
         private void CPR_txtbox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void Close_button_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);                                                                //Program lukker, når der trkkes på Luk-knappen
         }
     }
 }
