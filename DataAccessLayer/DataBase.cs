@@ -19,7 +19,7 @@ namespace DataAccessLayer
             bool result = false;
 
             _connection = new SqlConnection(@"Data Source=st-i4dab.uni.au.dk;Initial Catalog=" + DBlogin + ";User ID=" + DBlogin + ";Password=" + DBlogin + ";Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            _command = new SqlCommand("select * UsersRegistered where Username ='" + username + "'", _connection);
+            _command = new SqlCommand("select * from UsersRegistered where Username ='" + username + "'", _connection);
             _connection.Open();
             _reader = _command.ExecuteReader();
 
