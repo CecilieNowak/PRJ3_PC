@@ -6,6 +6,7 @@ namespace BusinessLogicLayer
 {
     abstract public class AbstractBloodPressureData
     {
+        
         private List<IBloodPressureObserver> _Observers = new List<IBloodPressureObserver>();
 
         public void Add(IBloodPressureObserver o)
@@ -20,9 +21,9 @@ namespace BusinessLogicLayer
 
         public void Notify()
         {
-            foreach (var bloodPressureObserver in _Observers)
-            {
-                bloodPressureObserver.Update();
+            foreach (var bloodPressureObserver in _Observers)           //Dette loop kalder update-metoderne i alle de klasser som implementerer interfacet IBloodPressureObserver (indtil videre har vi kun implementeret 'DisplayObserver')
+            {   
+                bloodPressureObserver.Update();             
             }
         }
     }

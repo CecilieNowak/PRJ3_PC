@@ -31,9 +31,8 @@ namespace PresentationLayer
         public bool LoginOk { get; set; }
         public String Username { get; set; }
 
-        public ChartValues<int> YValues { get; set; }
-        public ChartValues<int> XValues { get; set; }
-
+        public ChartValues<int> YValues { get; set; }   //YValues til puls graf
+        public ChartValues<int> XValues { get; set; }   //XValues til puls graf
         public MainWindow()
         {
             InitializeComponent();
@@ -48,13 +47,14 @@ namespace PresentationLayer
 
             DisplayObserver observer = new DisplayObserver(subject,this);
 
-            TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);
+            TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);  //Test tråd oprettes
             Thread t1 = new Thread(threadTest.updateChart);
             t1.Start();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
             //Der skal måske også være kode til at vise tid her
 
@@ -100,6 +100,17 @@ namespace PresentationLayer
         private void Close_button_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);                                                                //Program lukker, når der trkkes på Luk-knappen
+        }
+
+        public void updatePulseTextBox(string text)
+        {
+                                                                                                //Fra stackoverflow - metoden opdaterer pulstextbox
+            
+            Dispatcher.Invoke(() =>
+            {
+                Puls_value_box.Text = text;
+            }
+                );
         }
     }
 }
