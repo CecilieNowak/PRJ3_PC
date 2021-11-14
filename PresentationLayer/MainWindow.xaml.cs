@@ -16,6 +16,7 @@ using DTO_BloodPressureData;
 using LiveCharts;
 using LiveCharts.Wpf;
 using BusinessLogicLayer;
+using System.Threading;
 
 namespace PresentationLayer
 {
@@ -30,17 +31,35 @@ namespace PresentationLayer
         public bool LoginOk { get; set; }
         public String Username { get; set; }
 
+        public ChartValues<int> YValues { get; set; }
+        public ChartValues<int> XValues { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
             _logicobj = new CheckLogin();
             _loginW = new LoginWindow(this, _logicobj);
+
+            YValues = new ChartValues<int>();
+            XValues = new ChartValues<int>();
+            DataContext = this;
+
+            BloodPressureSubject subject = new BloodPressureSubject();
+
+            DisplayObserver observer = new DisplayObserver(subject,this);
+
+            TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);
+            Thread t1 = new Thread(threadTest.updateChart);
+            t1.Start();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
             //Der skal måske også være kode til at vise tid her
+
+            
+
         }
 
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)

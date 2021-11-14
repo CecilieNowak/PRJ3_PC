@@ -24,8 +24,11 @@
         <TextBlock x:Name="Date_box" HorizontalAlignment="Left" Margin="697,513,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
 
         <lvc:CartesianChart Name="BloodPressureGraph" LegendLocation="Right" Margin="10,76,257,147" Background="Black">
-
+<lvc:CartesianChart.Series>
+    <lvc:LineSeries Name="Line1" Title="Testdata" Values="{Binding YValues}"></lvc:LineSeries>
+</lvc:CartesianChart.Series>
         </lvc:CartesianChart>
+
         <Label x:Name="title_label" Content="Blodtryksmålersystem" HorizontalAlignment="Left" Margin="251,14,0,0" VerticalAlignment="Top" FontSize="30"/>
         <Label x:Name="date_Label" Content="Dato" HorizontalAlignment="Left" Margin="634,508,0,0" VerticalAlignment="Top" FontSize="16"/>
 
