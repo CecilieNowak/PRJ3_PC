@@ -27,6 +27,7 @@ namespace PresentationLayer
     {
         private CheckLogin _logicobj;
         private LoginWindow _loginW;
+        private CalibrateWindow _calibrateW;
 
         public bool LoginOk { get; set; }
         public String Username { get; set; }
@@ -38,6 +39,7 @@ namespace PresentationLayer
             InitializeComponent();
             _logicobj = new CheckLogin();
             _loginW = new LoginWindow(this, _logicobj);
+            
 
             YValues = new ChartValues<int>();
             XValues = new ChartValues<int>();
@@ -79,16 +81,18 @@ namespace PresentationLayer
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
+            _calibrateW = new CalibrateWindow();
+
             this.Hide();                                                                        //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
 
-            if (LoginOk == true)                                                                
+            if (LoginOk == true)
             {
-                this.ShowDialog();                                                              //Hvis Login er ok, fuldføres login, og vi kommer tilbage til hovedvinduet
+                _calibrateW.ShowDialog(); //Hvis Login er ok, fuldføres login, og vi til kalibreringsvindue
             }
             else
             {
-                this.Close();                                                                   //Hvis Login er forkert, kommer vi ikke tilbage til hovedvinduet
+                this.Close();                                                                   
             }
         }
 

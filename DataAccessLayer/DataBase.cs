@@ -20,18 +20,18 @@ namespace DataAccessLayer
 
             _connection = new SqlConnection(@"Data Source=st-i4dab.uni.au.dk;Initial Catalog=" + DBlogin + ";User ID=" + DBlogin + ";Password=" + DBlogin + ";Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             _command = new SqlCommand("select * from UsersRegistered where Username ='" + username + "'", _connection);
-            _connection.Open();
+            _connection.Open();                             //Åbner forbindelse til databasen
            _reader = _command.ExecuteReader();
 
             while (_reader.Read())
             {
-                if (_reader["Username"].ToString() == username && _reader["Keyword"].ToString() == password)
+                if (_reader["Username"].ToString() == username && _reader["Keyword"].ToString() == password)        
                 {
-                    result = true;
+                    result = true;                          //Hvis brugernavn og adgangskode i database-tabellen er lig med parametrene username og password, returneres true 
                     break;
                 }
             }
-            _connection.Close();
+            _connection.Close();                            //Forbindelse til database lukkes
             return result;
         }
     }

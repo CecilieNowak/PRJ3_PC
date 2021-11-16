@@ -20,6 +20,7 @@ namespace PresentationLayer
     {
         private MainWindow _mainWRef;
         private CheckLogin _logicRef;
+       
 
         public LoginWindow(MainWindow mainW, CheckLogin logicRef)
         {
@@ -32,6 +33,7 @@ namespace PresentationLayer
         {
             if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text) == true)           
             {
+                
                 _mainWRef.LoginOk = true;
                 _mainWRef.Username = Username_txtbox.Text;
                 this.Close();
@@ -48,12 +50,13 @@ namespace PresentationLayer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Username_txtbox.Focus();
-            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
+            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                    //Dato vises på UI
+            //kode til at vise tid
         }
 
         private void Password_txtbox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter)                                                   //Når adgangskode er indtastet, kan der logges ind ved at trykke Enter                                             
             {
                 LogIn_button_Click(this, new RoutedEventArgs());
             }
