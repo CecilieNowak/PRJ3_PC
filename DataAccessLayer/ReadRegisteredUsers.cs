@@ -8,7 +8,7 @@ using System.IO;
 
 namespace DataAccessLayer
 {
-    public class DataBase : IData
+    public class ReadRegisteredUsers : IData
     {
         private FileStream input;
         private StreamReader reader;
