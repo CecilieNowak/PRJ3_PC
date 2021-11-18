@@ -7,7 +7,7 @@ namespace Main
         static void Main(string[] args)
         {
             CalcBP data = new CalcBP();
-            data.CalcDia();
+            data.CalcSys();
             data.CalcDia();
         }
     }
