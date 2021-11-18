@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using Xamarin.Forms;
+//using Xamarin.Forms;
 
 
-namespace WriteToFile
+namespace DataAccessLayer
 {
     public class TestIO
     {

@@ -21,6 +21,7 @@ namespace BusinessLogicLayer
 
         public void SendData()
         {
+            //TEST-VALUES:
             string cpr = "123456-7890";
             int systolic = 120;
             int diastolic = 90;
