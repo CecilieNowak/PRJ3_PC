@@ -11,8 +11,7 @@ namespace BusinessLogicLayer
         List<int> sys = new List<int>();
         List<int> dia = new List<int>();
 
-
-        public void CalcSys()
+        public List<int> CalcSys(List<int> data)
         {
             for (int i = 1; i <= data.Count - 2; i++)
             {
@@ -21,10 +20,7 @@ namespace BusinessLogicLayer
                     sys.Add(data[i]);
                 }
             }
-            foreach (int i in sys)
-            {
-                Console.WriteLine(i);
-            }
+            return sys;
         }
 
         public void CalcDia()
