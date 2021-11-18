@@ -9,6 +9,10 @@ namespace Main
             CalcBP data = new CalcBP();
             data.CalcSys();
             data.CalcDia();
+
+            //Test af SendToDatabase-klasse
+            SendToDatabase send = new SendToDatabase();
+            send.SendData();
         }
     }
 }
