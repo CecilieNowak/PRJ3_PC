@@ -32,3 +32,6 @@ namespace WriteToFile
         }
     }
 }
+
+//Kører man programmet første gang, og skriver noget, kommer det ind i tekstfilen, men kører man programmet igen, og skriver noget nyt, kommer det ikke ind.
+//Jeg kan ikke lige gennemskue hvorfor.
