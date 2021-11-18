@@ -22,7 +22,7 @@ namespace BusinessLogicLayer
             }
             foreach (int i in sys)
             {
-                Console.WriteLine("Systolisk blodtryk: " + i);
+                Console.WriteLine(i);
             }
         }
 

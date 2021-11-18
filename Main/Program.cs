@@ -10,9 +10,14 @@ namespace Main
         {
             CalcBP data = new CalcBP();
             TestIO test = new TestIO();
+            data.CalcSys();
             data.CalcDia();
             data.CalcDia();
             test.testIO();
+
+            //Test af SendToDatabase-klasse
+            SendToDatabase send = new SendToDatabase();
+            send.SendData();
         }
     }
 }
