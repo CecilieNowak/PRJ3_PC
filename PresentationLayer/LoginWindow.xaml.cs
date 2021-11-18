@@ -20,7 +20,7 @@ namespace PresentationLayer
     {
         private MainWindow _mainWRef;
         private CheckLogin _logicRef;
-       
+
 
         public LoginWindow(MainWindow mainW, CheckLogin logicRef)
         {
@@ -31,7 +31,8 @@ namespace PresentationLayer
 
         private void LogIn_button_Click(object sender, RoutedEventArgs e)
         {
-            if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text) == true)           
+            if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text) ==
+                true) //Hvis indtastet login er korrekt, skjules loginvindue     
             {
                 _mainWRef.LoginOk = true;
                 _mainWRef.Username = Username_txtbox.Text;
@@ -40,31 +41,35 @@ namespace PresentationLayer
             else
             {
                 fejlmeddelelse_Box.Text = "Fejl i brugernavn eller adgangskode";
-                Username_txtbox.Text = ""; 
+                Username_txtbox.Text = "";
                 Password_txtbox.Text = "";
                 Username_txtbox.Focus();
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Username_txtbox.Focus();
-            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                    //Dato vises på UI
-            //kode til at vise tid
-        }
-
-        private void Password_txtbox_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)                                                   //Når adgangskode er indtastet, kan der logges ind ved at trykke Enter                                             
-            {
-                LogIn_button_Click(this, new RoutedEventArgs());
-            }
-        }
 
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
             _mainWRef.ShowDialog();
         }
+
+        private void Password_txtbox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (
+                e.Key == Key
+                    .Enter) //Når adgangskode er indtastet, kan der logges ind ved at trykke Enter                                             
+            {
+                LogIn_button_Click(this, new RoutedEventArgs());
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Username_txtbox.Focus();
+            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy"); //Dato vises på UI
+            //kode til at vise tid
+        }
     }
+
 }

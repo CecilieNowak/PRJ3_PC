@@ -39,48 +39,41 @@ namespace PresentationLayer
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Values_box.Focus();
+            Values_box.Focus();                                                                             //Cursor er i tekstboks, når vindue åbner
         }
 
         private void CalibrationGraph_Loaded(object sender, RoutedEventArgs e)
         {
-            calibrateLine.Title = "Kalibreringspunkter";
-
-            calibrateLine.Values = new ChartValues<double>();         //Måske double?
-
-            DataContext = this;
-
-            calibrateLine.Fill = Brushes.Transparent;
-            
-
-
+            calibrateLine.Title = "Kalibreringspunkter";                                                    //Kurve-titel
+            calibrateLine.Values = new ChartValues<double>();                                               //Kalibreringsværdier er at typen double
+            DataContext = this;                                                                             
+            calibrateLine.Fill = Brushes.Transparent;                                                       //Fjerner farve over kurven
         }
 
-        private void calibrateButton_Click(object sender, RoutedEventArgs e)
+        private void calibrateButton_Click(object sender, RoutedEventArgs e)                                 
         {
-            if (Values_box.Text != "")
+            if (Values_box.Text != "")                                                                                     
             {
-                calibrateLine.Values.Add(Convert.ToDouble(Values_box.Text));
-                Values_box.Clear();
-
-                Values_box.Focus();
-            }
+                calibrateLine.Values.Add(Convert.ToDouble(Values_box.Text));                                //Det indtastede tryk vises i grafen
+                Values_box.Clear();                                                                         //Tekstboks nulstilles
+                Values_box.Focus();                                                                         //Kurser er i tekstboksen
+            }   
             else
             {
-                Fejlmeddelese_Box.Text = "Indtast trykværdi";
+                Fejlmeddelese_Box.Text = "Indtast trykværdi";                                               //Fejlmeddelese, hvis der ikke er indtastet en værdi       
             }
         }
 
         private void logOffButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
-            mainRef.ShowDialog();
+            this.Hide();                                                                                    //Når der logges af, skjules kalibreringsvindue
+            mainRef.ShowDialog();                                                                           //og hovedvindue åbner
 
         }
 
         private void Values_box_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)                                                   //Når adgangskode er indtastet, kan der logges ind ved at trykke Enter                                             
+            if (e.Key == Key.Enter)                                                                         //Når trykværdi er indtastet, kan der trykeks "Kalibrer" ved at trykke Enter                                             
             {
                 calibrateButton_Click(this, new RoutedEventArgs());
             }

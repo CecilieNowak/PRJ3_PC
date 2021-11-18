@@ -54,15 +54,7 @@ namespace PresentationLayer
             t1.Start();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
-            //Der skal måske også være kode til at vise tid her
-
-            
-
-        }
+       
 
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -115,6 +107,12 @@ namespace PresentationLayer
                 Puls_value_box.Text = text;
             }
                 );
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
+            //Der skal måske også være kode til at vise tid her
         }
     }
 }

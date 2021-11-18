@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer", "Presen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_PRJ3_PC", "Test_PRJ3_PC\Test_PRJ3_PC.csproj", "{BD2DE21C-F215-41C8-8984-7FA6ECF00067}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{7C1BCB43-ED2E-40A5-8175-7792345E2052}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Main", "Main\Main.csproj", "{7C1BCB43-ED2E-40A5-8175-7792345E2052}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
