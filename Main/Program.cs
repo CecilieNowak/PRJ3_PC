@@ -16,8 +16,8 @@ namespace Main
             test.testIO();
 
             //Test af SendToDatabase-klasse
-            SendToDatabase send = new SendToDatabase();
-            send.SendData();
+            //SendToDatabase send = new SendToDatabase();
+            //send.SendData();
         }
     }
 }
