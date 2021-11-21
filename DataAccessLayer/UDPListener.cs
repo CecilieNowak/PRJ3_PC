@@ -35,9 +35,6 @@ namespace DataAccessLayer
 
 
                     // Her skal der måske oprettes blockcollection og så skal data fra blodData tilføjes til det 
-
-
-
               
 
                 }
