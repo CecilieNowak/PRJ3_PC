@@ -12,10 +12,10 @@ namespace Main
         {
             CalcBP calc = new CalcBP();
             TestIO test = new TestIO();
-            //calc.CalcSys(); //den liste med 150 DTO'er i sekundet, skal være parameter til denne metode
-            //calc.CalcDia(); // --||--
-            
-            test.Test();
+            data.CalcSys();
+            data.CalcDia();
+
+            //test.Test();
 
             Alarm a1 = new Alarm();
             List<int> testSys = new List<int> { 1, 2, 3, 45, 23, 23, 24, 25, 1, 2, 3, 45, 23, 23, 24, 25, 1, 2, 3, 45, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, };
