@@ -14,7 +14,7 @@ namespace Main
             data.CalcSys();
             data.CalcDia();
             
-            test.testIO();
+            test.Test();
 
             //Test af SendToDatabase-klasse
             //SendToDatabase send = new SendToDatabase();
