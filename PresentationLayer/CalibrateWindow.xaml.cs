@@ -24,9 +24,9 @@ namespace PresentationLayer
         private LineSeries calibrateLine;
         private MainWindow mainRef;
 
-        //TEST
-        private ReadADCValues adcTest;
-        //
+        
+        private ReadADCValues adcTest; //Test
+        
 
         public SeriesCollection Data { get; set; }
 
@@ -46,9 +46,8 @@ namespace PresentationLayer
         {
             Values_box.Focus();                                                                             //Cursor er i tekstboks, når vindue åbner
 
-            //TEST
-            adcTest = new ReadADCValues();
-            //
+            adcTest = new ReadADCValues(); //Test
+            
 
             //  insertValues_Box.Text = "Indstil tryk til 0 mmHg";
         }
@@ -57,7 +56,7 @@ namespace PresentationLayer
         {
             calibrateLine.Title = "Kalibreringspunkter";                                                    //Kurve-titel
             calibrateLine.Values = new ChartValues<double>();                                               //Kalibreringsværdier er at typen double
-            
+            calibrateLine.Values = new ChartValues<double>(); //TEST
             DataContext = this;                                                                             
             calibrateLine.Fill = Brushes.Transparent;                                                       //Fjerner farve over kurven
 

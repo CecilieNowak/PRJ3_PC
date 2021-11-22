@@ -11,7 +11,8 @@ namespace BusinessLogicLayer
         List<int> sys = new List<int>();
         SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
 
-        
+
+
 
         public void StartAlarm(List<int> sys)
         {
@@ -20,7 +21,9 @@ namespace BusinessLogicLayer
                 if (sys[i] > 1.3 * sys[i - 5] || sys[i] < 0.7 * sys[i - 5])
                 {
                     alarm.PlayLooping();
+
                 }
+                
             }
                 
         }
@@ -28,7 +31,7 @@ namespace BusinessLogicLayer
         
 
 
-    }
 }
+
  
 
