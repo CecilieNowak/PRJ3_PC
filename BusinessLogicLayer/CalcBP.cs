@@ -6,7 +6,7 @@ namespace BusinessLogicLayer
 {
     public class CalcBP
     {
-        List<int> data = new List<int> { 1, 5, 4, 3, 2, 5, 7, 8, 4, 2, 1, 4 };
+        //List<int> data = new List<int> { 1, 5, 4, 3, 2, 5, 7, 8, 4, 2, 1, 4 };
 
         List<int> sys = new List<int>();
         List<int> dia = new List<int>();
@@ -23,7 +23,7 @@ namespace BusinessLogicLayer
             return sys;
         }
 
-        public void CalcDia()
+        public List<int> CalcDia(List<int> data)
         {
             for (int i = 1; i <= data.Count - 2; i++)
             {
@@ -32,10 +32,7 @@ namespace BusinessLogicLayer
                     dia.Add(data[i]);
                 }
             }
-            foreach (int i in dia)
-            {
-                Console.WriteLine("Diastolisk blodtryk: " + i);
-            }
+            return dia;
         }
     }
 }

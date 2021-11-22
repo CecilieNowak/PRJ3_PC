@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BusinessLogicLayer;
 using DataAccessLayer;
 
@@ -8,12 +9,11 @@ namespace Main
     {
         static void Main(string[] args)
         {
-            CalcBP data = new CalcBP();
+            CalcBP calc = new CalcBP();
             TestIO test = new TestIO();
-            data.CalcSyss();
-            data.CalcSys();
-            data.CalcDia();
-            data.CalcDia();
+            List<int> data = new List<int> { 1, 5, 4, 3, 2, 5, 7, 8, 4, 2, 1, 4 };
+            calc.CalcSys(data);
+            calc.CalcDia(data);
             test.testIO();
 
             //Test af SendToDatabase-klasse
