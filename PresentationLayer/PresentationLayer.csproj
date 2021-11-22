@@ -7,18 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.1" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="LiveCharts.NetCore" Version="0.9.7" />
-    <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\DTO_BloodPressureData\DTO_BloodPressureData.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="LiveCharts">
+      <HintPath>..\..\..\..\..\..\.nuget\packages\livecharts.wpf.netcore3\0.9.7\lib\netcoreapp3.1\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf">
+      <HintPath>..\..\..\..\..\..\.nuget\packages\livecharts.wpf.netcore3\0.9.7\lib\netcoreapp3.1\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
