@@ -5,7 +5,7 @@ using BusinessLogicLayer;
 
 namespace PresentationLayer
 {
-    class AlarmObserver : IBloodPressureObserver
+    class AlarmObserver
     {
 
     }
