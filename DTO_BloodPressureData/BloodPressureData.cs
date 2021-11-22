@@ -22,6 +22,5 @@ namespace DTO_BloodPressureData
             Diastolic = diastolic;
             Pulse = pulse;
         }
-
     }
 }
