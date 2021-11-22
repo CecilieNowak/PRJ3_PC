@@ -40,6 +40,7 @@ namespace PresentationLayer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Values_box.Focus();                                                                             //Cursor er i tekstboks, når vindue åbner
+            insertValues_Box.Text = "Indstil tryk til 0 mmHg";
         }
 
         private void CalibrationGraph_Loaded(object sender, RoutedEventArgs e)
@@ -57,6 +58,7 @@ namespace PresentationLayer
                 calibrateLine.Values.Add(Convert.ToDouble(Values_box.Text));                                //Det indtastede tryk vises i grafen
                 Values_box.Clear();                                                                         //Tekstboks nulstilles
                 Values_box.Focus();                                                                         //Kurser er i tekstboksen
+                
             }   
             else
             {

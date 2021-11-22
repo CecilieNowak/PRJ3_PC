@@ -18,7 +18,7 @@ namespace DataAccessLayer
             Console.Write("Type something: ");
             text = Convert.ToString(Console.ReadLine());
             text1 = text;
-            string path = @"Julie.txt";
+            string path = @"Data.txt";
 
             if (File.Exists(path))
             {
