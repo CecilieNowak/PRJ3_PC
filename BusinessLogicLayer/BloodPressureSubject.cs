@@ -8,6 +8,7 @@ namespace BusinessLogicLayer
     public class BloodPressureSubject : AbstractBloodPressureData
     {
         private List<BloodPressureData> dtoList;
+        
 
         public BloodPressureSubject()
         {
@@ -17,6 +18,7 @@ namespace BusinessLogicLayer
         public void newDataRecieved(BloodPressureData bp)
         {
             dtoList.Add(bp);
+            
             
             Notify();
 

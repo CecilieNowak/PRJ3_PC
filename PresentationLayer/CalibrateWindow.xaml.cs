@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 using BusinessLogicLayer;
+using DataAccessLayer;
 
 namespace PresentationLayer
 {
@@ -22,6 +23,10 @@ namespace PresentationLayer
     {
         private LineSeries calibrateLine;
         private MainWindow mainRef;
+
+        //TEST
+        private ReadADCValues adcTest;
+        //
 
         public SeriesCollection Data { get; set; }
 
@@ -40,15 +45,22 @@ namespace PresentationLayer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Values_box.Focus();                                                                             //Cursor er i tekstboks, når vindue åbner
-            insertValues_Box.Text = "Indstil tryk til 0 mmHg";
+
+            //TEST
+            adcTest = new ReadADCValues();
+            //
+
+            //  insertValues_Box.Text = "Indstil tryk til 0 mmHg";
         }
 
         private void CalibrationGraph_Loaded(object sender, RoutedEventArgs e)
         {
             calibrateLine.Title = "Kalibreringspunkter";                                                    //Kurve-titel
             calibrateLine.Values = new ChartValues<double>();                                               //Kalibreringsværdier er at typen double
+            
             DataContext = this;                                                                             
             calibrateLine.Fill = Brushes.Transparent;                                                       //Fjerner farve over kurven
+
         }
 
         private void calibrateButton_Click(object sender, RoutedEventArgs e)                                 
