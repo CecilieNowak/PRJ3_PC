@@ -68,7 +68,10 @@ namespace PresentationLayer
 
         private void SaveData_button_Click(object sender, RoutedEventArgs e)
         {
-            
+            SendToDatabase send = new SendToDatabase();
+            string socSecNb = CPR_txtbox.Text;
+            send.SendData(socSecNb);
+            MessageBox.Show("Data er sendt");
         }
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)

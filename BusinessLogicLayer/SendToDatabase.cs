@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.Data.SqlClient;
+using DataAccessLayer;
 
 namespace BusinessLogicLayer
 {
@@ -19,32 +21,35 @@ namespace BusinessLogicLayer
             }
         }
 
-        public void SendData()
+        public void SendData(string socSecNb)
         {
-            //TEST-VALUES:
-            string cpr = "123456-7890";
-            int systolic = 120;
-            int diastolic = 90;
-            int pulse = 70;
-            //DateTime dateTime = DateTime.Now;
+            ReadBloodPressureData readFile = new ReadBloodPressureData();
+            string cpr = socSecNb;
+            double[] systolic = readFile.Systolic();
+            double[] diastolic = readFile.Diastolic();
+            int[] pulse = readFile.Pulse();
+            DateTime tidsstempel = DateTime.Now;
+
 
             string insertParameters =
-                @"INSERT INTO BP_TEST (cpr, systolic, diastolic, pulse) VALUES (@CPR, @Systolic, @Diastolic, @Pulse)";
+                @"INSERT INTO BloodPressureMeasurement (cpr, systolic, diastolic, pulse, tidsstempel) OUTPUT INSERTED.Id VALUES (@CPR, @Systolic, @Diastolic, @Pulse, @Tidsstempel)";
 
 
             using (_command = new SqlCommand(insertParameters, _Connection))
             {
                 _command.Parameters.AddWithValue("@CPR", cpr);
-                _command.Parameters.AddWithValue("@Systolic", systolic);
-                _command.Parameters.AddWithValue("@Diastolic", diastolic);
-                _command.Parameters.AddWithValue("@Pulse", pulse);
-                //_command.Parameters.AddWithValue("@Tidsstempel", dateTime);
+                _command.Parameters.AddWithValue("@Systolic", systolic.SelectMany(value => BitConverter.GetBytes(value)).ToArray());
+                _command.Parameters.AddWithValue("@Diastolic", diastolic.SelectMany(value => BitConverter.GetBytes(value)).ToArray());
+                _command.Parameters.AddWithValue("@Pulse", pulse.SelectMany(value => BitConverter.GetBytes(value)).ToArray());
+                _command.Parameters.AddWithValue("@Tidsstempel", tidsstempel);
 
+                //int id = (int) _command.ExecuteScalar();
                 _command.ExecuteNonQuery();
             }
 
             _Connection.Close();
-
         }
+
+        
     }
 }
