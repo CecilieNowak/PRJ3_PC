@@ -24,11 +24,12 @@ namespace PresentationLayer
         private LineSeries calibrateLine;
         private MainWindow mainRef;
 
-        //TEST
-        private ReadADCValues adcTest;
-        //
+
+        private ReadADCValues adcTest; //Test
+
 
         public SeriesCollection Data { get; set; }
+        public ChartValues<string> ADCValues {get;set;} //Test 
 
         public CalibrateWindow()
         {
@@ -37,20 +38,23 @@ namespace PresentationLayer
 
             Data = new SeriesCollection();
 
+          
             Data.Add(calibrateLine);
 
             mainRef = new MainWindow();
+
+            ADCValues = new ChartValues<string>();  //Test
+            //ADCValues.Add();
+            DataContext = this;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Values_box.Focus();                                                                             //Cursor er i tekstboks, når vindue åbner
 
-            //TEST
-            adcTest = new ReadADCValues();
-            //
+            adcTest = new ReadADCValues(); //Test
 
-            //  insertValues_Box.Text = "Indstil tryk til 0 mmHg";
+            insertValues_Box.Text = "Indstil tryk til 0 mmHg";
         }
 
         private void CalibrationGraph_Loaded(object sender, RoutedEventArgs e)
@@ -66,11 +70,11 @@ namespace PresentationLayer
         private void calibrateButton_Click(object sender, RoutedEventArgs e)                                 
         {
             if (Values_box.Text != "")                                                                                     
-            {
+            { 
                 calibrateLine.Values.Add(Convert.ToDouble(Values_box.Text));                                //Det indtastede tryk vises i grafen
                 Values_box.Clear();                                                                         //Tekstboks nulstilles
                 Values_box.Focus();                                                                         //Kurser er i tekstboksen
-                
+                ADCValues.Add(Convert.ToString(adcTest.ReadAdcValues())); //Test
             }   
             else
             {

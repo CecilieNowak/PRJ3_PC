@@ -6,29 +6,33 @@ using System.Media;
 
 namespace BusinessLogicLayer
 {
-    class Alarm
+    public class Alarm
     {
         List<int> sys = new List<int>();
         SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
 
-        
+
+
 
         public void StartAlarm(List<int> sys)
         {
-            for (int i = 1; i <= sys.Count - 2; i++)
+            for (int i = 5; i <= sys.Count - 5; i++)
             {
                 if (sys[i] > 1.3 * sys[i - 5] || sys[i] < 0.7 * sys[i - 5])
                 {
                     alarm.PlayLooping();
+
                 }
+
             }
-                
-        }
 
         }
+
+
 
 
     }
 }
+
  
 
