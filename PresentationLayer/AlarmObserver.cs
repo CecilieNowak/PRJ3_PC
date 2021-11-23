@@ -7,7 +7,7 @@ using System.Media;
 
 namespace PresentationLayer
 {
-    class AlarmObserver : IBloodPressureObserver
+    class AlarmObserver
     {
 
         private BloodPressureSubject _bp;

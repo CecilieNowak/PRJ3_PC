@@ -10,15 +10,15 @@ namespace Main
     {
         static void Main(string[] args)
         {
-            CalcBP calc = new CalcBP();
-            TestIO test = new TestIO();
-            data.CalcSys();
-            data.CalcDia();
+            //CalcBP calc = new CalcBP();
+            //TestIO test = new TestIO();
+            //data.CalcSys();
+            //data.CalcDia();
 
             //test.Test();
 
             Alarm a1 = new Alarm();
-            List<int> testSys = new List<int> { 1, 2, 3, 45, 23, 23, 24, 25, 1, 2, 3, 45, 23, 23, 24, 25, 1, 2, 3, 45, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, 1, 2, 3, 200, 23, 23, 24, 25, };
+            List<int> testSys = new List<int> { 1, 1, 1, 1, 1, 1, 1, 3, 3, 11, 1, 6 };
             a1.StartAlarm(testSys);
             
 
