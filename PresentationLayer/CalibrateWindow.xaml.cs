@@ -70,9 +70,9 @@ namespace PresentationLayer
         private void calibrateButton_Click(object sender, RoutedEventArgs e)                                 
         {
             if (Values_box.Text != "")                                                                                     
-            {
+            { 
                 calibrateLine.Values.Add(Convert.ToDouble(Values_box.Text));                                //Det indtastede tryk vises i grafen
-               Values_box.Clear();                                                                         //Tekstboks nulstilles
+                Values_box.Clear();                                                                         //Tekstboks nulstilles
                 Values_box.Focus();                                                                         //Kurser er i tekstboksen
                 ADCValues.Add(Convert.ToString(adcTest.ReadAdcValues())); //Test
             }   
