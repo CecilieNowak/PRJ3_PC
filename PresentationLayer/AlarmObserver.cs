@@ -7,7 +7,7 @@ using System.Media;
 
 namespace PresentationLayer
 {
-    class AlarmObserver
+    class AlarmObserver : IBloodPressureObserver
     {
 
         private BloodPressureSubject _bp;
@@ -21,28 +21,13 @@ namespace PresentationLayer
             _bp.Add(this);
         }
 
-        SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
+        
         public void Update()                                       
-        { 
-            BloodPressureData subject = _bp.getNewestDTO();
-
-            void StartAlarm(List<int> _bp)
-            {
-                for (int i = 5; i <= _bp.Count - 5; i++)
-                {
-                    if (_bp[i] > 1.3 * _bp[i - 5] || _bp[i] < 0.7 * _bp[i - 5])
-                    {
-                        alarm.PlayLooping();
-
-                    }
-
-                }
-
-            }
-
-
+        {
+            SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
+            alarm.PlayLooping();
         }
+
+
     }
-
-
 }
