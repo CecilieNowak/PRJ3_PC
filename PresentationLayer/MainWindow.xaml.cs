@@ -4,10 +4,14 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using DTO_BloodPressureData;
+
 
 namespace PresentationLayer
 {
@@ -32,7 +36,7 @@ namespace PresentationLayer
             _loginW = new LoginWindow(this, _logicobj);
 
 
-            YValues = new ChartValues<int>();
+            YValues = new ChartValues<int>();   
             XValues = new ChartValues<int>();
             DataContext = this;
 
@@ -44,11 +48,19 @@ namespace PresentationLayer
 
             BlockingCollection <BloodPressureData> dataQueue= new BlockingCollection<BloodPressureData>();
 
-            Test_tråd_2 testTråd = new Test_tråd_2(dataQueue, subject);
-            Thread t1 = new Thread(testTråd.updateChart);
+            /*  Må ikke slettes!!
+
+
+            //      Test med UDP-kommunikation
+            //Test_tråd_2 testTråd = new Test_tråd_2(dataQueue, subject);
+            //Thread t1 = new Thread(testTråd.updateChart);
+          
+            //      Test med randomme DTO'er i stedet for UDP-kommunikation
             //TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);  //Test tråd oprettes
            //Thread t1 = new Thread(threadTest.updateChart);
-            t1.Start();
+            
+          // t1.Start();
+            */
         }
 
 
