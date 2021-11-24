@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusinessLogicLayer;
+using LiveCharts;
+using System;
+using System.Media;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DTO_BloodPressureData;
-using LiveCharts;
-using LiveCharts.Wpf;
-using BusinessLogicLayer;
-using System.Threading;
 
 namespace PresentationLayer
 {
@@ -39,7 +27,7 @@ namespace PresentationLayer
             InitializeComponent();
             _logicobj = new CheckLogin();
             _loginW = new LoginWindow(this, _logicobj);
-            
+
 
             YValues = new ChartValues<int>();
             XValues = new ChartValues<int>();
@@ -47,18 +35,20 @@ namespace PresentationLayer
 
             BloodPressureSubject subject = new BloodPressureSubject();
 
-            DisplayObserver observer = new DisplayObserver(subject,this);
+            DisplayObserver observer = new DisplayObserver(subject, this);
+
+            AlarmObserver aObserver = new AlarmObserver(subject, this);
 
             TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);  //Test tråd oprettes
             Thread t1 = new Thread(threadTest.updateChart);
             t1.Start();
         }
 
-       
+
 
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+
         }
 
         private void Puls_value_box_TextChanged(object sender, TextChangedEventArgs e)
@@ -87,7 +77,7 @@ namespace PresentationLayer
             }
             else
             {
-                this.Close();                                                                   
+                this.Close();
             }
         }
 
@@ -103,8 +93,8 @@ namespace PresentationLayer
 
         public void updatePulseTextBox(string text)
         {
-                                                                                                //Fra stackoverflow - metoden opdaterer pulstextbox
-            
+            //Fra stackoverflow - metoden opdaterer pulstextbox
+
             Dispatcher.Invoke(() =>
             {
                 Puls_value_box.Text = text;
@@ -115,7 +105,9 @@ namespace PresentationLayer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
-            //Der skal måske også være kode til at vise tid her
+                                                                                        //Der skal måske også være kode til at vise tid her
+            SoundPlayer s = new SoundPlayer("sonnette_reveil.wav");
+            s.PlayLooping();
         }
     }
 }
