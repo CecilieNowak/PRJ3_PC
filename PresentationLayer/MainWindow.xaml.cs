@@ -1,8 +1,11 @@
 ﻿using BusinessLogicLayer;
 using LiveCharts;
 using System;
-using System.Media;
-using System.Threading;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -39,8 +42,12 @@ namespace PresentationLayer
 
             AlarmObserver aObserver = new AlarmObserver(subject, this);
 
-            TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);  //Test tråd oprettes
-            Thread t1 = new Thread(threadTest.updateChart);
+            BlockingCollection <BloodPressureData> dataQueue= new BlockingCollection<BloodPressureData>();
+
+            Test_tråd_2 testTråd = new Test_tråd_2(dataQueue, subject);
+            Thread t1 = new Thread(testTråd.updateChart);
+            //TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);  //Test tråd oprettes
+           //Thread t1 = new Thread(threadTest.updateChart);
             t1.Start();
         }
 

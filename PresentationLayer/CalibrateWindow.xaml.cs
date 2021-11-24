@@ -12,7 +12,6 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 using BusinessLogicLayer;
-using DataAccessLayer;
 
 namespace PresentationLayer
 {
@@ -25,11 +24,11 @@ namespace PresentationLayer
         private MainWindow mainRef;
 
 
-        private ReadADCValues adcTest; //Test
+        private getADCvalues getADC;
 
 
         public SeriesCollection Data { get; set; }
-        public ChartValues<string> ADCValues {get;set;} //Test 
+        public ChartValues<string> ADCValues {get;set;}  
 
         public CalibrateWindow()
         {
@@ -43,8 +42,8 @@ namespace PresentationLayer
 
             mainRef = new MainWindow();
 
-            ADCValues = new ChartValues<string>();  //Test
-            //ADCValues.Add();
+            ADCValues = new ChartValues<string>(); 
+
             DataContext = this;
         }
 
@@ -52,7 +51,7 @@ namespace PresentationLayer
         {
             Values_box.Focus();                                                                             //Cursor er i tekstboks, når vindue åbner
 
-            adcTest = new ReadADCValues(); //Test
+            getADC = new getADCvalues();
 
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";
         }
@@ -69,12 +68,12 @@ namespace PresentationLayer
 
         private void calibrateButton_Click(object sender, RoutedEventArgs e)                                 
         {
-            if (Values_box.Text != "")                                                                                     
-            { 
+            if (Values_box.Text != "")
+            {
                 calibrateLine.Values.Add(Convert.ToDouble(Values_box.Text));                                //Det indtastede tryk vises i grafen
                 Values_box.Clear();                                                                         //Tekstboks nulstilles
                 Values_box.Focus();                                                                         //Kurser er i tekstboksen
-                ADCValues.Add(Convert.ToString(adcTest.ReadAdcValues())); //Test
+                ADCValues.Add(Convert.ToString(getADC.getADCvaluesFromDataLayer()));                    //ADC værdier læses fra datalaget, og gemmes i Chartvalueslisten, som er bundet til grafens x-akser
             }   
             else
             {
