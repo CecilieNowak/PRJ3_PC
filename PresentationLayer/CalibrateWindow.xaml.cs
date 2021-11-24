@@ -25,7 +25,7 @@ namespace PresentationLayer
         private getADCvalues _getAdc;
 
         public SeriesCollection Data { get; set; }
-        public ChartValues<string> AdcValues { get; set; }
+        public ChartValues<string> ADCValues { get; set; }
 
         public CalibrateWindow()
         {
@@ -33,7 +33,7 @@ namespace PresentationLayer
             _calibrateLine = new LineSeries();
             Data = new SeriesCollection {_calibrateLine};        //Data = new SeriesCollection(); Data.Add(_calibrateLine);
             _mainRef = new MainWindow();
-            AdcValues = new ChartValues<string>();
+            ADCValues = new ChartValues<string>();
             DataContext = this;
         }
 
@@ -60,7 +60,7 @@ namespace PresentationLayer
                 _calibrateLine.Values.Add(Convert.ToDouble(Values_box.Text));                                //Det indtastede tryk vises i grafen
                 Values_box.Clear();                                                                          //Tekstboks nulstilles
                 Values_box.Focus();                                                                          //Kurser er i tekstboksen
-                AdcValues.Add(Convert.ToString(_getAdc.getADCvaluesFromDataLayer()));                   //ADC værdier læses fra datalaget, og gemmes i Chartvalueslisten, som er bundet til grafens x-akser;;
+                ADCValues.Add(Convert.ToString(_getAdc.getADCvaluesFromDataLayer()));                   //ADC værdier læses fra datalaget, og gemmes i Chartvalueslisten, som er bundet til grafens x-akser;;
             }
             else
             {
@@ -85,8 +85,8 @@ namespace PresentationLayer
 
         private void CalibrateDone_Button_Click(object sender, RoutedEventArgs e)
         {
-            double[] adcValues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };                   //Array with x-values (adc [V])
-            double[] pressureValues = { 2, 3, 5, 6, 8, 9, 10, 12, 14, 15 };           //Array with y-values (pressure [mmHg]
+            double[] adcValues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };                                          //Array with x-values (adc [V])
+            double[] pressureValues = { 2, 3, 5, 6, 8, 9, 10, 12, 14, 15 };                                  //Array with y-values (pressure [mmHg]
 
             LinearRegression regression = new LinearRegression(adcValues, pressureValues);
 
