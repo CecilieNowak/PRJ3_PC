@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Threading;
+using DTO_BloodPressureData;
 
 namespace PresentationLayer
 {
@@ -40,7 +42,7 @@ namespace PresentationLayer
 
             DisplayObserver observer = new DisplayObserver(subject, this);
 
-            AlarmObserver aObserver = new AlarmObserver(subject, this);
+            //AlarmObserver aObserver = new AlarmObserver(subject, this);
 
             BlockingCollection <BloodPressureData> dataQueue= new BlockingCollection<BloodPressureData>();
 
@@ -113,8 +115,8 @@ namespace PresentationLayer
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
                                                                                         //Der skal måske også være kode til at vise tid her
-            SoundPlayer s = new SoundPlayer("sonnette_reveil.wav");
-            s.PlayLooping();
+            //SoundPlayer s = new SoundPlayer("sonnette_reveil.wav");
+            //s.PlayLooping();
         }
     }
 }
