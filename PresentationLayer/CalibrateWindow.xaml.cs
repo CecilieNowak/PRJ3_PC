@@ -35,18 +35,18 @@ namespace PresentationLayer
         {
             InitializeComponent();
             _calibrateLine = new LineSeries();
-            Data = new SeriesCollection();
-            Data.Add(_calibrateLine);                                  
+            Data = new SeriesCollection {_calibrateLine};        //Data = new SeriesCollection(); Data.Add(_calibrateLine);
             _mainRef = new MainWindow();
-            _pressureValues = new List<double>();
-            _adcValues = new List<double>();
+            ADCValues = new ChartValues<string>();
             DataContext = this;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Values_box.Focus();
-            _getAdc = new getADCvalues();
+            Values_box.Focus();                                                                           //Cursor er i tekstboks, når vindue åbner
+
+            _getADC = new getADCvalues();
+
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";
             CalibrateDone_Button.IsEnabled = false;
         }
