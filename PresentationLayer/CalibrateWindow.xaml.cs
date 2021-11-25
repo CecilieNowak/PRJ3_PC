@@ -45,7 +45,7 @@ namespace PresentationLayer
         {
             Values_box.Focus();                                                                           //Cursor er i tekstboks, når vindue åbner
 
-            _getADC = new getADCvalues();
+            getADC = new getADCvalues();
 
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";
             CalibrateDone_Button.IsEnabled = false;
