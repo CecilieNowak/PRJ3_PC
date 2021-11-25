@@ -37,7 +37,6 @@ namespace PresentationLayer
             _mainRef = new MainWindow();
 
             ADCValues = new ChartValues<string>(); 
-
             DataContext = this;
         }
 
