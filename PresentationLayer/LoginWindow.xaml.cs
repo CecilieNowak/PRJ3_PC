@@ -31,8 +31,8 @@ namespace PresentationLayer
 
         private void LogIn_button_Click(object sender, RoutedEventArgs e)
         {
-            if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text) ==
-                true) //Hvis indtastet login er korrekt, skjules loginvindue     
+
+            if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text)) //Hvis indtastet login er korrekt, skjules loginvindue     
             {
                 _mainWRef.LoginOk = true;
                 _mainWRef.Username = Username_txtbox.Text;
@@ -46,8 +46,6 @@ namespace PresentationLayer
                 Username_txtbox.Focus();
             }
         }
-
-
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
