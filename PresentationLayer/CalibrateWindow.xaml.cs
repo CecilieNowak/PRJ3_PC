@@ -30,11 +30,11 @@ namespace PresentationLayer
         public CalibrateWindow()
         {
             InitializeComponent();
-            calibrateLine = new LineSeries();
+            _calibrateLine = new LineSeries();
 
             Data = new SeriesCollection { _calibrateLine };
 
-            mainRef = new MainWindow();
+            _mainRef = new MainWindow();
 
             ADCValues = new ChartValues<string>(); 
 
@@ -45,7 +45,7 @@ namespace PresentationLayer
         {
             Values_box.Focus();                                                                            //Cursor er i tekstboks, når vindue åbner
 
-            getADC = new getADCvalues();
+            _getAdc = new getADCvalues();
 
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";
         }
