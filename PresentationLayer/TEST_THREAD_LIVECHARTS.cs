@@ -35,7 +35,7 @@ namespace PresentationLayer
                 testData.Systolic = random.Next(90, 120);
                 testData.Diastolic = random.Next(40, 80);
 
-                _bp.newDataRecieved(testData);                          //Metoden som sætter observer mønsteret i gang kaldes her med den tilfældige DTO
+               // _bp.newDataRecieved(testData);                          //Metoden som sætter observer mønsteret i gang kaldes her med den tilfældige DTO
                 Thread.Sleep(1000);
             }
         }

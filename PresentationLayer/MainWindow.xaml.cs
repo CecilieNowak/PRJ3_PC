@@ -46,20 +46,20 @@ namespace PresentationLayer
 
             AlarmObserver aObserver = new AlarmObserver(subject, this);
 
-            BlockingCollection <BloodPressureData> dataQueue= new BlockingCollection<BloodPressureData>();
+            BlockingCollection <DTO_UDP> dataQueue= new BlockingCollection<DTO_UDP>();
 
              // Må ikke slettes!!
 
 
-            //      Test med UDP-kommunikation
-            //Test_tråd_2 testTråd = new Test_tråd_2(dataQueue, subject);
-            //Thread t1 = new Thread(testTråd.updateChart);
+                  //Test med UDP-kommunikation
+            Test_tråd_2 testTråd = new Test_tråd_2(dataQueue, subject);
+            Thread t1 = new Thread(testTråd.updateChart);
           
             //      Test med randomme DTO'er i stedet for UDP-kommunikation
             //TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);  //Test tråd oprettes
            //Thread t1 = new Thread(threadTest.updateChart);
             
-           //t1.Start();
+           t1.Start();
            
             
         }

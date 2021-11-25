@@ -12,10 +12,10 @@ namespace BusinessLogicLayer
         
         private BloodPressureSubject _bps;
         private UDPListener udp;
-        private readonly BlockingCollection<BloodPressureData> _dataQueue;
+        private readonly BlockingCollection<DTO_UDP> _dataQueue;
 
 
-        public Test_tråd_2(BlockingCollection<BloodPressureData> dataQueue, BloodPressureSubject bps)
+        public Test_tråd_2(BlockingCollection<DTO_UDP> dataQueue, BloodPressureSubject bps)
         {
             _dataQueue = dataQueue;
             _bps = bps;
