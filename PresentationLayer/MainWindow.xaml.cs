@@ -48,7 +48,7 @@ namespace PresentationLayer
 
             BlockingCollection <BloodPressureData> dataQueue= new BlockingCollection<BloodPressureData>();
 
-            /*  Må ikke slettes!!
+             // Må ikke slettes!!
 
 
             //      Test med UDP-kommunikation
@@ -59,8 +59,9 @@ namespace PresentationLayer
             //TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);  //Test tråd oprettes
            //Thread t1 = new Thread(threadTest.updateChart);
             
-          // t1.Start();
-            */
+           //t1.Start();
+           
+            
         }
 
 
