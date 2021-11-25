@@ -42,7 +42,8 @@ namespace PresentationLayer
 
             mainRef = new MainWindow();
 
-            ADCValues = new ChartValues<string>(); 
+            ADCValues = new ChartValues<string>();
+            getADC = new getADCvalues();
 
             DataContext = this;
         }
@@ -51,7 +52,7 @@ namespace PresentationLayer
         {
             Values_box.Focus();                                                                             //Cursor er i tekstboks, når vindue åbner
 
-            getADC = new getADCvalues();
+            
 
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";
         }
