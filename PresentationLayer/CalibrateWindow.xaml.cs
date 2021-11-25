@@ -34,7 +34,7 @@ namespace PresentationLayer
             Data = new SeriesCollection {_calibrateLine};        //Data = new SeriesCollection(); Data.Add(_calibrateLine);
             _mainRef = new MainWindow();
             ADCValues = new ChartValues<string>();
-            DataContext = this;
+            //DataContext = this;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
