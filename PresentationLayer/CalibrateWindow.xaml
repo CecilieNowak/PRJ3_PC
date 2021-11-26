@@ -10,15 +10,14 @@
     <Grid>
         <lvc:CartesianChart Name="CalibrationGraph" Series="{Binding Data}" LegendLocation="Right" Margin="26,69,231,57" Grid.RowSpan="1" Grid.ColumnSpan="1" Loaded="CalibrationGraph_Loaded" >
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="[V]" FontSize="14" Foreground="Black" Labels="{Binding ADCValues}">
+                <lvc:Axis Title="[V]" FontSize="14" Foreground="Black" Labels="{Binding ADCValues}" />
 
-                </lvc:Axis>
             </lvc:CartesianChart.AxisX>
 
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Tryk[mmHg]" FontSize="14" Foreground="Black">
                     <lvc:Axis.Separator>
-                        <lvc:Separator Step="10"/>
+                        <lvc:Separator Step="20"/>
                     </lvc:Axis.Separator>
                 </lvc:Axis>
             </lvc:CartesianChart.AxisY>
@@ -30,14 +29,14 @@
         </lvc:CartesianChart>
 
         <Label x:Name="title_label" Content="Kalibrering" HorizontalAlignment="Left" Margin="251,14,0,0" VerticalAlignment="Top" FontSize="30"/>
-        <Label x:Name="date_Label" Content="Dato" HorizontalAlignment="Left" Margin="637,0,0,41" VerticalAlignment="Bottom" FontSize="16"/>
+        <Label x:Name="date_Label" Content="Dato" HorizontalAlignment="Left" Margin="596,0,0,47" VerticalAlignment="Bottom" FontSize="14"/>
         <TextBox x:Name="Values_box" HorizontalAlignment="Left" Margin="599,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92" Height="24" FontSize="16"/>
         <TextBlock x:Name="insertValues_box" HorizontalAlignment="Left" Margin="599,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" Foreground="Black" Text="Indtast tryk" FontSize="16"/>
-        <Button x:Name="calibrateButton" Content="Kalibrer" HorizontalAlignment="Left" Margin="596,217,0,0" VerticalAlignment="Top" Height="25" Width="92" FontSize="16" Click="calibrateButton_Click"/>
-        <Button x:Name="logOffButton" Content="Log af" HorizontalAlignment="Left" Margin="596,292,0,0" VerticalAlignment="Top" Width="92" FontSize="16" Click="logOffButton_Click"/>
+        <Button x:Name="calibrateButton" Content="Kalibrer" HorizontalAlignment="Left" Margin="599,187,0,0" VerticalAlignment="Top" Height="36" Width="92" FontSize="16" Click="calibrateButton_Click" Background="#FFB3D7E8"/>
+        <Button x:Name="logOffButton" Content="Log af" HorizontalAlignment="Left" Margin="599,292,0,0" VerticalAlignment="Top" Width="95" FontSize="16" Click="logOffButton_Click"/>
         <TextBlock x:Name="Fejlmeddelese_Box" HorizontalAlignment="Left" Margin="586,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Foreground="#FFD11919" Width="166"/>
         <TextBlock x:Name="insertValues_Box" HorizontalAlignment="Left" Margin="567,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="184" FontSize="13"/>
         <TextBlock x:Name="Regression_Box" HorizontalAlignment="Left" Margin="26,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
-        <Button x:Name="CalibrateDone_Button" Content="Vis regression" HorizontalAlignment="Left" Margin="596,247,0,0" VerticalAlignment="Top" Width="92" FontSize="14" Click="CalibrateDone_Button_Click"/>
+        <TextBlock x:Name="Date_Box" HorizontalAlignment="Left" Margin="646,342,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="116" Height="32"/>
     </Grid>
 </Window>

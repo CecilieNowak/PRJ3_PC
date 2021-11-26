@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DataAccessLayer;
 using Microsoft.Data.SqlClient;
-using DataAccessLayer;
+using System;
+using System.Linq;
 
 namespace BusinessLogicLayer
 {
@@ -30,7 +28,6 @@ namespace BusinessLogicLayer
             int[] pulse = readFile.Pulse();
             DateTime tidsstempel = DateTime.Now;
 
-
             string insertParameters =
                 @"INSERT INTO BloodPressureMeasurement (cpr, systolic, diastolic, pulse, tidsstempel) OUTPUT INSERTED.Id VALUES (@CPR, @Systolic, @Diastolic, @Pulse, @Tidsstempel)";
 
@@ -49,7 +46,6 @@ namespace BusinessLogicLayer
 
             _Connection.Close();
         }
-
-        
     }
 }
+
