@@ -8,8 +8,7 @@ namespace BusinessLogicLayer
 {
     public class BloodPressureSubject : AbstractBloodPressureData
     {
-        private List<BloodPressureData> dtoList;
-        private UDPListener udp;
+        private readonly List<BloodPressureData> dtoList;
         
 
         public BloodPressureSubject()
@@ -17,7 +16,7 @@ namespace BusinessLogicLayer
             dtoList = new List<BloodPressureData>();
         }
 
-        public void newDataRecieved(BloodPressureData bp)
+        public void NewDataRecieved(BloodPressureData bp)
         {
             dtoList.Add(bp);
             
@@ -26,7 +25,7 @@ namespace BusinessLogicLayer
 
         }
 
-        public BloodPressureData getNewestDTO()
+        public BloodPressureData GetNewestDTO()
         {
             int counter = dtoList.Count - 1;
             return dtoList[counter];

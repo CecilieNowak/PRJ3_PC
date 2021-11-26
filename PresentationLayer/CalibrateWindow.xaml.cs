@@ -22,7 +22,7 @@ namespace PresentationLayer
     {
         private readonly LineSeries _calibrateLine;
         private readonly MainWindow _mainRef;
-        private getADCvalues _getAdc;
+        private GetADCvalues _getAdc;
 
         private List<double> _pressureValues;
         private List<double> _adcValues;
@@ -48,7 +48,7 @@ namespace PresentationLayer
         {
             Values_box.Focus();                                                                           //Cursor er i tekstboks, når vindue åbner
 
-            _getAdc = new getADCvalues();
+            _getAdc = new GetADCvalues();
 
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";
             //CalibrateDone_Button.IsEnabled = false;
@@ -66,7 +66,7 @@ namespace PresentationLayer
 
         }
 
-        private void calibrateButton_Click(object sender, RoutedEventArgs e)
+        private void CalibrateButton_Click(object sender, RoutedEventArgs e)
         {
             List<int> pressureValue = new List<int>() { 0, 25, 50, 125, 200, 250, 200, 125, 50, 25, 0 }; ;
             int num = -1;
@@ -81,7 +81,7 @@ namespace PresentationLayer
 
                 _calibrateLine.Values.Add(Convert.ToDouble(userInput));
                 PressureInput = userInput;
-                double adcInput = _getAdc.getADCvaluesFromDataLayer();
+                double adcInput = _getAdc.GetADCvaluesFromDataLayer();
 
                 ADCValues.Add(Convert.ToString(adcInput));
 
@@ -163,7 +163,7 @@ namespace PresentationLayer
 
         }
 
-        private void logOffButton_Click(object sender, RoutedEventArgs e)
+        private void LogOffButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide(); //Når der logges af, skjules kalibreringsvindue
             _mainRef.ShowDialog(); //og hovedvindue åbner

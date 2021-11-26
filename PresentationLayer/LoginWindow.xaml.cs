@@ -18,8 +18,8 @@ namespace PresentationLayer
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private MainWindow _mainWRef;
-        private CheckLogin _logicRef;
+        private readonly MainWindow _mainWRef;
+        private readonly CheckLogin _logicRef;
 
 
         public LoginWindow(MainWindow mainW, CheckLogin logicRef)

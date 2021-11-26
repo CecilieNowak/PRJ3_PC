@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using DataAccessLayer;
 using DTO_BloodPressureData;
 
 
@@ -20,8 +21,8 @@ namespace PresentationLayer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CheckLogin _logicobj;
-        private LoginWindow _loginW;
+        private readonly CheckLogin _logicobj;
+        private readonly LoginWindow _loginW;
         private CalibrateWindow _calibrateW;
 
         public bool LoginOk { get; set; }
@@ -47,23 +48,27 @@ namespace PresentationLayer
 
             AlarmObserver aObserver = new AlarmObserver(subject, this);
 
+
             BlockingCollection <BloodPressureData> dataQueue= new BlockingCollection<BloodPressureData>();
 
             // Må ikke slettes!!
 
 
+            //      Test med UDP-kommunikation
             
-           //      Test med UDP-kommunikation
-           Test_tråd_2 testTråd = new Test_tråd_2(dataQueue, subject);
-           Thread t1 = new Thread(testTråd.updateChart);
+            Thread t2 = new Thread(udpListener.StartListener);
+            Thread t1 = new Thread(udpConsumer.UpdateChart);
 
-           //      Test med randomme DTO'er i stedet for UDP-kommunikation
-           //TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);  //Test tråd oprettes
-          //Thread t1 = new Thread(threadTest.updateChart);
+            t1.Start();
+            t2.Start();
 
-          t1.Start();
+            //      Test med randomme DTO'er i stedet for UDP-kommunikation
+            //TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);  //Test tråd oprettes
+            //Thread t1 = new Thread(threadTest.updateChart);
 
-          
+            t1.Start();
+           
+            
         }
 
 
@@ -142,7 +147,7 @@ namespace PresentationLayer
             Environment.Exit(0);                                                                //Program lukker, når der trkkes på Luk-knappen
         }
 
-        public void updatePulseTextBox(string text)
+        public void UpdatePulseTextBox(string text)
         {
             //Fra stackoverflow - metoden opdaterer pulstextbox
 
@@ -156,8 +161,7 @@ namespace PresentationLayer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
-            
-            //Der skal måske også være kode til at vise tid her
+                                                                                        //Der skal måske også være kode til at vise tid her
             SoundPlayer s = new SoundPlayer("sonnette_reveil.wav");
             s.PlayLooping();
         }
