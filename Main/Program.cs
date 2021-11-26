@@ -44,7 +44,7 @@ namespace Main
 
             var data = new List<int>();  //Laver en liste og putter random værdier ind
 
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 300; i++)
             {
                 data.Add(rand.Next(100));
             }
@@ -73,7 +73,7 @@ namespace Main
                 }
             }
 
-            SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
+            SoundPlayer alarm = new SoundPlayer("alarm1.wav");
             Thread t1 = new Thread(WriteSys);
             t1.Start();
 
@@ -85,6 +85,7 @@ namespace Main
                     if (sys[i] > 1.3 * sys[i - 5] || sys[i] < 0.7 * sys[i - 5])
                     {
                         alarm.Play();
+                    Console.WriteLine("Alarm: " + Convert.ToString(sys[i]));
 
                     }
 
