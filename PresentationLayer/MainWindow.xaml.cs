@@ -52,7 +52,7 @@ namespace PresentationLayer
             // Må ikke slettes!!
 
 
-            /*
+            
            //      Test med UDP-kommunikation
            Test_tråd_2 testTråd = new Test_tråd_2(dataQueue, subject);
            Thread t1 = new Thread(testTråd.updateChart);
@@ -63,7 +63,7 @@ namespace PresentationLayer
 
           t1.Start();
 
-          */
+          
         }
 
 
