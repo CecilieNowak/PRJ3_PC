@@ -125,8 +125,8 @@ namespace PresentationLayer
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
                                                                                         //Der skal måske også være kode til at vise tid her
-            SoundPlayer s = new SoundPlayer("sonnette_reveil.wav");
-            s.PlayLooping();
+            //SoundPlayer s = new SoundPlayer("sonnette_reveil.wav");
+            //s.PlayLooping();
         }
     }
 }
