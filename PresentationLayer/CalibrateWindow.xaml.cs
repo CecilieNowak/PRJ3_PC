@@ -24,8 +24,12 @@ namespace PresentationLayer
         private readonly MainWindow _mainRef;
         private getADCvalues _getAdc;
 
+        private List<double> _pressureValues;
+        private List<double> _adcValues;
+
         public SeriesCollection Data { get; set; }
         public ChartValues<string> ADCValues { get; set; }
+        public string PressureInput { get; set; }
 
         public CalibrateWindow()
         {
@@ -39,15 +43,19 @@ namespace PresentationLayer
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Values_box.Focus();
+            Values_box.Focus();                                                                           //Cursor er i tekstboks, når vindue åbner
+
             _getAdc = new getADCvalues();
+
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";
+            CalibrateDone_Button.IsEnabled = false;
         }
 
         private void CalibrationGraph_Loaded(object sender, RoutedEventArgs e)
         {
             _calibrateLine.Title = "Kalibreringspunkter";
             _calibrateLine.Values = new ChartValues<double>();
+            ADCValues = new ChartValues<string>();
             DataContext = this;
             _calibrateLine.Fill = Brushes.Transparent;                                                       //Fjern farve under graf
 
@@ -55,38 +63,54 @@ namespace PresentationLayer
 
         private void calibrateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Values_box.Text != "")
+            string userInput = Values_box.Text;
+            
+            Fejlmeddelese_Box.Text = "";
+            if (userInput != "")
             {
-                _calibrateLine.Values.Add(Convert.ToDouble(Values_box.Text));                                //Det indtastede tryk vises i grafen
-                Values_box.Clear();                                                                          //Tekstboks nulstilles
-                Values_box.Focus();                                                                          //Kurser er i tekstboksen
-                ADCValues.Add(Convert.ToString(_getAdc.getADCvaluesFromDataLayer()));                   //ADC værdier læses fra datalaget, og gemmes i Chartvalueslisten, som er bundet til grafens x-akser;;
+                _calibrateLine.Values.Add(Convert.ToDouble(userInput));
+                PressureInput = userInput;
+                double adcInput = _getAdc.getADCvaluesFromDataLayer();
+
+                ADCValues.Add(Convert.ToString(adcInput));
+
+                Values_box.Clear();
+                Values_box.Focus();
+
+                double pressure = Convert.ToDouble(PressureInput);              //PressureInput - data binding
+                _pressureValues.Add(pressure);
+
+                _adcValues.Add(adcInput);
+
+                if (_pressureValues.Count == 11)
+                {
+                    CalibrateDone_Button.IsEnabled = true;
+                    calibrateButton.IsEnabled = false;
+                }
             }
             else
             {
-                Fejlmeddelese_Box.Text = "Indtast trykværdi";                                                //Fejlmeddelese, hvis der ikke er indtastet en værdi       
+                Fejlmeddelese_Box.Text = "Indtast trykværdi";
             }
         }
 
         private void logOffButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();                                                                                     //Når der logges af, skjules kalibreringsvindue
-            _mainRef.ShowDialog();                                                                           //og hovedvindue åbner
+            this.Hide(); //Når der logges af, skjules kalibreringsvindue
+            _mainRef.ShowDialog(); //og hovedvindue åbner
 
-        }
-
-        private void Values_box_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)                                                                          //Når trykværdi er indtastet, kan der trykeks "Kalibrer" ved at trykke Enter                                             
-            {
-                calibrateButton_Click(this, new RoutedEventArgs());
-            }
         }
 
         private void CalibrateDone_Button_Click(object sender, RoutedEventArgs e)
         {
-            double[] adcValues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };                                          //Array with x-values (adc [V])
-            double[] pressureValues = { 2, 3, 5, 6, 8, 9, 10, 12, 14, 15 };                                  //Array with y-values (pressure [mmHg]
+            double[] adcValues = new double[11];                    //Array with x-values (adc [V])
+            double[] pressureValues = new double[11];               //Array with y-values (pressure [mmHg]
+
+            for (int i = 0; i < pressureValues.Length; i++)
+            {
+                pressureValues[i] = _pressureValues[i];
+                adcValues[i] = _adcValues[i];
+            }
 
             LinearRegression regression = new LinearRegression(adcValues, pressureValues);
 

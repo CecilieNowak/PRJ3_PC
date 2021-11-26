@@ -7,18 +7,24 @@ namespace DataAccessLayer
     public class ReadADCValues
     {
         private Random random;
-        public double LastADC { get; set; } = 0;
+        public int lastADC { get; set; } 
+        public int adcValue { get; private set; }
 
-        public double ReadAdcValues()
+        public ReadADCValues()
         {
             random = new Random();
+            lastADC = 0;
+            adcValue = 0;
+        }
 
-            double adcValue = random.Next(0, 1000);
-            while (adcValue < LastADC)
+        public int ReadAdcValues()
+        {
+            if (adcValue <= lastADC)
             {
-                adcValue = random.Next(0, 1000);
+                adcValue = random.Next(lastADC, 1000);
             }
-            LastADC = adcValue;
+            
+            lastADC = adcValue;
 
             return adcValue;
 
