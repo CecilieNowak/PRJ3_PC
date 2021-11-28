@@ -14,7 +14,7 @@ namespace BusinessLogicLayer
         public BloodPressureSubject()
         {
             dtoList = new List<BloodPressureData>();
-        }
+            }
 
         public void NewDataRecieved(BloodPressureData bp)
         {
@@ -25,12 +25,19 @@ namespace BusinessLogicLayer
 
         }
 
-        public BloodPressureData GetNewestDTO()
+        public List<BloodPressureData> GetNewestDTO()
         {
-            int counter = dtoList.Count - 1;
-            return dtoList[counter];
+            List<BloodPressureData> lokal = new List<BloodPressureData>();
+            for (int i = 0; i <= 10; i++)
+            {
+                int counter = dtoList.Count - 1;
+            }
+
+            return lokal;
+
+        }
         }
 
     }
 
-}
+

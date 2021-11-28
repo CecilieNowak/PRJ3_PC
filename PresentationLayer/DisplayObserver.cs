@@ -17,26 +17,30 @@ namespace PresentationLayer
         //Klassen observerer på subject i BLL og implementerer interfacet IbloodpressureObserver
             
         
-        private readonly BloodPressureSubject _bp;
+        private readonly Filter _filter;
         private readonly MainWindow mw;
+         
         
 
-        public DisplayObserver(BloodPressureSubject bp, MainWindow mainWindow)
+        public DisplayObserver(Filter filter, MainWindow mainWindow)
         {
             mw = mainWindow;
-            _bp = bp;
-            _bp.Add(this);
-
+            _filter = filter;
+            filter.Add(this);
             
+
         }
 
         public void Update()                                            //Metoden henter nyeste DTO fra subjectet og opdaterer livecharten (Lige nu opdaterer den kun puls!)
         {
-           BloodPressureData subject = _bp.GetNewestDTO();              //Her hentes den nyeste DTO som er tilføjet til subjectet og gemmes i en ny variable 
-           mw.YValues.Add(subject.Værdi);
+            BloodPressureData bp = new BloodPressureData();
+              bp = _filter.display();
+          // BloodPressureData subject = _bp.GetNewestDTO();              //Her hentes den nyeste DTO som er tilføjet til subjectet og gemmes i en ny variable 
+           mw.YValues.Add(bp.Værdi);
            mw.XValues.Add(1);
 
-           mw.UpdatePulseTextBox(Convert.ToString(subject.Værdi));      //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
+
+           mw.UpdatePulseTextBox(Convert.ToString(bp.Værdi));      //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
 
 
         }

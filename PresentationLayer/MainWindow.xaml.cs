@@ -43,27 +43,39 @@ namespace PresentationLayer
 
             BloodPressureSubject subject = new BloodPressureSubject();
 
-            DisplayObserver observer = new DisplayObserver(subject, this);
+            //Gammel DisplayObserver - Må ikke slettes!
+
+            //DisplayObserver observer = new DisplayObserver(subject, this);
+
+            Filter filter = new Filter(subject);
+            DisplayObserver display = new DisplayObserver(filter, this);
 
             AlarmObserver aObserver = new AlarmObserver(subject, this);
 
 
             BlockingCollection <BloodPressureData> dataQueue= new BlockingCollection<BloodPressureData>();
 
-            UDPListener udpListener = new UDPListener(dataQueue);
-            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+
 
 
             // Må ikke slettes!!
 
 
-            //      Test med UDP-kommunikation
-            Thread t2 = new Thread(udpListener.StartListener);
-            Thread t1 = new Thread(udpConsumer.UpdateChart);
+            // Test med UDP-kommunikation
+            //UDPListener udpListener = new UDPListener(dataQueue);
+            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+            // Thread t2 = new Thread(udpListener.StartListener);
+            //Thread t1 = new Thread(udpConsumer.UpdateChart);
 
+
+            //Test med simulator
+            UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue);
+            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+            Thread t2 = new Thread(listenerSimulator.StartListener);
+            Thread t1 = new Thread(udpConsumer.UpdateChart);
             t1.Start();
             t2.Start();
-            
+
         }
 
 
