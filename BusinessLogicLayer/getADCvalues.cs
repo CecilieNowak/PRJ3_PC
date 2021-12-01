@@ -5,12 +5,23 @@ using DataAccessLayer;
 
 namespace BusinessLogicLayer
 {
-    public class getADCvalues
+    public class GetADCvalues
     {
-        public double getADCvaluesFromDataLayer()
+        private readonly ReadADCValues adc;
+
+        public GetADCvalues()
         {
-            ReadADCValues adc = new ReadADCValues();
-            return adc.ReadAdcValues();
+            adc = new ReadADCValues();
+        }
+        
+        public double GetADCvaluesFromDataLayer()
+        {
+            double a = adc.ReadAdcValues();
+            double adcValue = a;   
+
+            return adcValue;
+
+            //return adc.ReadAdcValues();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Text.Json;
+using System.Xml.Xsl;
 using DTO_BloodPressureData;
 
 
@@ -13,57 +14,60 @@ namespace DataAccessLayer
     public class UDPListener
     {
 
-        private const int listenPort = 12000;
+        private const int listenPort = 11000;
         string jsonString;
         
         private readonly BlockingCollection<BloodPressureData> _dataQueue;
+        private readonly UdpClient listener;
 
         public UDPListener(BlockingCollection<BloodPressureData> dataQueue)
         {
             _dataQueue = dataQueue;
+            listener = new UdpClient(listenPort);
+
         }
 
         public void StartListener()
         {
-            UdpClient listener = new UdpClient(listenPort);
-            IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, listenPort);
-            
+                    IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, listenPort);
 
-           
+                     try
+                     {
+                         while (true)
+                         {
 
-            try
-            {
-                
-                    BloodPressureData blodData = new BloodPressureData();
 
-                    Console.WriteLine("Waiting for broadcast");
-                    byte[] bytes = listener.Receive(ref groupEP);
+                             BloodPressureData blodData = new BloodPressureData();
 
-                    jsonString = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
+                             Console.WriteLine("Waiting for broadcast");
+                             byte[] bytes = listener.Receive(ref groupEP);
 
-                    blodData = JsonSerializer.Deserialize<BloodPressureData>(jsonString);    // Her tilføjer vi de modtaget data til objektet blodData
+                             jsonString = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
+
+                             blodData = JsonSerializer
+                                 .Deserialize<
+                                     BloodPressureData>(
+                                     jsonString); // Her tilføjer vi de modtaget data til objektet blodData
+
+                             _dataQueue.Add(blodData);
+
+
+                         }
+
+                     }
+                     catch (Exception e)
+                     {
+                         Console.WriteLine(e);
+
+                     }
+                     finally
+                     {
+                         listener.Close();
+                     }
                     
-                    //Console.WriteLine("Diastolic: " + blodData.Diastolic + "Systolic: " + blodData.Systolic + "Pulse: " + blodData.Pulse);
-                    // Her skal der måske oprettes blockcollection og så skal data fra blodData tilføjes til det 
-
-                    _dataQueue.Add(blodData);
 
 
 
-                
-            }
-            catch (SocketException e)
-            {
-                Console.WriteLine(e);
-
-            }
-            finally
-            {
-                listener.Close();
-            }
-
-
-            
 
 
 

@@ -18,8 +18,8 @@ namespace PresentationLayer
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private MainWindow _mainWRef;
-        private CheckLogin _logicRef;
+        private readonly MainWindow _mainWRef;
+        private readonly CheckLogin _logicRef;
 
 
         public LoginWindow(MainWindow mainW, CheckLogin logicRef)
@@ -54,9 +54,7 @@ namespace PresentationLayer
 
         private void Password_txtbox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (
-                e.Key == Key
-                    .Enter) //Når adgangskode er indtastet, kan der logges ind ved at trykke Enter                                             
+            if (e.Key == Key.Enter) //Når adgangskode er indtastet, kan der logges ind ved at trykke Enter                                             
             {
                 LogIn_button_Click(this, new RoutedEventArgs());
             }

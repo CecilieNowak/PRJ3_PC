@@ -10,6 +10,7 @@ namespace DTO_BloodPressureData
         public double Systolic { get; set; }
         public double Diastolic { get; set; }
         public int Pulse { get; set; }
+        public int Værdi { get; set; }
 
         public BloodPressureData()
         {
