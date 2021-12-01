@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
+using DTO_BloodPressureDaytaa;
 
 namespace DataAccessLayer
 {
@@ -12,7 +12,7 @@ namespace DataAccessLayer
     {
         string text;
         string text1;
-
+      
         public void Test()
         {
             Console.Write("Type something: ");
