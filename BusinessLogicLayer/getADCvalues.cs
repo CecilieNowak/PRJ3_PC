@@ -8,6 +8,7 @@ namespace BusinessLogicLayer
     public class GetADCvalues
     {
         private readonly ReadADCValues adc;
+
         public GetADCvalues()
         {
             adc = new ReadADCValues();
@@ -15,7 +16,12 @@ namespace BusinessLogicLayer
         
         public double GetADCvaluesFromDataLayer()
         {
-         return adc.ReadAdcValues();
+            double a = adc.ReadAdcValues();
+            double adcValue = a;   
+
+            return adcValue;
+
+            //return adc.ReadAdcValues();
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 using BusinessLogicLayer;
+using LiveCharts.Configurations;
 
 namespace PresentationLayer
 {
@@ -20,141 +21,111 @@ namespace PresentationLayer
     /// </summary>
     public partial class CalibrateWindow : Window
     {
-        private readonly LineSeries _calibrateLine;
-        private readonly MainWindow _mainRef;
-        private GetADCvalues _getAdc;
+        private readonly MainWindow _mainRef;                                                                                           //Reference til Main
+        private GetADCvalues _getAdc;                                                                                                   //Attribut til at hente ADC value
+                   
+        private List<double> _pressureValuesList;                                                                                       //List til at gemme pressure values
+        private List<int> pressureValue;                                                                                                //Liste med de trykværdier, trykkammeret skal indstilles til
+        private List<double> _adcValuesList;                                                                                            //List til at gemme ADC values 
+        private readonly ChartValues<Point> _values;             
 
-        private List<double> _pressureValues;
-        private List<double> _adcValues;
-
-        public SeriesCollection Data { get; set; }
-        public ChartValues<string> ADCValues { get; set; }
-        public string PressureInput { get; set; }
+        public SeriesCollection Data { get; set; }                                                                                      //Pressure input and ADC value skal sættes i denne property
+        public string PressureInput { get; set; }                                                                                       //Den indtastede trykværdi sættes i denne property
 
         public CalibrateWindow()
         {
             InitializeComponent();
-            _calibrateLine = new LineSeries();
-            Data = new SeriesCollection();
-            Data.Add(_calibrateLine);
-            DataContext = this;
-            _mainRef = new MainWindow();
-            _pressureValues = new List<double>();
-            _adcValues = new List<double>();
-
+            _mainRef = new MainWindow();                                                                                                //Reference til Main (bruges til log af)
+            _pressureValuesList = new List<double>();                                                                                   //Nyt objekt oprettes 
+            _adcValuesList = new List<double>();                                                                                        //Nyt objekt oprettes 
+            _values = new ChartValues<Point>();
+            pressureValue = new List<int>() {0, 25, 50, 125, 200, 250, 200, 125, 50, 25, 0};
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Values_box.Focus();                                                                           //Cursor er i tekstboks, når vindue åbner
-
-            _getAdc = new GetADCvalues();
-
-            insertValues_Box.Text = "Indstil tryk til 0 mmHg";
-            //CalibrateDone_Button.IsEnabled = false;
-
+            Values_box.Focus();                                                                                                         //Kurser er i tekstboks, når vinduet åbner
+            _getAdc = new GetADCvalues();                                                                                               //Nyt objekt 
+            insertValues_Box.Text = "Indstil tryk til 0 mmHg";                                                                          //Når vinduet åbner, udskrives denne streng
             Date_Box.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            calibrateButton.IsEnabled = true;
         }
 
         private void CalibrationGraph_Loaded(object sender, RoutedEventArgs e)
         {
-            _calibrateLine.Title = "Kalibreringspunkter";
-            _calibrateLine.Values = new ChartValues<double>();
-            ADCValues = new ChartValues<string>();
-            DataContext = this;
-            _calibrateLine.Fill = Brushes.Transparent;                                                       //Fjern farve under graf
+            Data = new SeriesCollection                                                                                                 
+            {
+                new LineSeries
+                {
+                    Configuration = new CartesianMapper<Point>()
+                        .X(point => point.X)
+                        .Y(point => point.Y),
+                    Title = "Kalibrering",
+                    Values = _values,
+                    Fill = Brushes.Transparent,
+
+                }
+            };
+            DataContext = this;                                                                                                        //Punkterne vises på kalibreringsgrafen ved at vores livechart binder denne Data.                                                      
 
         }
 
-        private void CalibrateButton_Click(object sender, RoutedEventArgs e)
+        private String UpdatePressure(int idx)                                                                                        //Denne metode returnere den tekst, der skal udskrives i vinduet - ift. hvilket tryk der skal indstilles til 
         {
-            List<int> pressureValue = new List<int>() { 0, 25, 50, 125, 200, 250, 200, 125, 50, 25, 0 }; ;
+            return "Indstil tryk til " + pressureValue[idx] + " mmHg";
+        }
+
+        private void LinearRegression()
+        {
+            calibrateButton.IsEnabled = false;
+            double[] adcValues = new double[11];                    //Array with x-values (adc [V])
+            double[] pressureValues = new double[11];               //Array with y-values (pressure [mmHg]
+
+            for (int i = 0; i < pressureValues.Length; i++)
+            {
+                pressureValues[i] = _pressureValuesList[i];
+                adcValues[i] = _adcValuesList[i];
+            }
+
+            LinearRegression regression = new LinearRegression(adcValues, pressureValues);
+
+            string a = Math.Round(regression.GetSlope(), 4).ToString();
+            string b = Math.Round(regression.GetIntercept(), 4).ToString();
+            string rSquared = Math.Round(regression.GetRSquared(), 4).ToString();
+
+            Regression_Box.Text = "y = " + a + " + " + b + "x\n R^2 = " + rSquared;
+            insertValues_Box.Text = "Kalibrering foretaget";
+        }
+
+        private void calibrateButton_Click(object sender, RoutedEventArgs e)
+        {
+            Fejlmeddelese_Box.Text = "";
             int num = -1;
 
-            string userInput;
-
-            Fejlmeddelese_Box.Text = "";
-
-            if (Values_box.Text != "" && int.TryParse(Values_box.Text, out num) && Convert.ToInt32(Values_box.Text) == pressureValue[_pressureValues.Count])              //Hvis userInput ikke er tom OG hvis userInput er en integer.
+            if (Values_box.Text != "" && int.TryParse(Values_box.Text, out num) && Convert.ToInt32(Values_box.Text) == pressureValue[_pressureValuesList.Count])              //Hvis userInput ikke er tom OG hvis userInput er en integer.
             {
-                userInput = Values_box.Text;
+                PressureInput = Values_box.Text;                                                                                    //Tryk input gemmes i en variabel
+                double userInput = Convert.ToDouble(PressureInput);
+                double adcValue = Convert.ToDouble(_getAdc.GetADCvaluesFromDataLayer());
+                
+                var point = new Point() { X = adcValue, Y = userInput};                                                             //Der oprettes et nyt punkt. X = adc-værdi, Y = indtastet trykværdi
+                _values.Add(point);                                                                                                 //Punktet tilføjes til grafen - altså plottes
 
-                _calibrateLine.Values.Add(Convert.ToDouble(userInput));
-                PressureInput = userInput;
-                double adcInput = _getAdc.GetADCvaluesFromDataLayer();
-
-                ADCValues.Add(Convert.ToString(adcInput));
-
-                Values_box.Clear();
+                Values_box.Clear();                                     
                 Values_box.Focus();
 
-                double pressure = Convert.ToDouble(PressureInput);                      //PressureInput - data binding
-                _pressureValues.Add(pressure);
-                _adcValues.Add(adcInput);
+                _pressureValuesList.Add(userInput);                                                                                 //Trykværdi gemmes i en liste, så den kan bruges til at lave regression 
+                _adcValuesList.Add(adcValue);                                                                                       //ADC-værdi gemmes i en liste, så den kan bruges til at lave regression  
 
-                if (_pressureValues.Count == 1)
+                if (_pressureValuesList.Count < 11)
                 {
-                    insertValues_Box.Text = "Indstil tryk til " + pressureValue[1] + " mmHg";
+                    insertValues_Box.Text = UpdatePressure(_pressureValuesList.Count);
                 }
-                if (_pressureValues.Count == 2)
+                else if (_pressureValuesList.Count == 11)
                 {
-                    insertValues_Box.Text = "Indstil tryk til " + pressureValue[2] + " mmHg";
-                }
-                if (_pressureValues.Count == 3)
-                {
-                    insertValues_Box.Text = "Indstil tryk til " + pressureValue[3] + " mmHg";
-                }
-                if (_pressureValues.Count == 4)
-                {
-                    insertValues_Box.Text = "Indstil tryk til " + pressureValue[4] + " mmHg";
-                }
-                if (_pressureValues.Count == 5)
-                {
-                    insertValues_Box.Text = "Indstil tryk til " + pressureValue[5] + " mmHg";
-                }
-                if (_pressureValues.Count == 6)
-                {
-                    insertValues_Box.Text = "Indstil tryk til " + pressureValue[6] + " mmHg";
-                }
-                if (_pressureValues.Count == 7)
-                {
-                    insertValues_Box.Text = "Indstil tryk tli " + pressureValue[7] + " mmHg";
-                }
-                if (_pressureValues.Count == 8)
-                {
-                    insertValues_Box.Text = "Indstil tryk til " + pressureValue[8] + " mmHg";
-                }
-                if (_pressureValues.Count == 9)
-                {
-                    insertValues_Box.Text = "Indstil tryk til " + pressureValue[9] + " mmHg";
-                }
-                if (_pressureValues.Count == 10)
-                {
-                    insertValues_Box.Text = "Indstil tryk til " + pressureValue[10] + " mmHg";
-                }
-                if (_pressureValues.Count == 11)
-                {
-                    //CalibrateDone_Button.IsEnabled = true;
                     calibrateButton.IsEnabled = false;
-                    double[] adcValues = new double[11];                    //Array with x-values (adc [V])
-                    double[] pressureValues = new double[11];               //Array with y-values (pressure [mmHg]
-
-                    for (int i = 0; i < pressureValues.Length; i++)
-                    {
-                        pressureValues[i] = _pressureValues[i];
-                        adcValues[i] = _adcValues[i];
-                    }
-
-                    LinearRegression regression = new LinearRegression(adcValues, pressureValues);
-
-                    string a = Math.Round(regression.GetSlope(), 4).ToString();
-                    string b = Math.Round(regression.GetIntercept(), 4).ToString();
-                    string rSquared = Math.Round(regression.GetRSquared(), 4).ToString();
-
-                    Regression_Box.Text = "y = " + a + " + " + b + "x\n R^2 = " + rSquared;
-                    insertValues_Box.Text = "Kalibrering foretaget";
+                    LinearRegression();
                 }
-
             }
             else
             {
@@ -163,31 +134,19 @@ namespace PresentationLayer
 
         }
 
-        private void LogOffButton_Click(object sender, RoutedEventArgs e)
+        private void logOffButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide(); //Når der logges af, skjules kalibreringsvindue
-            _mainRef.ShowDialog(); //og hovedvindue åbner
+            this.Hide();                                                                                                           //Når der logges af, skjules kalibreringsvindue
+            _mainRef.ShowDialog();                                                                                                 //og hovedvindue åbner
 
         }
-
-        //private void CalibrateDone_Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    double[] adcValues = new double[11];                    //Array with x-values (adc [V])
-        //    double[] pressureValues = new double[11];               //Array with y-values (pressure [mmHg]
-
-        //    for (int i = 0; i < pressureValues.Length; i++)
-        //    {
-        //        pressureValues[i] = _pressureValues[i];
-        //        adcValues[i] = _adcValues[i];
-        //    }
-
-        //    LinearRegression regression = new LinearRegression(adcValues, pressureValues);
-
-        //    string a = Math.Round(regression.GetSlope(), 4).ToString();
-        //    string b = Math.Round(regression.GetIntercept(), 4).ToString();
-        //    string rSquared = Math.Round(regression.GetRSquared(), 4).ToString();
-
-        //    Regression_Box.Text = "y = " + a + " + " + b + "x\n R^2 = " + rSquared;
-        //}
     }
 }
+
+/*
+ CalibrateGraph_Loaded:
+ Der oprettes en ny instans af Data. Der oprettes også en ny kurve (LineSeries),som tilføjes til Data. 
+ I kalibreringskurven tilføjes der punkter (Point), som består af et X- og Y-koordinat.
+ Kurven får titlen "Kalibrering". Når der laves et nyt punkt, sættes det i Values.
+ Farve under graf fjernes.
+ */
