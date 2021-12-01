@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DataAccessLayer;
 using DTO_BloodPressureData;
 
 namespace BusinessLogicLayer
@@ -8,6 +9,8 @@ namespace BusinessLogicLayer
     public class BloodPressureSubject : AbstractBloodPressureData
     {
         private List<BloodPressureData> dtoList;
+        private UDPListener udp;
+        
 
         public BloodPressureSubject()
         {
@@ -17,6 +20,7 @@ namespace BusinessLogicLayer
         public void newDataRecieved(BloodPressureData bp)
         {
             dtoList.Add(bp);
+            
             
             Notify();
 

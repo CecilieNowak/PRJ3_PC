@@ -35,6 +35,7 @@ namespace PresentationLayer
            BloodPressureData subject = _bp.getNewestDTO();              //Her hentes den nyeste DTO som er tilføjet til subjectet og gemmes i en ny variable 
            mw.YValues.Add(subject.Pulse);
            mw.XValues.Add(1);
+
            mw.updatePulseTextBox(Convert.ToString(subject.Pulse));      //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
 
 
