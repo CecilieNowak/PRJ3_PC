@@ -39,6 +39,7 @@ namespace Main
             //Console.WriteLine(regression.GetIntercept());
             //Console.WriteLine(regression.GetRSquared());
 
+            //Metode til at beregne systole og få alarmen til at køre
             var rand = new Random();
             List<int> sys = new List<int>();
 
