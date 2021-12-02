@@ -93,7 +93,14 @@ namespace PresentationLayer
             string b = Math.Round(regression.GetIntercept(), 4).ToString();
             string rSquared = Math.Round(regression.GetRSquared(), 4).ToString();
 
-            Regression_Box.Text = "y = " + a + " + " + b + "x\n R^2 = " + rSquared;
+            if (regression.GetIntercept() < 0)
+            {
+                Regression_Box.Text = "y = " + a + b + "x\n R^2 = " + rSquared;
+            }
+            else
+            {
+                Regression_Box.Text = "y = " + a + " +  " + b + "x\n R^2 = " + rSquared;
+            }
             insertValues_Box.Text = "Kalibrering foretaget";
         }
 
@@ -101,8 +108,9 @@ namespace PresentationLayer
         {
             Fejlmeddelese_Box.Text = "";
             int num = -1;
+            string input = Values_box.Text;
 
-            if (Values_box.Text != "" && int.TryParse(Values_box.Text, out num) && Convert.ToInt32(Values_box.Text) == pressureValue[_pressureValuesList.Count])              //Hvis userInput ikke er tom OG hvis userInput er en integer.
+            if (input != "" && int.TryParse(input, out num) && (Convert.ToInt32(input) == pressureValue[_pressureValuesList.Count] || Convert.ToInt32(input) <= pressureValue[_pressureValuesList.Count] + 2 && Convert.ToInt32(input) >= pressureValue[_pressureValuesList.Count] - 2))              //Hvis userInput ikke er tom OG hvis userInput er en integer.
             {
                 PressureInput = Values_box.Text;                                                                                    //Tryk input gemmes i en variabel
                 double userInput = Convert.ToDouble(PressureInput);
