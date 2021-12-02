@@ -10,6 +10,8 @@ namespace BusinessLogicLayer
 {
     public class Filter : AbstractBloodPressureData, IBloodPressureObserver
     {
+
+        //Klassen er både en observer og et subject
         private BloodPressureSubject _bp;
         private Smoothing smooth;
         
@@ -24,8 +26,8 @@ namespace BusinessLogicLayer
 
         public void Update() //metoden skal retunere en DTO med gennemsnit over 10 første samples, som displayObserveren skal opdatere guien med
         {
-            //display();
-            Notify();
+            display();
+            //Notify();
 
 
         }

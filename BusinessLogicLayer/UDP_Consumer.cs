@@ -25,6 +25,7 @@ namespace BusinessLogicLayer
             
             while (!_dataQueue.IsCompleted)
             {
+
                 var container = _dataQueue.Take();
 
                 _bps.NewDataRecieved(container);
