@@ -4,6 +4,8 @@ using System.Text;
 using BusinessLogicLayer;
 using DTO_BloodPressureData;
 using System.Media;
+using System.Windows.Media.Animation;
+using System.Windows;
 
 namespace PresentationLayer
 {
@@ -45,6 +47,7 @@ namespace PresentationLayer
                 }
             }
 
+
             //for (int i = 6; i < 6; i++)
             //{
             //    if (_local[i].Systolic > 1.3 * _local[i - 5].Systolic || _local[i].Systolic < 0.7 * _local[i - 5].Systolic)
@@ -53,7 +56,7 @@ namespace PresentationLayer
             //    }
             //}
 
-            
+
             //kald getNewestDTO 6 antal gange, gem i lokal liste
             //if sætning med alarm algoritme med dto.Systolic
 

@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using DataAccessLayer;
 using DTO_BloodPressureData;
-
+using System.Windows.Media.Animation;
 
 namespace PresentationLayer
 {
@@ -69,7 +69,10 @@ namespace PresentationLayer
 
             t1.Start();
            */
-            
+            Testtråd testtråd = new Testtråd(this, subject);
+            Thread t1 = new Thread(testtråd.updateChart);
+            t1.Start();
+
         }
 
 
@@ -106,7 +109,8 @@ namespace PresentationLayer
         {
             SendToDatabase send = new SendToDatabase();
             string socSecNb = CPR_txtbox.Text;
-
+            alarm.Visibility = Visibility.Visible;
+            Alarmblink(100, 5);
 
             if (checkCPR(socSecNb) == true) //Hvis det intastede CPR i tekstboksen er gyldig sker følgende:
             {
@@ -159,12 +163,34 @@ namespace PresentationLayer
                 );
         }
 
+        //Nedenstående kode får alarmen til at blinke
+        public void Alarmblink(int length, double repetition)
+        {
+            DoubleAnimation opacityAlarm = new DoubleAnimation()
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = new Duration(TimeSpan.FromMilliseconds(length)),
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(repetition)
+            };
+            Storyboard storyboard = new Storyboard();
+            storyboard.Children.Add(opacityAlarm);
+            Storyboard.SetTarget(opacityAlarm, alarm);
+            Storyboard.SetTargetProperty(opacityAlarm, new PropertyPath("Opacity"));
+            storyboard.Begin(alarm);
+        }
+
+
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI
-                                                                                        //Der skal måske også være kode til at vise tid her
-            SoundPlayer s = new SoundPlayer("sonnette_reveil.wav");
-            s.PlayLooping();
+            
+            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
+            alarm.Visibility = Visibility.Hidden;
+
+
+
         }
     }
 }

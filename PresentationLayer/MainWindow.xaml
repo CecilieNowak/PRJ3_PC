@@ -37,6 +37,7 @@
         <Label x:Name="time_Label" Content="Tid" HorizontalAlignment="Left" Margin="634,563,0,0" VerticalAlignment="Top" FontSize="16"/>
         <TextBlock x:Name="time_Box" HorizontalAlignment="Left" Margin="697,563,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Width="103"/>
         <TextBlock x:Name="dataSaved_Box" HorizontalAlignment="Left" Margin="315,563,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Height="35" Width="285" Foreground="#FFE91515"/>
+        <Ellipse  x:Name="alarm" HorizontalAlignment="Left" Height="50" Margin="764,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="51" RenderTransformOrigin="0.49,0.536" Fill="Red"/>
 
 
     </Grid>
