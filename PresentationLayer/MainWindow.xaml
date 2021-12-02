@@ -32,8 +32,10 @@
 
             <StackPanel Grid.Column="0" Grid.Row="1">
                 <Label Content="BLODTRYKSMÅLER" Height="40" Width="220" Foreground="White" FontSize="25" Margin="10"/>
-                <lvc:CartesianChart Height="360" Width="700">
-
+                <lvc:CartesianChart Name="BloodPressureGraph"  Height="360" Width="700">
+                    <lvc:CartesianChart.Series>
+                        <lvc:LineSeries Name="Line1" Title="Testdata" Values="{Binding YValues}" ></lvc:LineSeries>
+                    </lvc:CartesianChart.Series>
                 </lvc:CartesianChart>
                 <Grid Height="122">
                     <Label x:Name="cpr_LB" Content="CPR NR" Foreground="White" FontSize="14" Margin="259,22,385,74"/>
@@ -41,6 +43,7 @@
                     <TextBlock x:Name="Date_box" Margin="480,57,13,26" Foreground="White" HorizontalAlignment="Right" />
                     <Label x:Name="battery_txt" Content="Batteristatus" HorizontalAlignment="Left" Margin="41,24,0,0" VerticalAlignment="Top" Foreground="White"/>
                     <TextBlock x:Name="dataSaved_Box" HorizontalAlignment="Left" Margin="502,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="174" Foreground="White" FontSize="14"/>
+                    <Ellipse  x:Name="alarm" HorizontalAlignment="Left" Height="50" Margin="28,55,0,0" Stroke="Black" VerticalAlignment="Top" Width="51" RenderTransformOrigin="0.49,0.536" Fill="Red"/>
                 </Grid>
             </StackPanel>
 
