@@ -10,7 +10,7 @@ namespace Test_PRJ3_PC
     {
         CalcBP calcBP;
         
-            [SetUp]
+        [SetUp]
         public void Setup()
         {
             calcBP = new CalcBP();

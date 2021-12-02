@@ -95,13 +95,14 @@ namespace PresentationLayer
 
             if (regression.GetIntercept() < 0)
             {
-                Regression_Box.Text = "y = " + a + b + "x\n R^2 = " + rSquared;
+                Regression_Box.Text = "y = " + a + "x" + b + "\n R^2 = " + rSquared;
             }
             else
             {
-                Regression_Box.Text = "y = " + a + " +  " + b + "x\n R^2 = " + rSquared;
+                Regression_Box.Text = "y = " + a + "x +  " + b + "\n R^2 = " + rSquared;
             }
             insertValues_Box.Text = "Kalibrering foretaget";
+            
         }
 
         private void calibrateButton_Click(object sender, RoutedEventArgs e)
@@ -138,6 +139,8 @@ namespace PresentationLayer
             else
             {
                 Fejlmeddelese_Box.Text = "Indtast trykværdi";
+                Values_box.Clear();
+                Values_box.Focus();
             }
 
         }
