@@ -43,7 +43,7 @@ namespace PresentationLayer
             //        }
             //    }
             //}
-            BloodPressureData subject = _bp.GetNewestDTO();
+            BloodPressureData subject = _bp.GetNewestDTO(); //Filter.getsmoothDTO
             mw.Alarm(subject.Systolic);
 
 

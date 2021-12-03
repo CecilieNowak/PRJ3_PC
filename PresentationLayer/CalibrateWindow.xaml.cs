@@ -145,7 +145,7 @@ namespace PresentationLayer
 
         }
 
-        private void logOffButton_Click(object sender, RoutedEventArgs e)
+        private void LogOffButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();                                                                                                           //Når der logges af, skjules kalibreringsvindue
             _mainRef.ShowDialog();                                                                                                 //og hovedvindue åbner

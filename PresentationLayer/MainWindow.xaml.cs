@@ -75,21 +75,28 @@ namespace PresentationLayer
 
 
             //Test med simulator
+            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+            //UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
 
-            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
-            UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
+            //UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue, senderSimulator);
+            //ChartUpdate chartUpdate = new ChartUpdate(this);
+            //Thread t2 = new Thread(listenerSimulator.StartListener);
+            //Thread t3 = new Thread(udpConsumer.UpdateChart);
+            //Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
+            //Thread t4 = new Thread(chartUpdate.checkChart);
 
-            UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue, senderSimulator);
-            ChartUpdate chartUpdate = new ChartUpdate(this);
-            Thread t2 = new Thread(listenerSimulator.StartListener);
-            Thread t3 = new Thread(udpConsumer.UpdateChart);
-            Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
-            Thread t4 = new Thread(chartUpdate.checkChart);
+            //t1.Start();
+            //t2.Start();
+            //t3.Start();
+            //t4.Start();
 
-            t1.Start();
-            t2.Start();
-            t3.Start();
-            t4.Start();
+
+            //Test til alarm
+            Testtråd testtråd = new Testtråd(this, subject);
+            Thread t5 = new Thread(testtråd.updateChart);
+            t5.Start();
+
+
         }
 
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
