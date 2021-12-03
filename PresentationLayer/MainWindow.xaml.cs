@@ -35,50 +35,62 @@ namespace PresentationLayer
         public MainWindow()
         {
             InitializeComponent();
+           
             _logicobj = new CheckLogin();
             _loginW = new LoginWindow(this, _logicobj);
 
             _subject = new BloodPressureSubject();
 
 
-            YValues = new ChartValues<int>();   
+            YValues = new ChartValues<int>();
             XValues = new ChartValues<int>();
             DataContext = this;
 
             BloodPressureSubject subject = new BloodPressureSubject();
 
-            DisplayObserver observer = new DisplayObserver(subject, this);
+            //Gammel DisplayObserver - Må ikke slettes!
+
+            //DisplayObserver observer = new DisplayObserver(subject, this);
+
+            Filter filter = new Filter(subject);
+            DisplayObserver display = new DisplayObserver(filter, this);
 
             AlarmObserver aObserver = new AlarmObserver(subject, this);
 
 
-            BlockingCollection <BloodPressureData> dataQueue= new BlockingCollection<BloodPressureData>();
+            BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
+
+            //  UDPListener udpListener = new UDPListener(dataQueue);
+            // UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+
 
             // Må ikke slettes!!
 
-            /*
 
-            //      Test med UDP-kommunikation
-            
-            Thread t2 = new Thread(udpListener.StartListener);
-            Thread t1 = new Thread(udpConsumer.UpdateChart);
+            // Test med UDP-kommunikation
+            //UDPListener udpListener = new UDPListener(dataQueue);
+            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+            // Thread t2 = new Thread(udpListener.StartListener);
+            //Thread t1 = new Thread(udpConsumer.UpdateChart);
+
+
+            //Test med simulator
+
+            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+            UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
+
+            UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue, senderSimulator);
+            ChartUpdate chartUpdate = new ChartUpdate(this);
+            Thread t2 = new Thread(listenerSimulator.StartListener);
+            Thread t3 = new Thread(udpConsumer.UpdateChart);
+            Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
+            Thread t4 = new Thread(chartUpdate.checkChart);
 
             t1.Start();
             t2.Start();
-
-            //      Test med randomme DTO'er i stedet for UDP-kommunikation
-            //TEST_THREAD_LIVECHARTS threadTest = new TEST_THREAD_LIVECHARTS(this, subject);  //Test tråd oprettes
-            //Thread t1 = new Thread(threadTest.updateChart);
-
-            t1.Start();
-           */
-            Testtråd testtråd = new Testtråd(this, subject);
-            Thread t1 = new Thread(testtråd.updateChart);
-            t1.Start();
-
+            t3.Start();
+            t4.Start();
         }
-
-
 
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
         {
