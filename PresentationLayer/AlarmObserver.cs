@@ -33,7 +33,7 @@ namespace PresentationLayer
             for (int i = 1; i < 6; i++)
             {
                 BloodPressureData b = new BloodPressureData();
-                b = _bp.GetNewestDTO();
+          //      b = _bp.GetNewestDTO();
                 _local.Add(b);
                 if (i >= 6)
                 {
