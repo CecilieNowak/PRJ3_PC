@@ -27,25 +27,24 @@ namespace PresentationLayer
         
         public void Update()                                       
         {
-            
+            //for (int i = 1; i < 6; i++)
+            //{
+            //    BloodPressureData b = new BloodPressureData();
+            //    b = _bp.GetNewestDTO();
+            //    _local.Add(b);
+            //    if (i >= 6)
+            //    {
 
 
-            for (int i = 1; i < 6; i++)
-            {
-                BloodPressureData b = new BloodPressureData();
-                b = _bp.GetNewestDTO();
-                _local.Add(b);
-                if (i >= 6)
-                {
-
-
-                    if (_local[i].Systolic > 1.3 * _local[i - 5].Systolic || _local[i].Systolic < 0.7 * _local[i - 5].Systolic)
-                    {
-                        SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
-                        alarm.PlayLooping();
-                    }
-                }
-            }
+            //        if (_local[i].Systolic > 1.3 * _local[i - 5].Systolic || _local[i].Systolic < 0.7 * _local[i - 5].Systolic)
+            //        {
+            //            SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
+            //            alarm.PlayLooping();
+            //        }
+            //    }
+            //}
+            BloodPressureData subject = _bp.GetNewestDTO();
+            mw.Alarm(subject.Systolic);
 
 
             //for (int i = 6; i < 6; i++)
