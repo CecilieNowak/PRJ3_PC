@@ -28,9 +28,11 @@
         <lvc:CartesianChart Name="BloodPressureGraph" LegendLocation="Right" Margin="0,76,267,167" Background="Black" Grid.RowSpan="1" Grid.ColumnSpan="1" >
 
             <lvc:CartesianChart.Series>
-    <lvc:LineSeries Name="Line1" Title="Testdata" Values="{Binding YValues}" ></lvc:LineSeries>
-</lvc:CartesianChart.Series>
+                <lvc:LineSeries Name="Line1" Title="Testdata" Values="{Binding YValues}" ></lvc:LineSeries>
+            </lvc:CartesianChart.Series>
+
         </lvc:CartesianChart>
+
 
         <Label x:Name="title_label" Content="Blodtryksmålersystem" HorizontalAlignment="Left" Margin="251,14,0,0" VerticalAlignment="Top" FontSize="30"/>
         <Label x:Name="date_Label" Content="Dato" HorizontalAlignment="Left" Margin="634,508,0,0" VerticalAlignment="Top" FontSize="16"/>

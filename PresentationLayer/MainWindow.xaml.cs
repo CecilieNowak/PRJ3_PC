@@ -69,12 +69,22 @@ namespace PresentationLayer
 
 
             //Test med simulator
-            UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue);
+            
             UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+            UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
+
+            UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue,senderSimulator);
+            ChartUpdate chartUpdate = new ChartUpdate(this);
             Thread t2 = new Thread(listenerSimulator.StartListener);
-            Thread t1 = new Thread(udpConsumer.UpdateChart);
+            Thread t3 = new Thread(udpConsumer.UpdateChart);
+            Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
+            Thread t4 = new Thread(chartUpdate.checkChart);
+
             t1.Start();
             t2.Start();
+            t3.Start();
+            t4.Start();
+            ;
 
         }
 

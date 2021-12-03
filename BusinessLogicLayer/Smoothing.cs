@@ -9,14 +9,14 @@ namespace BusinessLogicLayer
 {
     class Smoothing
     {
-        private readonly List<BloodPressureData> localDTOList;
-        private readonly List<BloodPressureData> returnList;
+        //private readonly List<BloodPressureData> localDTOList;
+        //private readonly List<BloodPressureData> returnList;
         
 
         public Smoothing()
         {
-            localDTOList = new List<BloodPressureData>();
-            returnList = new List<BloodPressureData>();
+            //localDTOList = new List<BloodPressureData>();
+            //returnList = new List<BloodPressureData>();
         }
 
         public BloodPressureData smoothGraph(List<BloodPressureData> bp)

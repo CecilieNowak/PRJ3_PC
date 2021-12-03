@@ -13,54 +13,23 @@ namespace DataAccessLayer
         public int constant { get; set; } 
         public int decrease { get; set; }
         public int counter { get; set; } = -1;
+        public Random _random;
 
         public UDP_Sender_Simulator()
         {
-            increase = 0;
-            decrease = 0;
-            constant = 0;
+            _random = new Random();
         }
 
         public void genererBlodtryksDTOer()
         {
-            for (int i = 1; i < 150; i++)
+            while(true)
             {
                 BloodPressureData lokalBp = new BloodPressureData();
-                lokalBp.Værdi = random.Next(increase, i);
-                increase = lokalBp.Værdi;
+                lokalBp.Værdi = random.Next(0,100);
                 bpList.Add(lokalBp);
             }
 
-            for (int k = 1; k < 100; k++)
-            {
-                BloodPressureData lokalBp = new BloodPressureData();
-                lokalBp.Værdi = increase;
-                bpList.Add(lokalBp);
-            }
-
-            for (int d = 99; d > 50; d--)
-            {
-                BloodPressureData lokalBp = new BloodPressureData();
-                lokalBp.Værdi = random.Next(d,increase);
-                bpList.Add(lokalBp);
-                increase = lokalBp.Værdi;
-            }
-
-            for (int o = 1; o < 50; o++)
-            {
-                BloodPressureData lokalBp = new BloodPressureData();
-                lokalBp.Værdi = increase;
-                bpList.Add(lokalBp);
-
-            }
-
-            for (int p = 20; p > 1; p--)
-            {
-                BloodPressureData lokalBp = new BloodPressureData();
-                lokalBp.Værdi = random.Next(p,increase);
-                bpList.Add(lokalBp);
-                increase = lokalBp.Værdi;
-            }
+           
 
         }
 

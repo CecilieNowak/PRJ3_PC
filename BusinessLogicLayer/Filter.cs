@@ -14,6 +14,8 @@ namespace BusinessLogicLayer
         //Klassen er både en observer og et subject
         private BloodPressureSubject _bp;
         private Smoothing smooth;
+        private BloodPressureData lokalBp;
+        
         
 
         public Filter(BloodPressureSubject bp)
@@ -21,21 +23,24 @@ namespace BusinessLogicLayer
             _bp = bp;
             bp.Add(this);
             smooth = new Smoothing();
+            
         }
 
 
         public void Update() //metoden skal retunere en DTO med gennemsnit over 10 første samples, som displayObserveren skal opdatere guien med
         {
-            display();
-            //Notify();
+            lokalBp = smooth.smoothGraph(_bp.GetNewestDTO());
+
+
+            Notify();
 
 
         }
 
-        public BloodPressureData display()
+
+        public BloodPressureData getSmoothDTO()
         {
-            List<BloodPressureData> dto = _bp.GetNewestDTO();
-            return smooth.smoothGraph(dto);
+            return lokalBp;
         }
     }
 }

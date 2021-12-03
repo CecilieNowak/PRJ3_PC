@@ -8,6 +8,7 @@ using LiveCharts.Wpf;
 using BusinessLogicLayer;
 using DTO_BloodPressureData;
 using Microsoft.Identity.Client;
+using Microsoft.VisualBasic;
 
 
 namespace PresentationLayer
@@ -33,14 +34,25 @@ namespace PresentationLayer
 
         public void Update()                                            //Metoden henter nyeste DTO fra subjectet og opdaterer livecharten (Lige nu opdaterer den kun puls!)
         {
-            BloodPressureData bp = new BloodPressureData();
-            bp = _filter.getSmoothDTO();
+
+           BloodPressureData bp = new BloodPressureData();
+           bp = _filter.getSmoothDTO();
+
+           
             mw.YValues.Add(bp.Værdi);
-            mw.XValues.Add(1);
+           
+           mw.XValues.Add(1);
+          
 
-            mw.UpdatePulseTextBox(Convert.ToString(bp.Værdi));
+           
+           
 
+
+                                                                        //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
+           mw.UpdatePulseTextBox(Convert.ToString(bp.Værdi));
         }
+
+       
         
     }
 

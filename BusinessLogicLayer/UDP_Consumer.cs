@@ -13,6 +13,8 @@ namespace BusinessLogicLayer
         private readonly BloodPressureSubject _bps;
         private readonly BlockingCollection<BloodPressureData> _dataQueue;
 
+        private object myLock = new object();
+
 
         public UDP_Consumer(BlockingCollection<BloodPressureData> dataQueue, BloodPressureSubject bps)
         {
@@ -28,9 +30,11 @@ namespace BusinessLogicLayer
 
                 var container = _dataQueue.Take();
 
-                _bps.NewDataRecieved(container);
-
-                Thread.Sleep(10);
+                lock(myLock)
+                {
+                    _bps.NewDataRecieved(container);
+                }
+                Thread.Sleep(100);
                 
             }
 

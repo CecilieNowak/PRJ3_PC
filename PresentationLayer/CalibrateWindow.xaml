@@ -18,7 +18,7 @@
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Tryk[mmHg]" FontSize="14" Foreground="Black">
                     <lvc:Axis.Separator>
-                        <lvc:Separator Step="10"/>
+                     <lvc:Separator Step="10"/>
                     </lvc:Axis.Separator>
                 </lvc:Axis>
             </lvc:CartesianChart.AxisY>

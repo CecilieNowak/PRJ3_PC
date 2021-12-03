@@ -16,14 +16,13 @@ namespace DataAccessLayer
 
 
         private readonly BlockingCollection<BloodPressureData> _dataQueue;
-        private UDP_Sender_Simulator sender;
+        private UDP_Sender_Simulator _sender;
 
 
-        public UDPListener_Simulator(BlockingCollection<BloodPressureData> dataQueue)
+        public UDPListener_Simulator(BlockingCollection<BloodPressureData> dataQueue, UDP_Sender_Simulator sender)
         {
             _dataQueue = dataQueue;
-            sender = new UDP_Sender_Simulator();
-            sender.genererBlodtryksDTOer();
+            _sender = sender;
         }
 
         public void StartListener()
@@ -38,9 +37,10 @@ namespace DataAccessLayer
                     BloodPressureData blodData = new BloodPressureData();
 
 
-                    blodData = sender.getDTO();
+                    blodData = _sender.getDTO();
 
                     _dataQueue.Add(blodData);
+
 
 
                 }
