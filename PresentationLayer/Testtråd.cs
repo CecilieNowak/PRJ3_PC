@@ -1,7 +1,9 @@
-﻿using BusinessLogicLayer;
-using DTO_BloodPressureData;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using BusinessLogicLayer;
+using DTO_BloodPressureData;
+using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Documents;
 
@@ -25,8 +27,9 @@ namespace PresentationLayer
                 random = new Random();
             }
 
-         
-        public void updateChart()
+
+
+            public void updateChart()
             {
             for (int i = 0; i < 100; i++)
             {
@@ -44,7 +47,7 @@ namespace PresentationLayer
             }
 
                 
-            }
+                }
             }
 
             

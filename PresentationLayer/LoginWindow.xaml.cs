@@ -54,9 +54,7 @@ namespace PresentationLayer
 
         private void Password_txtbox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (
-                e.Key == Key
-                    .Enter) //Når adgangskode er indtastet, kan der logges ind ved at trykke Enter                                             
+            if (e.Key == Key.Enter) //Når adgangskode er indtastet, kan der logges ind ved at trykke Enter                                             
             {
                 LogIn_button_Click(this, new RoutedEventArgs());
             }
