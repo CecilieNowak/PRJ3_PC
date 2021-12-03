@@ -32,8 +32,8 @@
         <Label x:Name="date_Label" Content="Dato" HorizontalAlignment="Left" Margin="596,0,0,47" VerticalAlignment="Bottom" FontSize="14"/>
         <TextBox x:Name="Values_box" HorizontalAlignment="Left" Margin="599,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92" Height="24" FontSize="16"/>
         <TextBlock x:Name="insertValues_box" HorizontalAlignment="Left" Margin="599,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" Foreground="Black" Text="Indtast tryk" FontSize="16"/>
-        <Button x:Name="calibrateButton" Content="Kalibrer" HorizontalAlignment="Left" Margin="599,187,0,0" VerticalAlignment="Top" Height="36" Width="92" FontSize="16" Click="calibrateButton_Click" Background="#FFB3D7E8"/>
-        <Button x:Name="logOffButton" Content="Log af" HorizontalAlignment="Left" Margin="599,292,0,0" VerticalAlignment="Top" Width="95" FontSize="16" Click="logOffButton_Click"/>
+        <Button x:Name="calibrateButton" Content="Kalibrer" HorizontalAlignment="Left" Margin="596,217,0,0" VerticalAlignment="Top" Height="25" Width="92" FontSize="16" Click="calibrateButton_Click"/>
+        <Button x:Name="logOffButton" Content="Log af" HorizontalAlignment="Left" Margin="596,292,0,0" VerticalAlignment="Top" Width="92" FontSize="16" Click="LogOffButton_Click"/>
         <TextBlock x:Name="Fejlmeddelese_Box" HorizontalAlignment="Left" Margin="586,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Foreground="#FFD11919" Width="166"/>
         <TextBlock x:Name="insertValues_Box" HorizontalAlignment="Left" Margin="567,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="184" FontSize="13"/>
         <TextBlock x:Name="Regression_Box" HorizontalAlignment="Left" Margin="26,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
