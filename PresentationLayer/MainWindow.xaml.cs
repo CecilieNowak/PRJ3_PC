@@ -60,8 +60,8 @@ namespace PresentationLayer
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
-            //  UDPListener udpListener = new UDPListener(dataQueue);
-            // UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+             // UDPListener udpListener = new UDPListener(dataQueue);
+           // UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
 
 
             // Må ikke slettes!!
@@ -75,26 +75,26 @@ namespace PresentationLayer
 
 
             //Test med simulator
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
-            //UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
+            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+            UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
 
-            //UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue, senderSimulator);
-            //ChartUpdate chartUpdate = new ChartUpdate(this);
-            //Thread t2 = new Thread(listenerSimulator.StartListener);
-            //Thread t3 = new Thread(udpConsumer.UpdateChart);
-            //Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
-            //Thread t4 = new Thread(chartUpdate.checkChart);
+            UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue, senderSimulator);
+            ChartUpdate chartUpdate = new ChartUpdate(this);
+            Thread t2 = new Thread(listenerSimulator.StartListener);
+            Thread t3 = new Thread(udpConsumer.UpdateChart);
+            Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
+            Thread t4 = new Thread(chartUpdate.checkChart);
 
-            //t1.Start();
-            //t2.Start();
-            //t3.Start();
-            //t4.Start();
+            t1.Start();
+            t2.Start();
+            t3.Start();
+            t4.Start();
 
 
             //Test til alarm
-            Testtråd testtråd = new Testtråd(this, subject);
-            Thread t5 = new Thread(testtråd.updateChart);
-            t5.Start();
+            //Testtråd testtråd = new Testtråd(this, subject);
+            //Thread t5 = new Thread(testtråd.updateChart);
+            //t5.Start();
 
 
         }
@@ -215,7 +215,7 @@ namespace PresentationLayer
         {
             Dispatcher.Invoke(() =>
                 {
-                    if (sys == 10)
+                    if (sys >= 10)
                     {
                         alarm.Visibility = Visibility.Visible;
                         Alarmblink(100, 5);
