@@ -55,7 +55,7 @@ namespace PresentationLayer
             Filter filter = new Filter(subject);
             DisplayObserver display = new DisplayObserver(filter, this);
 
-            AlarmObserver aObserver = new AlarmObserver(subject, this);
+            AlarmObserver aObserver = new AlarmObserver(filter, this);
 
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
@@ -206,8 +206,9 @@ namespace PresentationLayer
 
         public void AlarmSound()
         {
-            SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
+            SoundPlayer alarm = new SoundPlayer("alarm1.wav");
             alarm.PlayLooping();
+            
         }
 
         public void Alarm(double sys)
