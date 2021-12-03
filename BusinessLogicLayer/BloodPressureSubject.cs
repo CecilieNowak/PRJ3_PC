@@ -27,8 +27,9 @@ namespace BusinessLogicLayer
 
         public BloodPressureData GetNewestDTO()
         {
-            int counter = dtoList.Count - 1;
-            return dtoList[counter];
+            int counter = dtoList.Count;
+            //return (dtoList.Count>0?dtoList[0]:null);
+            return dtoList[counter - 1];
         }
 
     }

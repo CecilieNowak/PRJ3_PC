@@ -28,16 +28,16 @@ namespace PresentationLayer
 
 
 
-            public void updateChart()
-            {
+        public void updateChart()
+        {
             for (int i = 0; i < 100; i++)
             {
                 _bp.NewDataRecieved(new BloodPressureData(1, 0, 0));
-                if (i==33)
+                if (i == 33)
                 {
                     _bp.NewDataRecieved(new BloodPressureData(10, 0, 0));
                 }
-                else if(i==66)
+                else if (i == 66)
                 {
                     _bp.NewDataRecieved(new BloodPressureData(10, 0, 0));
 
@@ -45,9 +45,9 @@ namespace PresentationLayer
                 Thread.Sleep(100);
             }
 
-                
-                }
-            }
+
+        }
+    }
         }
     
 

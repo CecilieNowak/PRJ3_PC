@@ -33,12 +33,11 @@ namespace PresentationLayer
         public void Update()                                            //Metoden henter nyeste DTO fra subjectet og opdaterer livecharten (Lige nu opdaterer den kun puls!)
         {
            BloodPressureData subject = _bp.GetNewestDTO();              //Her hentes den nyeste DTO som er tilføjet til subjectet og gemmes i en ny variable 
-           mw.YValues.Add(subject.Værdi);
+           mw.YValues.Add(Convert.ToInt32(subject.Systolic));
            mw.XValues.Add(1);
 
-           mw.UpdatePulseTextBox(Convert.ToString(subject.Værdi));      //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
-
-
+           mw.UpdatePulseTextBox(Convert.ToString(subject.Systolic));      //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
+           //mw.Alarm(subject.Systolic);
         }
         
     }

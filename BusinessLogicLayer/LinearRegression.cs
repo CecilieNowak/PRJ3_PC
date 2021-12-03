@@ -39,7 +39,7 @@ namespace BusinessLogicLayer
 
         public double GetRSquared()
         {
-            RSquared = GoodnessOfFit.RSquared(_adcValues.Select(x => B + A * x), _pressureValues);
+            RSquared = GoodnessOfFit.RSquared(_adcValues.Select(x => A * x + B), _pressureValues);
 
             return RSquared;
         }

@@ -23,6 +23,7 @@ namespace PresentationLayer
     {
         private readonly CheckLogin _logicobj;
         private readonly LoginWindow _loginW;
+        public BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
 
         public bool LoginOk { get; set; }
@@ -37,6 +38,8 @@ namespace PresentationLayer
            
             _logicobj = new CheckLogin();
             _loginW = new LoginWindow(this, _logicobj);
+
+            _subject = new BloodPressureSubject();
 
 
             YValues = new ChartValues<int>();   
@@ -110,8 +113,8 @@ namespace PresentationLayer
         {
             SendToDatabase send = new SendToDatabase();
             string socSecNb = CPR_txtbox.Text;
-            alarm.Visibility = Visibility.Visible;
-            Alarmblink(100, 5);
+            //alarm.Visibility = Visibility.Visible;
+            //Alarmblink(100, 5);
 
             if (checkCPR(socSecNb) == true) //Hvis det intastede CPR i tekstboksen er gyldig sker følgende:
             {
@@ -121,7 +124,8 @@ namespace PresentationLayer
 
             else
             {
-                MessageBox.Show("Ugyldigt CPR"); //Hvis det intastede CPR i tekstboksen er ugyldig sker følgende:
+                dataSaved_Box.Text =
+                    "Data kunne ikke sendes"; //Hvis det intastede CPR i tekstboksen er ugyldig sker følgende:
             }
             
         }
@@ -182,16 +186,31 @@ namespace PresentationLayer
             storyboard.Begin(alarm);
         }
 
+        public void AlarmSound()
+        {
+            SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
+            alarm.PlayLooping();
+        }
 
+        public void Alarm(double sys)
+        {
+            Dispatcher.Invoke(() =>
+                {
+                    if (sys == 10)
+                    {
+                        alarm.Visibility = Visibility.Visible;
+                        Alarmblink(100, 5);
+                        AlarmSound();
+                    }
+                }
+            );
+
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
             alarm.Visibility = Visibility.Hidden;
-
-
-
         }
     }
 }
