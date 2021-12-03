@@ -187,8 +187,9 @@ namespace PresentationLayer
 
         public void AlarmSound()
         {
-            SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
+            SoundPlayer alarm = new SoundPlayer("alarm1.wav");
             alarm.PlayLooping();
+            
         }
 
         public void Alarm(double sys)

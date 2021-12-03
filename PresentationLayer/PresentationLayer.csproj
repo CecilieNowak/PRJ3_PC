@@ -20,4 +20,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="alarm1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
