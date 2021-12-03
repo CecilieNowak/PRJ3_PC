@@ -44,10 +44,6 @@ namespace PresentationLayer
             mw.XValues.Add(1);
 
 
-
-
-
-
             //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
             mw.UpdatePulseTextBox(Convert.ToString(bp.Værdi));
         }

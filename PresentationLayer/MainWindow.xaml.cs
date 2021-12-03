@@ -60,8 +60,8 @@ namespace PresentationLayer
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
-            //  UDPListener udpListener = new UDPListener(dataQueue);
-            // UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+             // UDPListener udpListener = new UDPListener(dataQueue);
+           // UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
 
 
             // Må ikke slettes!!
@@ -75,7 +75,6 @@ namespace PresentationLayer
 
 
             //Test med simulator
-
             UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
             UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
 
@@ -94,7 +93,13 @@ namespace PresentationLayer
             
             t4.Start();
 
-            Alarm a = new Alarm(alarm);
+
+            //Test til alarm
+            //Testtråd testtråd = new Testtråd(this, subject);
+            //Thread t5 = new Thread(testtråd.updateChart);
+            //t5.Start();
+
+
         }
 
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
@@ -218,15 +223,14 @@ namespace PresentationLayer
             Alarm a = new Alarm(alarm);
             Dispatcher.Invoke(() =>
                 {
-                    if (sys > 10)
+                    if (sys >= 10)
                     {
                         alarm.Visibility = Visibility.Visible;
-                        a.Alarmblink(250, 5);
-                        a.AlarmSound();
+                        Alarmblink(100, 5);
+                        AlarmSound();
                     }
                 }
             );
-
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
