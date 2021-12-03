@@ -5,6 +5,7 @@ using BusinessLogicLayer;
 using DTO_BloodPressureData;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Windows.Documents;
 
 namespace PresentationLayer
 {
@@ -45,9 +46,9 @@ namespace PresentationLayer
                 Thread.Sleep(100);
             }
 
-
-        }
-    }
+                
+                }
+            } 
         }
     
 

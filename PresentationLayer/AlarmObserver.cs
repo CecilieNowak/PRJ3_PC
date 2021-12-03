@@ -22,10 +22,10 @@ namespace PresentationLayer
             mw = mainWindow;
             _bp = bp;
             _bp.Add(this);
-            _local = new List<BloodPressureData>(); 
+            _local = new List<BloodPressureData>();
         }
-        
-        public void Update()                                       
+
+        public void Update()
         {
             //for (int i = 1; i < 6; i++)
             //{
