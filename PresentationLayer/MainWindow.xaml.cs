@@ -34,6 +34,7 @@ namespace PresentationLayer
         public MainWindow()
         {
             InitializeComponent();
+           
             _logicobj = new CheckLogin();
             _loginW = new LoginWindow(this, _logicobj);
 
