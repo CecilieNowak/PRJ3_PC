@@ -12,17 +12,16 @@ namespace PresentationLayer
     class AlarmObserver : IBloodPressureObserver
     {
 
-        private BloodPressureSubject _bp;
         private List<BloodPressureData> _local;
         private MainWindow mw;
+        private readonly Filter _filter;
 
-
-        public AlarmObserver(BloodPressureSubject bp, MainWindow mainWindow)
+        public AlarmObserver(Filter filter, MainWindow mainWindow)
         {
             mw = mainWindow;
-            _bp = bp;
-            _bp.Add(this);
             _local = new List<BloodPressureData>();
+            _filter = filter;
+            filter.Add(this);
         }
 
         public void Update()
@@ -43,8 +42,11 @@ namespace PresentationLayer
             //        }
             //    }
             //}
-            BloodPressureData subject = _bp.GetNewestDTO();
-            mw.Alarm(subject.Systolic);
+            BloodPressureData bp = new BloodPressureData();
+            bp = _filter.getSmoothDTO();
+
+
+            mw.Alarm(bp.Værdi);
 
 
             //for (int i = 6; i < 6; i++)

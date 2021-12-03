@@ -55,7 +55,7 @@ namespace PresentationLayer
             Filter filter = new Filter(subject);
             DisplayObserver display = new DisplayObserver(filter, this);
 
-            AlarmObserver aObserver = new AlarmObserver(subject, this);
+            AlarmObserver aObserver = new AlarmObserver(filter, this);
 
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
