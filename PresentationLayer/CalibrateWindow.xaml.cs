@@ -132,7 +132,7 @@ namespace PresentationLayer
                 }
                 else if (_pressureValuesList.Count == 11)
                 {
-                    calibrateButton.IsEnabled = false;
+                    //calibrateButton.IsEnabled = false;
                     LinearRegression();
                 }
             }
@@ -147,8 +147,9 @@ namespace PresentationLayer
 
         private void LogOffButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();                                                                                                           //Når der logges af, skjules kalibreringsvindue
-            _mainRef.ShowDialog();                                                                                                 //og hovedvindue åbner
+            Environment.Exit(0);
+            //this.Hide();                                                                                                           //Når der logges af, skjules kalibreringsvindue
+            //_mainRef.ShowDialog();                                                                                                 //og hovedvindue åbner
 
         }
     }

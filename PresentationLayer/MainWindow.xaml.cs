@@ -155,10 +155,10 @@ namespace PresentationLayer
         {
             _calibrateW = new CalibrateWindow();
 
-            this.Hide();                                                                        //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            this.Close();                                                                        //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
 
-            if (LoginOk == true)
+            if (LoginOk)
             {
                 _calibrateW.ShowDialog(); //Hvis Login er ok, fuldføres login, og vi til kalibreringsvindue
             }
