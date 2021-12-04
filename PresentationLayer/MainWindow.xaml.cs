@@ -226,8 +226,8 @@ namespace PresentationLayer
                     if (sys >= 10)
                     {
                         alarm.Visibility = Visibility.Visible;
-                        Alarmblink(100, 5);
-                        AlarmSound();
+                        a.Alarmblink(100, 5);
+                        a.AlarmSound();
                     }
                 }
             );
