@@ -36,8 +36,9 @@ namespace DataAccessLayer
         public BloodPressureData getDTO()
         {
             counter++;
+
+
             return bpList[counter];
-            
 
         }
 

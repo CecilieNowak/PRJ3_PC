@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using DataAccessLayer;
 using DTO_BloodPressureData;
-using System.Windows.Media.Animation;
+
 
 namespace PresentationLayer
 {
@@ -85,9 +85,12 @@ namespace PresentationLayer
             Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
             Thread t4 = new Thread(chartUpdate.checkChart);
 
-            t1.Start();
+            
             t2.Start();
+            t1.Start();
+            
             t3.Start();
+            
             t4.Start();
 
 
@@ -187,32 +190,37 @@ namespace PresentationLayer
         }
 
         //Nedenstående kode får alarmen til at blinke
-        public void Alarmblink(int length, double repetition)
-        {
-            DoubleAnimation opacityAlarm = new DoubleAnimation()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromMilliseconds(length)),
-                AutoReverse = true,
-                RepeatBehavior = new RepeatBehavior(repetition)
-            };
-            Storyboard storyboard = new Storyboard();
-            storyboard.Children.Add(opacityAlarm);
-            Storyboard.SetTarget(opacityAlarm, alarm);
-            Storyboard.SetTargetProperty(opacityAlarm, new PropertyPath("Opacity"));
-            storyboard.Begin(alarm);
-        }
+        //public void Alarmblink(int length, double repetition)
+        //{
+        //    DoubleAnimation opacityAlarm = new DoubleAnimation()
+        //    {
+        //        From = 0.0,
+        //        To = 1.0,
+        //        Duration = new Duration(TimeSpan.FromMilliseconds(length)),
+        //        AutoReverse = true,
+        //        RepeatBehavior = new RepeatBehavior(repetition)
+        //    };
+        //    Storyboard storyboard = new Storyboard();
+        //    storyboard.Children.Add(opacityAlarm);
+        //    Storyboard.SetTarget(opacityAlarm, alarm);
+        //    Storyboard.SetTargetProperty(opacityAlarm, new PropertyPath("Opacity"));
+        //    storyboard.Begin(alarm);
+        //}
 
-        public void AlarmSound()
-        {
-            SoundPlayer alarm = new SoundPlayer("alarm1.wav");
-            alarm.PlayLooping();
+        // Ovenstående alarmmetode er sat ind i Alarm klassen i buisness laget ved at lave en constructor
+        // i alarmklassen med en ellipse (WPF objecktet som bruges til alarmen) https://stackoverflow.com/questions/6114277/how-to-access-wpf-mainwindows-controls-from-another-class-in-the-same-namespace/11747955
+        
+        //public void AlarmSound()
+        //{
+        //    SoundPlayer alarm = new SoundPlayer("alarm1.wav");
+        //    alarm.PlayLooping();
             
-        }
+        //} Alarmsound er også flyttet i Alarmklassen
 
+        
         public void Alarm(double sys)
         {
+            Alarm a = new Alarm(alarm);
             Dispatcher.Invoke(() =>
                 {
                     if (sys >= 10)

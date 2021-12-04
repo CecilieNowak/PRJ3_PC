@@ -43,8 +43,10 @@ namespace PresentationLayer
             //    }
             //}
             BloodPressureData bp = new BloodPressureData();
-            bp = _filter.getSmoothDTO();
 
+
+            bp = _filter.getSmoothDTO();
+            
 
             mw.Alarm(bp.Værdi);
 
