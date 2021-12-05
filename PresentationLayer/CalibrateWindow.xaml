@@ -6,37 +6,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationLayer"
         mc:Ignorable="d"
-        Title="CalibrateWindow" Height="450" Width="800" Loaded="Window_Loaded">
-    <Grid Background="#FF101017">
-        <lvc:CartesianChart Name="CalibrationGraph" Series="{Binding Data}" LegendLocation="Right" Margin="26,69,231,57" Grid.RowSpan="1" Grid.ColumnSpan="1" Loaded="CalibrationGraph_Loaded" >
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="[V]" FontSize="14" Foreground="Black" Labels="{Binding ADCValues}">
-                </lvc:Axis>
-            </lvc:CartesianChart.AxisX>
+        Title="CalibrateWindow" Height="500" Width="800" Loaded="Window_Loaded">
+    <Border Background="#FF101017">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="180"/>
+            </Grid.ColumnDefinitions>
 
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Tryk[mmHg]" FontSize="14" Foreground="Black">
-                    <lvc:Axis.Separator>
-                        <lvc:Separator Step="20"/>
-                    </lvc:Axis.Separator>
-                </lvc:Axis>
-            </lvc:CartesianChart.AxisY>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="1" Grid.Row="1" Background="#FFD0E4FF">
+                <TextBlock x:Name="insertValues_Box" Margin="10, 100, 10, 10" HorizontalAlignment="Center" FontSize="14"/>
+                <TextBox x:Name="Values_box" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="16" />
+                <TextBlock x:Name="Fejlmeddelese_Box" FontSize="14" Foreground="#FFD11919" Width="150"/>
+                <Button x:Name="calibrateButton" Content="Kalibrer" HorizontalAlignment="Center" Margin="15" VerticalAlignment="Top" Height="30" Width="100" FontSize="16" BorderBrush="{x:Null}" Background="#FFE6FBFE" Click="calibrateButton_Click"/>
+                <Button x:Name="logOffButton" Content="Log af" Width="92" Margin="0,150,0,0" FontSize="16" BorderBrush="{x:Null}" Background="#FFE6FBFE" Click="LogOffButton_Click"/>
+            </StackPanel>
 
-            <lvc:CartesianChart.ChartLegend>
-                <lvc:DefaultLegend/>
-            </lvc:CartesianChart.ChartLegend>
+            <StackPanel Grid.Column="0" Grid.Row="1">
+                <Label x:Name="title_label" Content="KALIBRERING" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" FontSize="22" Foreground="White"/>
+                <TextBlock x:Name="Regression_Box" HorizontalAlignment="Right" Margin="0, 0, 10, 0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top" Foreground="#FFE6E6E6"/>
+                <lvc:CartesianChart Name="CalibrationGraph" Series="{Binding Data}" LegendLocation="Right" Margin="5" Loaded="CalibrationGraph_Loaded" Width="548" Height="269" >
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="[V]" FontSize="14" Foreground="White" Labels="{Binding ADCValues}">
 
-        </lvc:CartesianChart>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
 
-        <Label x:Name="title_label" Content="KALIBRERING" HorizontalAlignment="Left" Margin="251,14,0,0" VerticalAlignment="Top" FontSize="30" Foreground="White"/>
-        <Label x:Name="date_Label" Content="Dato" HorizontalAlignment="Left" Margin="596,0,0,47" VerticalAlignment="Bottom" FontSize="14"/>
-        <TextBox x:Name="Values_box" HorizontalAlignment="Left" Margin="599,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92" Height="24" FontSize="16"/>
-        <TextBlock x:Name="insertValues_box" HorizontalAlignment="Left" Margin="599,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" Foreground="Black" Text="Indtast tryk" FontSize="16"/>
-        <Button x:Name="calibrateButton" Content="Kalibrer" HorizontalAlignment="Left" Margin="596,217,0,0" VerticalAlignment="Top" Height="25" Width="92" FontSize="16" Click="calibrateButton_Click"/>
-        <Button x:Name="logOffButton" Content="Log af" HorizontalAlignment="Left" Margin="596,292,0,0" VerticalAlignment="Top" Width="92" FontSize="16" Click="LogOffButton_Click"/>
-        <TextBlock x:Name="Fejlmeddelese_Box" HorizontalAlignment="Left" Margin="586,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Foreground="#FFD11919" Width="166"/>
-        <TextBlock x:Name="insertValues_Box" HorizontalAlignment="Left" Margin="567,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="184" FontSize="13"/>
-        <TextBlock x:Name="Regression_Box" HorizontalAlignment="Left" Margin="26,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
-        <TextBlock x:Name="Date_Box" HorizontalAlignment="Left" Margin="646,342,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="116" Height="32"/>
-    </Grid>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Tryk[mmHg]" FontSize="14" Foreground="White">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator Step="50"/>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+
+                    <lvc:CartesianChart.ChartLegend>
+                        <lvc:DefaultLegend Foreground="White"/>
+                    </lvc:CartesianChart.ChartLegend>
+
+                </lvc:CartesianChart>
+
+            </StackPanel>
+
+            <Grid Margin="5,357,0,0" Grid.RowSpan="2">
+                <TextBlock x:Name="Date_Box" Margin="0,64,10,10" Foreground="White" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="160" TextAlignment="Right"/>
+                <TextBox x:Name="battery_txtbox" Text="Batteristatus" HorizontalAlignment="Left" Margin="41,24,0,0" VerticalAlignment="Top" Foreground="Black" Height="37" Width="99"/>
+            </Grid>
+
+
+
+
+
+
+
+
+
+        </Grid>
+    </Border>
 </Window>

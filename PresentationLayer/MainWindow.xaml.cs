@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using DataAccessLayer;
 using DTO_BloodPressureData;
-using System.Windows.Media.Animation;
+
 
 namespace PresentationLayer
 {
@@ -157,10 +157,10 @@ namespace PresentationLayer
         {
             _calibrateW = new CalibrateWindow();
 
-            this.Hide();                                                                        //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            this.Close();                                                                        //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
 
-            if (LoginOk == true)
+            if (LoginOk)
             {
                 _calibrateW.ShowDialog(); //Hvis Login er ok, fuldføres login, og vi til kalibreringsvindue
             }
@@ -192,39 +192,44 @@ namespace PresentationLayer
         }
 
         //Nedenstående kode får alarmen til at blinke
-        public void Alarmblink(int length, double repetition)
-        {
-            DoubleAnimation opacityAlarm = new DoubleAnimation()
-            {
-                From = 0.0,
-                To = 1.0,
-                Duration = new Duration(TimeSpan.FromMilliseconds(length)),
-                AutoReverse = true,
-                RepeatBehavior = new RepeatBehavior(repetition)
-            };
-            Storyboard storyboard = new Storyboard();
-            storyboard.Children.Add(opacityAlarm);
-            Storyboard.SetTarget(opacityAlarm, alarm);
-            Storyboard.SetTargetProperty(opacityAlarm, new PropertyPath("Opacity"));
-            storyboard.Begin(alarm);
-        }
+        //public void Alarmblink(int length, double repetition)
+        //{
+        //    DoubleAnimation opacityAlarm = new DoubleAnimation()
+        //    {
+        //        From = 0.0,
+        //        To = 1.0,
+        //        Duration = new Duration(TimeSpan.FromMilliseconds(length)),
+        //        AutoReverse = true,
+        //        RepeatBehavior = new RepeatBehavior(repetition)
+        //    };
+        //    Storyboard storyboard = new Storyboard();
+        //    storyboard.Children.Add(opacityAlarm);
+        //    Storyboard.SetTarget(opacityAlarm, alarm);
+        //    Storyboard.SetTargetProperty(opacityAlarm, new PropertyPath("Opacity"));
+        //    storyboard.Begin(alarm);
+        //}
 
-        public void AlarmSound()
-        {
-            SoundPlayer alarm = new SoundPlayer("alarm1.wav");
-            alarm.PlayLooping();
+        // Ovenstående alarmmetode er sat ind i Alarm klassen i buisness laget ved at lave en constructor
+        // i alarmklassen med en ellipse (WPF objecktet som bruges til alarmen) https://stackoverflow.com/questions/6114277/how-to-access-wpf-mainwindows-controls-from-another-class-in-the-same-namespace/11747955
+        
+        //public void AlarmSound()
+        //{
+        //    SoundPlayer alarm = new SoundPlayer("alarm1.wav");
+        //    alarm.PlayLooping();
             
-        }
+        //} Alarmsound er også flyttet i Alarmklassen
 
+        
         public void Alarm(double sys)
         {
+            Alarm a = new Alarm(alarm);
             Dispatcher.Invoke(() =>
                 {
                     if (sys >= 10)
                     {
                         alarm.Visibility = Visibility.Visible;
-                        Alarmblink(100, 5);
-                        AlarmSound();
+                        a.Alarmblink(100, 5);
+                        a.AlarmSound();
                     }
                 }
             );
