@@ -12,7 +12,7 @@ using Microsoft.Identity.Client;
 
 namespace PresentationLayer
 {
-    class DisplayObserver : IBloodPressureObserver
+    public class DisplayObserver : IBloodPressureObserver
     {
         //Klassen observerer på subject i BLL og implementerer interfacet IbloodpressureObserver
             
