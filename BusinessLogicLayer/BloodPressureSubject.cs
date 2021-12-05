@@ -11,11 +11,13 @@ namespace BusinessLogicLayer
         private readonly List<BloodPressureData> dtoList;
         public int counter { get; private set; }
         
+        
 
         public BloodPressureSubject()
         {
             dtoList = new List<BloodPressureData>();
             counter = 9;
+            
 
         }
 

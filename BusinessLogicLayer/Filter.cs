@@ -15,8 +15,9 @@ namespace BusinessLogicLayer
         private BloodPressureSubject _bp;
         private Smoothing smooth;
         private BloodPressureData lokalBp;
-        
-        
+      
+
+
 
         public Filter(BloodPressureSubject bp)
         {
@@ -30,7 +31,7 @@ namespace BusinessLogicLayer
         public void Update() //metoden skal retunere en DTO med gennemsnit over 10 første samples, som displayObserveren skal opdatere guien med
         {
             lokalBp = smooth.smoothGraph(_bp.GetNewestDTO());
-
+            
 
             Notify();
 

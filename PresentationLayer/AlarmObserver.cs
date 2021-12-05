@@ -46,7 +46,7 @@ namespace PresentationLayer
             bp = _filter.getSmoothDTO();
 
 
-            mw.Alarm(bp.Værdi);
+            //mw.Alarm(bp.Værdi);
 
 
             //for (int i = 6; i < 6; i++)
