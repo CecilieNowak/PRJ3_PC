@@ -31,18 +31,12 @@ namespace PresentationLayer
 
         public void randomDTO()
         {
-            BloodPressureData dto = new BloodPressureData();
+            
             while (true)
             {
-                dto.Værdi = 50;
-                dto.Diastolic = random.Next(0, 100);
-                if (dto.Diastolic > 50 && dto.Diastolic < 55)
-                {
-                    dto.Værdi = 90;
-                }
-
-                dto.Systolic = random.Next(0, 100);
-                dto.Pulse = random.Next(0, 100);
+                BloodPressureData dto = new BloodPressureData();
+                dto.Værdi = random.Next(1000,10000);
+                
                 _bp.NewDataRecieved(dto);
 
               

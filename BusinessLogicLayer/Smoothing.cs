@@ -7,7 +7,7 @@ using DTO_BloodPressureData;
 
 namespace BusinessLogicLayer
 {
-    class Smoothing
+    public class Smoothing
     {
         //private readonly List<BloodPressureData> localDTOList;
         //private readonly List<BloodPressureData> returnList;

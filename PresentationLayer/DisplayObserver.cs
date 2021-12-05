@@ -49,7 +49,8 @@ namespace PresentationLayer
 
 
             //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
-            mw.UpdatePulseTextBox(Convert.ToString(bp.Systolic));
+            mw.UpdatePulseTextBox(Convert.ToString(Convert.ToInt32(bp.Værdi)));
+            mw.UpdateDiaSysTextbox(bp.Systolic, bp.Diastolic);
         }
 
 

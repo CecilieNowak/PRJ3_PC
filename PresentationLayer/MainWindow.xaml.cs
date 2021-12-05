@@ -46,13 +46,13 @@ namespace PresentationLayer
             XValues = new ChartValues<int>();
             DataContext = this;
 
-            BloodPressureSubject subject = new BloodPressureSubject();
+            
 
             //Gammel DisplayObserver - Må ikke slettes!
 
             //DisplayObserver observer = new DisplayObserver(subject, this);
 
-            Filter filter = new Filter(subject);
+            Filter filter = new Filter(_subject);
             DisplayObserver display = new DisplayObserver(filter, this);
 
             AlarmObserver aObserver = new AlarmObserver(filter, this);
@@ -98,7 +98,7 @@ namespace PresentationLayer
             //t5.Start();
 
             //Test
-            FilterTest filterTest = new FilterTest(this, subject);
+            FilterTest filterTest = new FilterTest(this, _subject);
             Thread t6 = new Thread(filterTest.randomDTO);
             t6.Start();
 
@@ -189,6 +189,16 @@ namespace PresentationLayer
                 Puls_value_box.Text = text;
             }
                 );
+        }
+
+        public void UpdateDiaSysTextbox(double sys, double dia)
+        {
+            //Fra stackoverflow - metoden opdaterer sysDia textbox
+            Dispatcher.Invoke(() =>
+                {
+                    BP_value_box.Text = Convert.ToString(Convert.ToInt16(sys)) + "/" + Convert.ToString(Convert.ToInt16(dia));
+                }
+            );
         }
 
         //Nedenstående kode får alarmen til at blinke
