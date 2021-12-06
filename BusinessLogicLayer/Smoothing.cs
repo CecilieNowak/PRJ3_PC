@@ -7,7 +7,7 @@ using DTO_BloodPressureData;
 
 namespace BusinessLogicLayer
 {
-    class Smoothing
+    public class Smoothing
     {
         //private readonly List<BloodPressureData> localDTOList;
         //private readonly List<BloodPressureData> returnList;
@@ -26,17 +26,21 @@ namespace BusinessLogicLayer
 
             foreach (var dto in bp)
             {
-                sum += dto.Værdi;
+                sum += dto.Værdi;           //SKAL være værdi!!
             }
 
-            double average = sum / 10;
+            double average = sum / bp.Count;
+            BloodPressureData newBP = new BloodPressureData();
 
-            BloodPressureData newBP = new BloodPressureData
+            if (!double.IsNaN(average))
             {
-                Værdi = Convert.ToInt32(average)
-            };
-        
-                return newBP;
+
+                
+                    newBP.Værdi = Convert.ToInt32(average); //SKAL være værdi!!
+                
+            }
+
+            return newBP;
 
 
 

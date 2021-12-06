@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Column="1" Grid.Row="1" Background="#FFD0E4FF">
                 <Label x:Name="bp_LB" Content="BLODTRYK" Height="28" Width="80" Margin="5" HorizontalAlignment="Center" FontSize="15" FontFamily="Segoe UI"/>
-                <TextBox x:Name="BP_value_box" Height="80" Width="150" Background="White" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="BP_value_box_TextChanged"/>
+                <TextBox x:Name="BP_value_box" Height="80" Width="150" Background="White" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="BP_value_box_TextChanged" FontSize="48"/>
                 <Label x:Name="puls_LB" Content="PULS" Height="28" Width="50" HorizontalAlignment="Center" FontSize="15"/>
                 <TextBox x:Name="Puls_value_box" TextWrapping="Wrap" VerticalAlignment="Top" Height ="80" Width="150" Margin="5" TextChanged="Puls_value_box_TextChanged" Text="100" FontSize="48" HorizontalAlignment="Stretch" TextAlignment="Center"/>
                 <Button x:Name="SaveData_button" Content="Gem måling" Height="35" Width="150" Margin ="10" VerticalAlignment="Top" FontSize="16" BorderBrush="{x:Null}" Background="#FFE6FBFE" Click="SaveData_button_Click"/>
@@ -34,8 +34,29 @@
                 <Label Content="BLODTRYKSMÅLER" Height="40" Width="220" Foreground="White" FontSize="25" />
                 <lvc:CartesianChart Name="BloodPressureGraph" Height="389" Width="700">
                     <lvc:CartesianChart.Series>
+                        
+
                         <lvc:LineSeries Name="Line1" Title="Testdata" Values="{Binding YValues}" ></lvc:LineSeries>
                     </lvc:CartesianChart.Series>
+
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="[mmHg]" FontSize="14" Foreground="White" MaxValue="250" MinValue="0">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator StrokeThickness="0" />
+
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="[s]" FontSize="14" Foreground="Black" >
+                            <lvc:Axis.Separator>
+                                <lvc:Separator Step="30" />
+
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+
                 </lvc:CartesianChart>
                 <Grid Height="135">
                     <Label Content="CPR-NR" Foreground="White" FontSize="14" Margin="259,22,385,74"/>

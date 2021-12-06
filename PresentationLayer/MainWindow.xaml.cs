@@ -46,13 +46,13 @@ namespace PresentationLayer
             XValues = new ChartValues<int>();
             DataContext = this;
 
-            BloodPressureSubject subject = new BloodPressureSubject();
+            
 
             //Gammel DisplayObserver - Må ikke slettes!
 
             //DisplayObserver observer = new DisplayObserver(subject, this);
 
-            Filter filter = new Filter(subject);
+            Filter filter = new Filter(_subject);
             DisplayObserver display = new DisplayObserver(filter, this);
 
             AlarmObserver aObserver = new AlarmObserver(filter, this);
@@ -60,8 +60,8 @@ namespace PresentationLayer
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
-             // UDPListener udpListener = new UDPListener(dataQueue);
-           // UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+            // UDPListener udpListener = new UDPListener(dataQueue);
+            // UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
 
 
             // Må ikke slettes!!
@@ -75,23 +75,21 @@ namespace PresentationLayer
 
 
             //Test med simulator
-            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
-            UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
+            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+            //UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
 
-            UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue, senderSimulator);
-            ChartUpdate chartUpdate = new ChartUpdate(this);
-            Thread t2 = new Thread(listenerSimulator.StartListener);
-            Thread t3 = new Thread(udpConsumer.UpdateChart);
-            Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
-            Thread t4 = new Thread(chartUpdate.checkChart);
+            //UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue, senderSimulator);
+            //ChartUpdate chartUpdate = new ChartUpdate(this);
 
-            
-            t2.Start();
-            t1.Start();
-            
-            t3.Start();
-            
-            t4.Start();
+            //Thread t2 = new Thread(listenerSimulator.StartListener);
+            //Thread t3 = new Thread(udpConsumer.UpdateChart);
+            //Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
+            //Thread t4 = new Thread(chartUpdate.checkChart);
+
+            //t1.Start();
+            //t2.Start();
+            //t3.Start();
+            //t4.Start();
 
 
             //Test til alarm
@@ -99,6 +97,10 @@ namespace PresentationLayer
             //Thread t5 = new Thread(testtråd.updateChart);
             //t5.Start();
 
+            //Test
+            FilterTest filterTest = new FilterTest(this, _subject);
+            Thread t6 = new Thread(filterTest.randomDTO);
+            t6.Start();
 
         }
 
@@ -194,6 +196,16 @@ namespace PresentationLayer
                 );
         }
 
+        public void UpdateDiaSysTextbox(double sys, double dia)
+        {
+            //Fra stackoverflow - metoden opdaterer sysDia textbox
+            Dispatcher.Invoke(() =>
+                {
+                    BP_value_box.Text = Convert.ToString(Convert.ToInt16(sys)) + "/" + Convert.ToString(Convert.ToInt16(dia));
+                }
+            );
+        }
+
         //Nedenstående kode får alarmen til at blinke
         //public void Alarmblink(int length, double repetition)
         //{
@@ -231,9 +243,7 @@ namespace PresentationLayer
                     if (sys >= 10)
                     {
                         alarm.Visibility = Visibility.Visible;
-                        //Alarmblink(100, 5);
                         a.Alarmblink(100, 5);
-                        //AlarmSound();
                         a.AlarmSound();
                     }
                 }

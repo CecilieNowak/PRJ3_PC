@@ -55,7 +55,7 @@ namespace BusinessLogicLayer
             {
                 if (sys[i] > 1.3 * sys[i - 5] || sys[i] < 0.7 * sys[i - 5])
                 {
-                    alarm.PlayLooping();
+                   // alarm.PlayLooping();
 
                 }
 
