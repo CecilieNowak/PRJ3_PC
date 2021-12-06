@@ -8,10 +8,11 @@ namespace BusinessLogicLayer
     public class GetADCvalues
     {
         private readonly ReadADCValues adc;
+        private BloodPressureSubject _bloodPressureSubject;
 
-        public GetADCvalues()
+        public GetADCvalues(BloodPressureSubject bps)
         {
-            adc = new ReadADCValues();
+            _bloodPressureSubject = bps;
         }
         
         public double GetADCvaluesFromDataLayer()

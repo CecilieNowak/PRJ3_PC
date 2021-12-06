@@ -25,6 +25,7 @@ namespace PresentationLayer
         private readonly LoginWindow _loginW;
         public BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
+        private BloodPressureData batteryValue;
 
         public bool LoginOk { get; set; }
         //public String Username { get; set; }
@@ -46,7 +47,7 @@ namespace PresentationLayer
             XValues = new ChartValues<int>();
             DataContext = this;
 
-            
+            batteryValue = new BloodPressureData();
 
             //Gammel DisplayObserver - Må ikke slettes!
 
@@ -60,36 +61,19 @@ namespace PresentationLayer
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
-            // UDPListener udpListener = new UDPListener(dataQueue);
-            // UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+           
 
 
             // Må ikke slettes!!
 
 
             // Test med UDP-kommunikation
-            //UDPListener udpListener = new UDPListener(dataQueue);
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
-            // Thread t2 = new Thread(udpListener.StartListener);
-            //Thread t1 = new Thread(udpConsumer.UpdateChart);
-
-
-            //Test med simulator
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
-            //UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
-
-            //UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue, senderSimulator);
-            //ChartUpdate chartUpdate = new ChartUpdate(this);
-
-            //Thread t2 = new Thread(listenerSimulator.StartListener);
-            //Thread t3 = new Thread(udpConsumer.UpdateChart);
-            //Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
-            //Thread t4 = new Thread(chartUpdate.checkChart);
-
-            //t1.Start();
-            //t2.Start();
-            //t3.Start();
-            //t4.Start();
+            UDPListener udpListener = new UDPListener(dataQueue);
+            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
+            Thread t2 = new Thread(udpListener.StartListener);
+            Thread t3 = new Thread(udpConsumer.UpdateChart);
+            t2.Start();
+            t3.Start();
 
 
             //Test til alarm
@@ -97,10 +81,10 @@ namespace PresentationLayer
             //Thread t5 = new Thread(testtråd.updateChart);
             //t5.Start();
 
-            //Test
-            FilterTest filterTest = new FilterTest(this, _subject);
-            Thread t6 = new Thread(filterTest.randomDTO);
-            t6.Start();
+            //Test med filter
+            //FilterTest filterTest = new FilterTest(this, _subject);
+            //Thread t6 = new Thread(filterTest.randomDTO);
+            //t6.Start();
 
         }
 
@@ -254,6 +238,31 @@ namespace PresentationLayer
             );
         }
 
-        
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
+            alarm.Visibility = Visibility.Hidden;
+        }
+
+        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+
+
+            batteryValue.
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
     }
 }
