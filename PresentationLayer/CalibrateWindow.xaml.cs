@@ -21,7 +21,7 @@ namespace PresentationLayer
     /// </summary>
     public partial class CalibrateWindow : Window
     {
-        private readonly MainWindow _mainRef;                                                                                           //Reference til Main
+        //private readonly MainWindow _mainRef;                                                                                           //Reference til Main
         private GetADCvalues _getAdc;                                                                                                   //Attribut til at hente ADC value
                    
         private List<double> _pressureValuesList;                                                                                       //List til at gemme pressure values
@@ -35,7 +35,7 @@ namespace PresentationLayer
         public CalibrateWindow()
         {
             InitializeComponent();
-            _mainRef = new MainWindow();                                                                                                //Reference til Main (bruges til log af)
+            //_mainRef = new MainWindow();                                                                                                //Reference til Main (bruges til log af)
             _pressureValuesList = new List<double>();                                                                                   //Nyt objekt oprettes 
             _adcValuesList = new List<double>();                                                                                        //Nyt objekt oprettes 
             _values = new ChartValues<Point>();

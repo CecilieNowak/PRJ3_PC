@@ -35,7 +35,7 @@ namespace PresentationLayer
             if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text)) //Hvis indtastet login er korrekt, skjules loginvindue     
             {
                 _mainWRef.LoginOk = true;
-                _mainWRef.Username = Username_txtbox.Text;
+                //_mainWRef.Username = Username_txtbox.Text;
                 this.Hide();
             }
             else

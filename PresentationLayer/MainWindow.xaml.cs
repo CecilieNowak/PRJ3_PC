@@ -27,7 +27,7 @@ namespace PresentationLayer
         private CalibrateWindow _calibrateW;
 
         public bool LoginOk { get; set; }
-        public String Username { get; set; }
+        //public String Username { get; set; }
 
         public ChartValues<int> YValues { get; set; }   //YValues til puls graf
         public ChartValues<int> XValues { get; set; }   //XValues til puls graf
@@ -102,6 +102,11 @@ namespace PresentationLayer
 
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
+            alarm.Visibility = Visibility.Hidden;
+        }
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -155,7 +160,7 @@ namespace PresentationLayer
         {
             _calibrateW = new CalibrateWindow();
 
-            this.Close();                                                                        //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            this.Hide();             //SKAL MAIN LUKKES, FOR AT ALARM STOPPES?                                                            //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
 
             if (LoginOk)
@@ -226,17 +231,15 @@ namespace PresentationLayer
                     if (sys >= 10)
                     {
                         alarm.Visibility = Visibility.Visible;
-                        Alarmblink(100, 5);
-                        AlarmSound();
+                        //Alarmblink(100, 5);
+                        a.Alarmblink(100, 5);
+                        //AlarmSound();
+                        a.AlarmSound();
                     }
                 }
             );
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
-            alarm.Visibility = Visibility.Hidden;
-        }
+        
     }
 }

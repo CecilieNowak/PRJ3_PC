@@ -31,9 +31,7 @@
                 <TextBlock x:Name="Regression_Box" HorizontalAlignment="Right" Margin="0, 0, 10, 0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top" Foreground="#FFE6E6E6"/>
                 <lvc:CartesianChart Name="CalibrationGraph" Series="{Binding Data}" LegendLocation="Right" Margin="5" Loaded="CalibrationGraph_Loaded" Width="548" Height="269" >
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="[V]" FontSize="14" Foreground="White" Labels="{Binding ADCValues}">
-
-                        </lvc:Axis>
+                        <lvc:Axis Title="[V]" FontSize="14" Foreground="White"/>
                     </lvc:CartesianChart.AxisX>
 
                     <lvc:CartesianChart.AxisY>
@@ -47,7 +45,6 @@
                     <lvc:CartesianChart.ChartLegend>
                         <lvc:DefaultLegend Foreground="White"/>
                     </lvc:CartesianChart.ChartLegend>
-
                 </lvc:CartesianChart>
 
             </StackPanel>
@@ -56,15 +53,6 @@
                 <TextBlock x:Name="Date_Box" Margin="0,64,10,10" Foreground="White" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="160" TextAlignment="Right"/>
                 <TextBox x:Name="battery_txtbox" Text="Batteristatus" HorizontalAlignment="Left" Margin="41,24,0,0" VerticalAlignment="Top" Foreground="Black" Height="37" Width="99"/>
             </Grid>
-
-
-
-
-
-
-
-
-
         </Grid>
     </Border>
 </Window>
