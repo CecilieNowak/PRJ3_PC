@@ -25,6 +25,7 @@ namespace PresentationLayer
         private readonly LoginWindow _loginW;
         public BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
+        private BloodPressureData batteryValue;
 
         public bool LoginOk { get; set; }
         public String Username { get; set; }
@@ -46,7 +47,7 @@ namespace PresentationLayer
             XValues = new ChartValues<int>();
             DataContext = this;
 
-            
+            batteryValue = new BloodPressureData();
 
             //Gammel DisplayObserver - Må ikke slettes!
 
@@ -249,6 +250,27 @@ namespace PresentationLayer
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
             alarm.Visibility = Visibility.Hidden;
+        }
+
+        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+
+
+            batteryValue.
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }
