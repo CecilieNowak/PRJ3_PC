@@ -27,15 +27,17 @@ namespace PresentationLayer
         private List<double> _pressureValuesList;                                                                                       //List til at gemme pressure values
         private List<int> pressureValue;                                                                                                //Liste med de trykværdier, trykkammeret skal indstilles til
         private List<double> _adcValuesList;                                                                                            //List til at gemme ADC values 
-        private readonly ChartValues<Point> _values;             
+        private readonly ChartValues<Point> _values;
+       
 
         public SeriesCollection Data { get; set; }                                                                                      //Pressure input and ADC value skal sættes i denne property
         public string PressureInput { get; set; }                                                                                       //Den indtastede trykværdi sættes i denne property
 
-        public CalibrateWindow()
+        public CalibrateWindow(MainWindow mwMainRef)
         {
             InitializeComponent();
-            //_mainRef = new MainWindow();                                                                                                //Reference til Main (bruges til log af)
+            _mainRef = mwMainRef;
+                                                                                                        //Reference til Main (bruges til log af)
             _pressureValuesList = new List<double>();                                                                                   //Nyt objekt oprettes 
             _adcValuesList = new List<double>();                                                                                        //Nyt objekt oprettes 
             _values = new ChartValues<Point>();
@@ -45,7 +47,7 @@ namespace PresentationLayer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Values_box.Focus();                                                                                                         //Kurser er i tekstboks, når vinduet åbner
-            _getAdc = new GetADCvalues();                                                                                               //Nyt objekt 
+            _getAdc = new GetADCvalues(_mainRef._filter, _mainRef._subject);                                                                                               //Nyt objekt 
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";                                                                          //Når vinduet åbner, udskrives denne streng
             Date_Box.Text = DateTime.Now.ToString("dd/MM/yyyy");
             calibrateButton.IsEnabled = true;

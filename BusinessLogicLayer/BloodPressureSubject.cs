@@ -38,7 +38,8 @@ namespace BusinessLogicLayer
                 
                 foreach (var dto in dtoList)
                 {
-                   lokal.Add(dto);
+                   
+                    lokal.Add(dto);
                 }
 
                 dtoList.RemoveRange(0, 10);

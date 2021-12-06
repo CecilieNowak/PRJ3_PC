@@ -25,7 +25,7 @@ namespace PresentationLayer
         private readonly LoginWindow _loginW;
         public BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
-        private BloodPressureData batteryValue;
+        public Filter _filter;
 
         public bool LoginOk { get; set; }
         //public String Username { get; set; }
@@ -46,17 +46,11 @@ namespace PresentationLayer
             YValues = new ChartValues<int>();
             XValues = new ChartValues<int>();
             DataContext = this;
+            
+            _filter = new Filter(_subject);
+            DisplayObserver display = new DisplayObserver(_filter, this);
 
-            batteryValue = new BloodPressureData();
-
-            //Gammel DisplayObserver - Må ikke slettes!
-
-            //DisplayObserver observer = new DisplayObserver(subject, this);
-
-            Filter filter = new Filter(_subject);
-            DisplayObserver display = new DisplayObserver(filter, this);
-
-            AlarmObserver aObserver = new AlarmObserver(filter, this);
+            AlarmObserver aObserver = new AlarmObserver(_filter, this);
 
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
@@ -148,7 +142,7 @@ namespace PresentationLayer
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
-            _calibrateW = new CalibrateWindow();
+            _calibrateW = new CalibrateWindow(this);
 
             this.Hide();             //SKAL MAIN LUKKES, FOR AT ALARM STOPPES?                                                            //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
