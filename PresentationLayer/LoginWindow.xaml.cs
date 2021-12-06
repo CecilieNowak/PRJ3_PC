@@ -18,8 +18,8 @@ namespace PresentationLayer
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private MainWindow _mainWRef;
-        private CheckLogin _logicRef;
+        private readonly MainWindow _mainWRef;
+        private readonly CheckLogin _logicRef;
 
 
         public LoginWindow(MainWindow mainW, CheckLogin logicRef)
@@ -31,8 +31,8 @@ namespace PresentationLayer
 
         private void LogIn_button_Click(object sender, RoutedEventArgs e)
         {
-            if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text) ==
-                true) //Hvis indtastet login er korrekt, skjules loginvindue     
+
+            if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text)) //Hvis indtastet login er korrekt, skjules loginvindue     
             {
                 _mainWRef.LoginOk = true;
                 _mainWRef.Username = Username_txtbox.Text;
@@ -46,8 +46,6 @@ namespace PresentationLayer
                 Username_txtbox.Focus();
             }
         }
-
-
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -56,9 +54,7 @@ namespace PresentationLayer
 
         private void Password_txtbox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (
-                e.Key == Key
-                    .Enter) //Når adgangskode er indtastet, kan der logges ind ved at trykke Enter                                             
+            if (e.Key == Key.Enter) //Når adgangskode er indtastet, kan der logges ind ved at trykke Enter                                             
             {
                 LogIn_button_Click(this, new RoutedEventArgs());
             }

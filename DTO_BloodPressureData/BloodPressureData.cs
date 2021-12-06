@@ -11,6 +11,9 @@ namespace DTO_BloodPressureData
         public double Diastolic { get; set; }
         public int Pulse { get; set; }
 
+        public double Avg { get; set; }
+        public int Værdi { get; set; }
+
         public BloodPressureData()
         {
 
@@ -22,6 +25,5 @@ namespace DTO_BloodPressureData
             Diastolic = diastolic;
             Pulse = pulse;
         }
-
     }
 }
