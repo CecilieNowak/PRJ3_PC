@@ -45,13 +45,7 @@ namespace PresentationLayer
             YValues = new ChartValues<int>();
             XValues = new ChartValues<int>();
             DataContext = this;
-
             
-
-            //Gammel DisplayObserver - Må ikke slettes!
-
-            //DisplayObserver observer = new DisplayObserver(subject, this);
-
             Filter filter = new Filter(_subject);
             DisplayObserver display = new DisplayObserver(filter, this);
 
@@ -60,36 +54,19 @@ namespace PresentationLayer
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
-            // UDPListener udpListener = new UDPListener(dataQueue);
-            // UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+           
 
 
             // Må ikke slettes!!
 
 
             // Test med UDP-kommunikation
-            //UDPListener udpListener = new UDPListener(dataQueue);
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
-            // Thread t2 = new Thread(udpListener.StartListener);
-            //Thread t1 = new Thread(udpConsumer.UpdateChart);
-
-
-            //Test med simulator
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
-            //UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
-
-            //UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue, senderSimulator);
-            //ChartUpdate chartUpdate = new ChartUpdate(this);
-
-            //Thread t2 = new Thread(listenerSimulator.StartListener);
-            //Thread t3 = new Thread(udpConsumer.UpdateChart);
-            //Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
-            //Thread t4 = new Thread(chartUpdate.checkChart);
-
-            //t1.Start();
-            //t2.Start();
-            //t3.Start();
-            //t4.Start();
+            UDPListener udpListener = new UDPListener(dataQueue);
+            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
+            Thread t2 = new Thread(udpListener.StartListener);
+            Thread t3 = new Thread(udpConsumer.UpdateChart);
+            t2.Start();
+            t3.Start();
 
 
             //Test til alarm
@@ -97,10 +74,10 @@ namespace PresentationLayer
             //Thread t5 = new Thread(testtråd.updateChart);
             //t5.Start();
 
-            //Test
-            FilterTest filterTest = new FilterTest(this, _subject);
-            Thread t6 = new Thread(filterTest.randomDTO);
-            t6.Start();
+            //Test med filter
+            //FilterTest filterTest = new FilterTest(this, _subject);
+            //Thread t6 = new Thread(filterTest.randomDTO);
+            //t6.Start();
 
         }
 
