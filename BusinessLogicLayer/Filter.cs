@@ -17,7 +17,6 @@ namespace BusinessLogicLayer
         private BloodPressureData lokalBp;
         private CalcBP calcBp;
         private List<BloodPressureData> lokalList;
-        private int adcConverter = 500;
 
 
 
@@ -37,12 +36,12 @@ namespace BusinessLogicLayer
         {
             lokalList = _bp.GetNewestDTO();                         //Henter seneste 10 DTO'er
             lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er
-            lokalBp.Værdi = lokalBp.Værdi; /// adcConverter;                    //Omregning til VOLT fra ADC(????)
+            lokalBp.Værdi = lokalBp.Værdi;
 
             //Kalibrering
 
-            lokalBp.Systolic = calcBp.CalcSys(lokalList); /// adcConverter; //Calc sys
-            lokalBp.Diastolic = calcBp.CalcDia(lokalList); /// adcConverter; //calc dia
+            lokalBp.Systolic = calcBp.CalcSys(lokalList);
+            lokalBp.Diastolic = calcBp.CalcDia(lokalList); 
             //Log data
 
             Notify();
