@@ -13,7 +13,7 @@ namespace Main
         static void Main(string[] args)
         {
             //CalcBP calc = new CalcBP();
-            TestIO test = new TestIO();
+            SaveDataToTxtfile test = new SaveDataToTxtfile();
             //data.CalcSys();
             //data.CalcDia();
 

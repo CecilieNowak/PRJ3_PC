@@ -27,7 +27,7 @@ namespace PresentationLayer
         private CalibrateWindow _calibrateW;
 
         public bool LoginOk { get; set; }
-        public String Username { get; set; }
+        //public String Username { get; set; }
 
         public ChartValues<int> YValues { get; set; }   //YValues til puls graf
         public ChartValues<int> XValues { get; set; }   //XValues til puls graf
@@ -157,7 +157,7 @@ namespace PresentationLayer
         {
             _calibrateW = new CalibrateWindow();
 
-            this.Close();                                                                        //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            this.Hide();                                                                        //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
 
             if (LoginOk)
