@@ -37,10 +37,13 @@ namespace BusinessLogicLayer
         {
             lokalList = _bp.GetNewestDTO();                         //Henter seneste 10 DTO'er
             lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er
-            lokalBp.Værdi = lokalBp.Værdi / adcConverter;                    //Omregning til VOLT fra ADC(????)
+            lokalBp.Værdi = lokalBp.Værdi; /// adcConverter;                    //Omregning til VOLT fra ADC(????)
+
             //Kalibrering
-            lokalBp.Systolic = calcBp.CalcSys(lokalList) / adcConverter; //Calc sys
-            lokalBp.Diastolic = calcBp.CalcDia(lokalList) / adcConverter; //calc dia
+
+            lokalBp.Systolic = calcBp.CalcSys(lokalList); /// adcConverter; //Calc sys
+            lokalBp.Diastolic = calcBp.CalcDia(lokalList); /// adcConverter; //calc dia
+            //Log data
 
             Notify();
 
