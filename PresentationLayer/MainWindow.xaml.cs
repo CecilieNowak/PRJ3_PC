@@ -238,18 +238,12 @@ namespace PresentationLayer
             );
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
-            alarm.Visibility = Visibility.Hidden;
-        }
-
+      
         private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
 
 
 
-            batteryValue.
 
 
 

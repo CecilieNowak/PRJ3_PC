@@ -36,7 +36,8 @@
                     <lvc:CartesianChart.Series>
 
 
-                        <lvc:LineSeries Name="Line1" Title="Testdata" Values="{Binding YValues}" ></lvc:LineSeries>
+                        <lvc:LineSeries Name="Line1" Title="Testdata" Values="{Binding YValues}" >
+                        </lvc:LineSeries>
                     </lvc:CartesianChart.Series>
 
                     <lvc:CartesianChart.AxisY>
@@ -49,7 +50,7 @@
                     </lvc:CartesianChart.AxisY>
 
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="[s]" FontSize="14" Foreground="Black" >
+                        <lvc:Axis Title="[s]" FontSize="14" Foreground="White" >
                             <lvc:Axis.Separator>
                                 <lvc:Separator Step="30" />
 

@@ -31,7 +31,7 @@
                 <TextBlock x:Name="Regression_Box" HorizontalAlignment="Right" Margin="0, 0, 10, 0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top" Foreground="#FFE6E6E6"/>
                 <lvc:CartesianChart Name="CalibrationGraph" Series="{Binding Data}" LegendLocation="Right" Margin="5" Loaded="CalibrationGraph_Loaded" Width="548" Height="269" >
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="[V]" FontSize="14" Foreground="White"/>
+                        <lvc:Axis Title="ADC" FontSize="14" Foreground="White"/>
                     </lvc:CartesianChart.AxisX>
 
                     <lvc:CartesianChart.AxisY>
