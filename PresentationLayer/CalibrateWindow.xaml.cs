@@ -48,6 +48,7 @@ namespace PresentationLayer
         {
             Values_box.Focus();                                                                                                         //Kurser er i tekstboks, når vinduet åbner
             _getAdc = new GetADCvalues(_mainRef._filter, _mainRef._subject);                                                                                               //Nyt objekt 
+            //_getAdc = new GetADCvalues(); //Til kalibreringstest med random værdier
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";                                                                          //Når vinduet åbner, udskrives denne streng
             Date_Box.Text = DateTime.Now.ToString("dd/MM/yyyy");
             calibrateButton.IsEnabled = true;

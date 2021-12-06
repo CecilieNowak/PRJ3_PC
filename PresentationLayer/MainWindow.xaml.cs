@@ -26,6 +26,7 @@ namespace PresentationLayer
         public BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
         public Filter _filter;
+        private SendToDatabase send;
 
         public bool LoginOk { get; set; }
        // public String Username { get; set; }
@@ -47,6 +48,8 @@ namespace PresentationLayer
             YValues = new ChartValues<int>();
             XValues = new ChartValues<int>();
             DataContext = this;
+
+            send = new SendToDatabase();
             
             _filter = new Filter(_subject);
             DisplayObserver display = new DisplayObserver(_filter, this);
@@ -87,16 +90,6 @@ namespace PresentationLayer
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
             alarm.Visibility = Visibility.Hidden;
-
-        }
-        private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void Puls_value_box_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private bool CheckSocSecNb(string number)
@@ -123,8 +116,6 @@ namespace PresentationLayer
 
         private void SaveData_button_Click(object sender, RoutedEventArgs e)
         {
-            SendToDatabase send = new SendToDatabase();
-
             string socSecNb = CPR_txtbox.Text;
 
             if (CheckSocSecNb(socSecNb) == true) //Hvis det intastede CPR i tekstboksen er gyldig sker følgende:

@@ -2,12 +2,17 @@
 using Microsoft.Data.SqlClient;
 using System;
 using System.Linq;
+using System.Windows.Documents;
+using System.Collections.Generic;
+using System.Windows;
+using DTO_BloodPressureData;
 
 namespace BusinessLogicLayer
 {
     public class SendToDatabase
     {
         private SqlCommand _command;
+        private SqlDataReader _reader;
 
         private SqlConnection _Connection
         {
