@@ -30,10 +30,9 @@ namespace BusinessLogicLayer
 
                 var container = _dataQueue.Take();
 
-                lock(myLock)
-                {
+              
                     _bps.NewDataRecieved(container);
-                }
+                
                 Thread.Sleep(100);
                 
             }

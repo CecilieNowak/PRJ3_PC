@@ -25,6 +25,7 @@ namespace PresentationLayer
         private readonly LoginWindow _loginW;
         public BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
+        public Filter _filter;
 
         public bool LoginOk { get; set; }
         //public String Username { get; set; }
@@ -45,51 +46,28 @@ namespace PresentationLayer
             YValues = new ChartValues<int>();
             XValues = new ChartValues<int>();
             DataContext = this;
-
             
+            _filter = new Filter(_subject);
+            DisplayObserver display = new DisplayObserver(_filter, this);
 
-            //Gammel DisplayObserver - Må ikke slettes!
-
-            //DisplayObserver observer = new DisplayObserver(subject, this);
-
-            Filter filter = new Filter(_subject);
-            DisplayObserver display = new DisplayObserver(filter, this);
-
-            AlarmObserver aObserver = new AlarmObserver(filter, this);
+            AlarmObserver aObserver = new AlarmObserver(_filter, this);
 
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
-            // UDPListener udpListener = new UDPListener(dataQueue);
-            // UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
+           
 
 
             // Må ikke slettes!!
 
 
             // Test med UDP-kommunikation
-            //UDPListener udpListener = new UDPListener(dataQueue);
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
-            // Thread t2 = new Thread(udpListener.StartListener);
-            //Thread t1 = new Thread(udpConsumer.UpdateChart);
-
-
-            //Test med simulator
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, subject);
-            //UDP_Sender_Simulator senderSimulator = new UDP_Sender_Simulator();
-
-            //UDPListener_Simulator listenerSimulator = new UDPListener_Simulator(dataQueue, senderSimulator);
-            //ChartUpdate chartUpdate = new ChartUpdate(this);
-
-            //Thread t2 = new Thread(listenerSimulator.StartListener);
-            //Thread t3 = new Thread(udpConsumer.UpdateChart);
-            //Thread t1 = new Thread(senderSimulator.genererBlodtryksDTOer);
-            //Thread t4 = new Thread(chartUpdate.checkChart);
-
-            //t1.Start();
-            //t2.Start();
-            //t3.Start();
-            //t4.Start();
+            UDPListener udpListener = new UDPListener(dataQueue);
+            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
+            Thread t2 = new Thread(udpListener.StartListener);
+            Thread t3 = new Thread(udpConsumer.UpdateChart);
+            t2.Start();
+            t3.Start();
 
 
             //Test til alarm
@@ -97,13 +75,19 @@ namespace PresentationLayer
             //Thread t5 = new Thread(testtråd.updateChart);
             //t5.Start();
 
-            //Test
-            FilterTest filterTest = new FilterTest(this, _subject);
-            Thread t6 = new Thread(filterTest.randomDTO);
-            t6.Start();
+            //Test med filter
+            //FilterTest filterTest = new FilterTest(this, _subject);
+            //Thread t6 = new Thread(filterTest.randomDTO);
+            //t6.Start();
 
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
+            alarm.Visibility = Visibility.Hidden;
+
+        }
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -114,19 +98,23 @@ namespace PresentationLayer
 
         }
 
-        private bool checkCPR(string number)
+        private bool CheckSocSecNb(string number)
         {
             int[] integer = new int[10];
 
-            if (number.Length != 10)                                    // Hvis antal cifre er forkert returnes false
+            if (number.Length != 10) // Hvis antal cifre er forkert returnes false
                 return false;
 
             for (int index = 0; index < 10; index++)
             {
-                if (number[index] < '0' || '9' < number[index])         // Hvis karakteren på plads index i den modtagne streng ikke er et tal returnes false
+                if (number[index] < '0' ||
+                    '9' < number[
+                        index]) // Hvis karakteren på plads index i den modtagne streng ikke er et tal returnes false
                     return false;
 
-                integer[index] = Convert.ToInt16(number[index]) - 48;       // Karakteren på plads index konverteres til den tilhørende integer - eksempel '6' konverteres til 6
+                integer[index] =
+                    Convert.ToInt16(number[index]) -
+                    48; // Karakteren på plads index konverteres til den tilhørende integer - eksempel '6' konverteres til 6
             }
 
             return true;
@@ -135,11 +123,10 @@ namespace PresentationLayer
         private void SaveData_button_Click(object sender, RoutedEventArgs e)
         {
             SendToDatabase send = new SendToDatabase();
-            string socSecNb = CPR_txtbox.Text;
-            //alarm.Visibility = Visibility.Visible;
-            //Alarmblink(100, 5);
 
-            if (checkCPR(socSecNb) == true) //Hvis det intastede CPR i tekstboksen er gyldig sker følgende:
+            string socSecNb = CPR_txtbox.Text;
+
+            if (CheckSocSecNb(socSecNb) == true) //Hvis det intastede CPR i tekstboksen er gyldig sker følgende:
             {
                 send.SendData(socSecNb);
                 dataSaved_Box.Text = "Data er sendt";
@@ -150,14 +137,14 @@ namespace PresentationLayer
                 dataSaved_Box.Text =
                     "Data kunne ikke sendes"; //Hvis det intastede CPR i tekstboksen er ugyldig sker følgende:
             }
-            
+
         }
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
-            _calibrateW = new CalibrateWindow();
+            _calibrateW = new CalibrateWindow(this);
 
-            this.Hide();                                                                        //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            this.Hide();             //SKAL MAIN LUKKES, FOR AT ALARM STOPPES?                                                            //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
 
             if (LoginOk)
@@ -245,10 +232,25 @@ namespace PresentationLayer
             );
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+      
+        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
-            alarm.Visibility = Visibility.Hidden;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }
