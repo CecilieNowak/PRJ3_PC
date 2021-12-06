@@ -13,7 +13,12 @@ namespace DataAccessLayer
         private FileStream input;
         private StreamReader reader;
 
-        public bool IsUserRegistered(string username, string password)
+        public ReadRegisteredUsers()
+        {
+
+        }
+
+        public bool IsUserRegistered(String socSecNb, String pw)
         {
             bool result = false;
 
@@ -32,7 +37,7 @@ namespace DataAccessLayer
                 inputFields = inputRecord.Split(';');
 
 
-                if (inputFields[0] == username && inputFields[1] == password)
+                if (inputFields[0] == socSecNb && inputFields[1] == pw)
                 {
                     result = true;
 

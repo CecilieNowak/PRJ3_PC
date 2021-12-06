@@ -31,20 +31,20 @@ namespace PresentationLayer
 
         private void LogIn_button_Click(object sender, RoutedEventArgs e)
         {
-
-            if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text)) //Hvis indtastet login er korrekt, skjules loginvindue     
+            if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text) == true)
             {
                 _mainWRef.LoginOk = true;
-                //_mainWRef.Username = Username_txtbox.Text;
-                this.Hide();
+                //mainWRef.SocSecNb = usernameTB.Text;
+                this.Close();
             }
             else
             {
                 fejlmeddelelse_Box.Text = "Fejl i brugernavn eller adgangskode";
                 Username_txtbox.Text = "";
-                Password_txtbox.Text = "";
+                Username_txtbox.Text = "";
                 Username_txtbox.Focus();
             }
+
         }
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {

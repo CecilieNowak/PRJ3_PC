@@ -28,7 +28,8 @@ namespace PresentationLayer
         public Filter _filter;
 
         public bool LoginOk { get; set; }
-        //public String Username { get; set; }
+       // public String Username { get; set; }
+        public String Password { get; set; }
 
         public ChartValues<int> YValues { get; set; }   //YValues til puls graf
         public ChartValues<int> XValues { get; set; }   //XValues til puls graf
