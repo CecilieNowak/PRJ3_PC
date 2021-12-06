@@ -21,7 +21,7 @@ namespace PresentationLayer
     /// </summary>
     public partial class CalibrateWindow : Window
     {
-        //private readonly MainWindow _mainRef;                                                                                           //Reference til Main
+        private readonly MainWindow _mainRef;                                                                                           //Reference til Main
         private GetADCvalues _getAdc;                                                                                                   //Attribut til at hente ADC value
                    
         private List<double> _pressureValuesList;                                                                                       //List til at gemme pressure values
