@@ -8,7 +8,7 @@ using DTO_BloodPressureData;
 
 namespace DataAccessLayer
 {
-    public class TestIO
+    public class SaveDataToTxtfile
     {
         string text;
         string text1;
