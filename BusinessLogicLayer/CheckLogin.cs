@@ -13,12 +13,12 @@ namespace BusinessLogicLayer
 
         public CheckLogin()
         {
-            _dataObject = new DataBase();
+            _dataObject = new ReadRegisteredUsers();
         }
 
         public bool LoginCheck(String username, String password)
         {
-            bool user = _dataObject.IsUserRegistered(username, password);
+            bool user = _dataObject.IsUserRegistered(username, password);           
 
             if (user == true)
             {

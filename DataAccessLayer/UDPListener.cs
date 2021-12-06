@@ -19,7 +19,7 @@ namespace DataAccessLayer
             UdpClient listener = new UdpClient(listenPort);
             IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, listenPort);
 
-            DTO_BloodpressureData blodData = new DTO_BloodpressureData();
+            DTO_BloodPressureData.BloodPressureData blodData = new DTO_BloodPressureData.BloodPressureData();
 
             try
             {
@@ -30,7 +30,7 @@ namespace DataAccessLayer
 
                     jsonString = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
 
-                    blodData = JsonSerializer.Deserialize<DTO_BloodpressureData>(jsonString);    // Her tilføjer vi de modtaget data til objektet blodData
+                    blodData = JsonSerializer.Deserialize<DTO_BloodPressureData.BloodPressureData>(jsonString);    // Her tilføjer vi de modtaget data til objektet blodData
 
 
 
