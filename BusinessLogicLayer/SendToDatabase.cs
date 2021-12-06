@@ -29,7 +29,7 @@ namespace BusinessLogicLayer
             DateTime tidsstempel = DateTime.Now;
 
             string insertParameters =
-                @"INSERT INTO BloodPressureMeasurement (cpr, systolic, diastolic, pulse, tidsstempel) OUTPUT INSERTED.Id VALUES (@CPR, @Systolic, @Diastolic, @Pulse, @Tidsstempel)";
+                @"INSERT INTO BloodPressure (cpr, systolic, diastolic, pulse, tidsstempel) OUTPUT INSERTED.Id VALUES (@CPR, @Systolic, @Diastolic, @Pulse, @Tidsstempel)";
 
 
             using (_command = new SqlCommand(insertParameters, _Connection))

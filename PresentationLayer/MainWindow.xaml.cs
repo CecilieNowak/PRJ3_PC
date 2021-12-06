@@ -108,6 +108,7 @@ namespace PresentationLayer
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
             alarm.Visibility = Visibility.Hidden;
+
         }
         private void BP_value_box_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -119,19 +120,23 @@ namespace PresentationLayer
 
         }
 
-        private bool checkCPR(string number)
+        private bool CheckSocSecNb(string number)
         {
             int[] integer = new int[10];
 
-            if (number.Length != 10)                                    // Hvis antal cifre er forkert returnes false
+            if (number.Length != 10) // Hvis antal cifre er forkert returnes false
                 return false;
 
             for (int index = 0; index < 10; index++)
             {
-                if (number[index] < '0' || '9' < number[index])         // Hvis karakteren på plads index i den modtagne streng ikke er et tal returnes false
+                if (number[index] < '0' ||
+                    '9' < number[
+                        index]) // Hvis karakteren på plads index i den modtagne streng ikke er et tal returnes false
                     return false;
 
-                integer[index] = Convert.ToInt16(number[index]) - 48;       // Karakteren på plads index konverteres til den tilhørende integer - eksempel '6' konverteres til 6
+                integer[index] =
+                    Convert.ToInt16(number[index]) -
+                    48; // Karakteren på plads index konverteres til den tilhørende integer - eksempel '6' konverteres til 6
             }
 
             return true;
@@ -140,11 +145,10 @@ namespace PresentationLayer
         private void SaveData_button_Click(object sender, RoutedEventArgs e)
         {
             SendToDatabase send = new SendToDatabase();
-            string socSecNb = CPR_txtbox.Text;
-            //alarm.Visibility = Visibility.Visible;
-            //Alarmblink(100, 5);
 
-            if (checkCPR(socSecNb) == true) //Hvis det intastede CPR i tekstboksen er gyldig sker følgende:
+            string socSecNb = CPR_txtbox.Text;
+
+            if (CheckSocSecNb(socSecNb) == true) //Hvis det intastede CPR i tekstboksen er gyldig sker følgende:
             {
                 send.SendData(socSecNb);
                 dataSaved_Box.Text = "Data er sendt";
@@ -155,7 +159,7 @@ namespace PresentationLayer
                 dataSaved_Box.Text =
                     "Data kunne ikke sendes"; //Hvis det intastede CPR i tekstboksen er ugyldig sker følgende:
             }
-            
+
         }
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
