@@ -25,7 +25,7 @@ namespace BusinessLogicLayer
         //public double GetADCvaluesFromDataLayer()
         //{
 
-        //    double adcValue = _filter.getSmoothDTO().Værdi;
+        //    double adcValue = _filter.getDTOSample().Værdi;
 
         //    return adcValue;
 

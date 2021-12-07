@@ -36,7 +36,7 @@ namespace PresentationLayer
         {
 
             BloodPressureData bp = new BloodPressureData();
-            bp = _filter.getSmoothDTO();
+            bp = _filter.getDTOSample();
 
 
             mw.AddDisplayValues(bp);

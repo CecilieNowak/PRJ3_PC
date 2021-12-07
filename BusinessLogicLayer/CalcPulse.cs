@@ -6,7 +6,20 @@ namespace BusinessLogicLayer
 {
     class CalcPulse
     {
-        //List med ADC værdier
-        //Brug samplingsfrekvens til at finde tiden mellem lokale maximum for at finde puls
+        int DTOsBetweenEverySys;
+
+        public int GetNoOfDTOBetweenSys()
+        {
+            return DTOsBetweenEverySys;
+        }
+        
+
+        public int GetPulse()
+        {
+            int pulse = 15 / DTOsBetweenEverySys * 60;         // 15 er antal DTO's pr sekund. Ganger med 60 for at få pulsslag pr min
+            return pulse;
+        }
+
+
     }
 }
