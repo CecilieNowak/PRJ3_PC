@@ -16,9 +16,9 @@ namespace BusinessLogicLayer
             _dataObject = new ReadRegisteredUsers();
         }
 
-        public bool LoginCheck(String username, String password)
+        public bool LoginCheck(String socSecNb, String pw)
         {
-            bool user = _dataObject.IsUserRegistered(username, password);           
+            bool user = _dataObject.IsUserRegistered(socSecNb, pw);
 
             if (user == true)
             {

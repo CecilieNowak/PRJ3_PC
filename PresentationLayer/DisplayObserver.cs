@@ -39,23 +39,14 @@ namespace PresentationLayer
             bp = _filter.getSmoothDTO();
 
 
-            mw.YValues.Add(Convert.ToInt16(bp.Værdi));      //SKAL add'e værdi!!!
-            if (mw.YValues.Count > 20)
-            {
-                mw.YValues.RemoveAt(0);
-            }
+            mw.doStuff(bp);
 
-            mw.XValues.Add(1);
+            //mw.XValues.Add(1);
 
 
             //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
             mw.UpdatePulseTextBox(Convert.ToString(Convert.ToInt32(bp.Værdi)));
             mw.UpdateDiaSysTextbox(bp.Systolic, bp.Diastolic);
         }
-
-
-
     }
-
-
 }

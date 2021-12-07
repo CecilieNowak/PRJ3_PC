@@ -2,12 +2,17 @@
 using Microsoft.Data.SqlClient;
 using System;
 using System.Linq;
+using System.Windows.Documents;
+using System.Collections.Generic;
+using System.Windows;
+using DTO_BloodPressureData;
 
 namespace BusinessLogicLayer
 {
     public class SendToDatabase
     {
         private SqlCommand _command;
+        private SqlDataReader _reader;
 
         private SqlConnection _Connection
         {
@@ -29,7 +34,7 @@ namespace BusinessLogicLayer
             DateTime tidsstempel = DateTime.Now;
 
             string insertParameters =
-                @"INSERT INTO BloodPressureMeasurement (cpr, systolic, diastolic, pulse, tidsstempel) OUTPUT INSERTED.Id VALUES (@CPR, @Systolic, @Diastolic, @Pulse, @Tidsstempel)";
+                @"INSERT INTO BloodPressure (cpr, systolic, diastolic, pulse, tidsstempel) OUTPUT INSERTED.Id VALUES (@CPR, @Systolic, @Diastolic, @Pulse, @Tidsstempel)";
 
 
             using (_command = new SqlCommand(insertParameters, _Connection))
@@ -45,6 +50,31 @@ namespace BusinessLogicLayer
             }
 
             _Connection.Close();
+        }
+
+        public double[] GetData()
+        {
+            byte[] bytesArr = new byte[800];
+            double[] tal = new double[1000];
+            SqlDataReader rdr;
+            string selectString = "Select * from BloodPressure where Id = 1";
+
+            using (_command = new SqlCommand(selectString, _Connection))
+            {
+                rdr = _command.ExecuteReader();
+                if (rdr.Read())
+                {
+                    bytesArr = (byte[])rdr["Systolic"];
+                }
+
+                for (int i = 0, j = 0; i < bytesArr.Length; i+=8, j++)
+                {
+                    tal[j] = BitConverter.ToDouble(bytesArr, i);
+                }
+            }
+
+            _Connection.Close();
+            return tal;
         }
     }
 }

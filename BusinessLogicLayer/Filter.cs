@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DTO_BloodPressureData;
 using DataAccessLayer;
@@ -17,8 +18,8 @@ namespace BusinessLogicLayer
         private BloodPressureData lokalBp;
         private CalcBP calcBp;
         private List<BloodPressureData> lokalList;
-        private int adcConverter = 500;
-
+        public double A { get; set; }
+        public double B { get; set; }
 
 
 
@@ -26,8 +27,10 @@ namespace BusinessLogicLayer
         {
             _bp = bp;
             bp.Add(this);
+
             smooth = new Smoothing();
             calcBp = new CalcBP();
+
             lokalList = new List<BloodPressureData>();
 
         }
@@ -36,11 +39,16 @@ namespace BusinessLogicLayer
         public void Update() //metoden skal retunere en DTO med gennemsnit over 10 første samples, som displayObserveren skal opdatere guien med
         {
             lokalList = _bp.GetNewestDTO();                         //Henter seneste 10 DTO'er
-            lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er
-            lokalBp.Værdi = lokalBp.Værdi / adcConverter;                    //Omregning til VOLT fra ADC(????)
+            lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er 
+            
+           
+            //lokalBp = _bp.dtoList.Last();
+
             //Kalibrering
-            lokalBp.Systolic = calcBp.CalcSys(lokalList) / adcConverter; //Calc sys
-            lokalBp.Diastolic = calcBp.CalcDia(lokalList) / adcConverter; //calc dia
+            
+            lokalBp.Systolic = calcBp.CalcSys(lokalList);
+            lokalBp.Diastolic = calcBp.CalcDia(lokalList); 
+            //Log data
 
             Notify();
 

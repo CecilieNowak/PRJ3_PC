@@ -13,7 +13,12 @@ namespace DataAccessLayer
         private FileStream input;
         private StreamReader reader;
 
-        public bool IsUserRegistered(string username, string password)
+        public ReadRegisteredUsers()
+        {
+
+        }
+
+        public bool IsUserRegistered(String socSecNb, String pw)
         {
             bool result = false;
 
@@ -32,7 +37,7 @@ namespace DataAccessLayer
                 inputFields = inputRecord.Split(';');
 
 
-                if (inputFields[0] == username && inputFields[1] == password)
+                if (inputFields[0] == socSecNb && inputFields[1] == pw)
                 {
                     result = true;
 
@@ -43,39 +48,5 @@ namespace DataAccessLayer
             reader.Close();
             return result;
         }
-
-        /*
-        private SqlConnection _connection;
-        private SqlDataReader _reader;
-        private SqlCommand _command;
-        private const String DBlogin = "F21ST2ITS2au669338";
-
-        public bool IsUserRegistered(String username, String password)
-        {
-            bool result = false;
-
-            _connection = new SqlConnection(@"Data Source=st-i4dab.uni.au.dk;Initial Catalog=" + DBlogin + ";User ID=" + DBlogin + ";Password=" + DBlogin + ";Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            _command = new SqlCommand("select * from UsersRegistered where Username ='" + username + "'", _connection);
-            _connection.Open();                             
-           _reader = _command.ExecuteReader();
-
-            while (_reader.Read())
-            {
-                if (_reader["Username"].ToString() == username && _reader["Keyword"].ToString() == password)        
-                {
-                    result = true;                           
-                    break;
-                }
-            }
-            _connection.Close();                            
-            return result;
-        }
-        */
-
-
     }
-
-
-
-
 }

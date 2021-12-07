@@ -8,26 +8,27 @@ namespace BusinessLogicLayer
 {
     public class BloodPressureSubject : AbstractBloodPressureData
     {
-        private readonly List<BloodPressureData> dtoList;
-        public int counter { get; set; } 
+        public readonly List<BloodPressureData> dtoList; //TODO make private
+        
         
         
 
         public BloodPressureSubject()
         {
             dtoList = new List<BloodPressureData>();
-            counter = 0;
+            
 
 
         }
 
-        public void NewDataRecieved(BloodPressureData bp)
+        public void NewDataReceived(BloodPressureData bp)
         {
             dtoList.Add(bp);
 
-
+            if (dtoList.Count >= 10)
+            {
                 Notify();
-            
+            }
         }
 
         public List<BloodPressureData> GetNewestDTO()
@@ -35,13 +36,14 @@ namespace BusinessLogicLayer
             List<BloodPressureData> lokal = new List<BloodPressureData>();
             if (dtoList.Count == 10)
             {
-                
-                foreach (var dto in dtoList)
-                {
-                   lokal.Add(dto);
-                }
+                lokal.AddRange(dtoList);
+                //foreach (var dto in dtoList)
+                //{
+                   
+                //    lokal.Add(dto);
+                //}
 
-                dtoList.RemoveRange(0, 10);
+                dtoList.RemoveAt(0);
 
 
             }
@@ -49,8 +51,8 @@ namespace BusinessLogicLayer
             return lokal;
 
         }
-        }
-
     }
+
+}
 
 

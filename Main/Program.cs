@@ -12,8 +12,9 @@ namespace Main
         
         static void Main(string[] args)
         {
+
             //CalcBP calc = new CalcBP();
-            TestIO test = new TestIO();
+            SaveDataToTxtfile test = new SaveDataToTxtfile();
             //data.CalcSys();
             //data.CalcDia();
 
@@ -26,7 +27,11 @@ namespace Main
             
 
             //Test af SendToDatabase-klasse
-            //SendToDatabase send = new SendToDatabase();
+            SendToDatabase send = new SendToDatabase();
+            
+            Console.WriteLine(send.GetData());
+            
+
             //send.SendData();
 
             //Test af lineær regression
