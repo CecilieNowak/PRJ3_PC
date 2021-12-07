@@ -38,6 +38,7 @@ namespace Test_PRJ3_PC
         {
            double værdi = _smoothing.smoothGraph(list).Værdi;
             Assert.That(værdi, Is.EqualTo(4));
+
         }
 
 

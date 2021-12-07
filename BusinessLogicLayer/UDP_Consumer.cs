@@ -33,7 +33,7 @@ namespace BusinessLogicLayer
               
                     _bps.NewDataRecieved(container);
                 
-                Thread.Sleep(100);
+                //Thread.Sleep(100);
                 
             }
 

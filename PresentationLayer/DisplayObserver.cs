@@ -40,12 +40,12 @@ namespace PresentationLayer
 
 
             mw.YValues.Add(Convert.ToInt16(bp.Værdi));      //SKAL add'e værdi!!!
-            if (mw.YValues.Count > 20)
+            if (mw.YValues.Count > 200)
             {
                 mw.YValues.RemoveAt(0);
             }
 
-            mw.XValues.Add(1);
+            //mw.XValues.Add(1);
 
 
             //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DTO_BloodPressureData;
 using DataAccessLayer;
@@ -35,11 +36,14 @@ namespace BusinessLogicLayer
         public void Update() //metoden skal retunere en DTO med gennemsnit over 10 første samples, som displayObserveren skal opdatere guien med
         {
             lokalList = _bp.GetNewestDTO();                         //Henter seneste 10 DTO'er
-            lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er
-            lokalBp.Værdi = lokalBp.Værdi;
+            lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er 
+            //TODO uncomment 37 38
+            //lokalBp.Værdi = lokalBp.Værdi;
+           
+            //lokalBp = _bp.dtoList.Last();
 
             //Kalibrering
-
+            
             lokalBp.Systolic = calcBp.CalcSys(lokalList);
             lokalBp.Diastolic = calcBp.CalcDia(lokalList); 
             //Log data
