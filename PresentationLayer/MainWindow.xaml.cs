@@ -25,7 +25,8 @@ namespace PresentationLayer
         private readonly LoginWindow _loginW;
         public BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
-
+        private List<double> SysList;
+        private List<double> DiaList;
         public bool LoginOk { get; set; }
         public String Username { get; set; }
 
@@ -46,7 +47,8 @@ namespace PresentationLayer
             XValues = new ChartValues<int>();
             DataContext = this;
 
-            
+            SysList = new List<double>();
+            DiaList = new List<double>();
 
             //Gammel DisplayObserver - Må ikke slettes!
 
@@ -221,26 +223,47 @@ namespace PresentationLayer
 
         // Ovenstående alarmmetode er sat ind i Alarm klassen i buisness laget ved at lave en constructor
         // i alarmklassen med en ellipse (WPF objecktet som bruges til alarmen) https://stackoverflow.com/questions/6114277/how-to-access-wpf-mainwindows-controls-from-another-class-in-the-same-namespace/11747955
-        
+
         //public void AlarmSound()
         //{
         //    SoundPlayer alarm = new SoundPlayer("alarm1.wav");
         //    alarm.PlayLooping();
-            
+
         //} Alarmsound er også flyttet i Alarmklassen
 
-        
-        public void Alarm(double sys)
+
+        public void Alarm()
         {
+            BloodPressureData bloodPressureData = new BloodPressureData();
             Alarm a = new Alarm(alarm);
+            ReadBloodPressureData bp = new ReadBloodPressureData();
+            CalcBP cbp = new CalcBP();
+
+
+
+            foreach (var item in cbp.GetSys())
+            {
+                SysList.Add(Convert.ToDouble(item));
+            }
+
+            DiaList = cbp.GetDia();
+            SysList = cbp.GetSys();
+            //foreach (var item in cbp.GetDia())
+            //{
+            //    DiaList.Add(Convert.ToDouble(item));
+            //}
+
             Dispatcher.Invoke(() =>
                 {
-                    if (sys >= 10)
-                    {
-                        alarm.Visibility = Visibility.Visible;
-                        a.Alarmblink(100, 5);
-                        a.AlarmSound();
-                    }
+                    a.Alarmblink(SysList, DiaList, 250, 10);
+                    //alarm.Visibility = Visibility.Visible;
+                    //a.StartAlarm(SysList, DiaList);
+                    //if (sys >= 10)
+                    //{
+                    //    alarm.Visibility = Visibility.Visible;
+                    //    a.Alarmblink(100, 5);
+                    //    a.AlarmSound();
+                    //}
                 }
             );
         }
@@ -249,6 +272,7 @@ namespace PresentationLayer
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
             alarm.Visibility = Visibility.Hidden;
+            Alarm();
         }
     }
 }
