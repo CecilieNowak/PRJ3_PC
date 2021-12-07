@@ -113,7 +113,7 @@ namespace PresentationLayer
                 dataSaved_Box.Text = "Data kunne ikke sendes"; //Hvis det intastede CPR i tekstboksen er ugyldig sker følgende:
             }
 
-            saveData.DeleteFromFile();
+            saveData.DeleteFromFile();  
         }
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)

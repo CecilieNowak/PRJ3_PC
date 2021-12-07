@@ -41,7 +41,7 @@ namespace DataAccessLayer
         {
             ReadBloodPressureData readFile = new ReadBloodPressureData();
             List<double> systolicValues = new List<double>();
-            double[] systolicArr = new double[10000];
+            double[] systolicArr = new double[5000];
 
             foreach (var systolic in readFile.ReadFromFile())
             {
@@ -61,7 +61,7 @@ namespace DataAccessLayer
         {
             ReadBloodPressureData readFile = new ReadBloodPressureData();
             List<double> diastolicValues = new List<double>();
-            double[] diastolicArr = new double[10000];
+            double[] diastolicArr = new double[5000];
 
             foreach (var diastolic in readFile.ReadFromFile())
             {
@@ -81,7 +81,7 @@ namespace DataAccessLayer
         {
             ReadBloodPressureData readFile = new ReadBloodPressureData();
             List<int> pulseValues = new List<int>();
-            int[] pulseArr = new int[10000];
+            int[] pulseArr = new int[5000];
 
             foreach (var pulse in readFile.ReadFromFile())
             {

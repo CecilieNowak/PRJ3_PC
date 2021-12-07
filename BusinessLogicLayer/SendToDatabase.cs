@@ -52,28 +52,37 @@ namespace BusinessLogicLayer
             _Connection.Close();
         }
 
-        public double[] GetData()
+
+        //TIL TEST AF VÆRDIER I DATABASEN
+        public List<BloodPressureData> GetData(string socSecNb)
         {
-            byte[] bytesArr = new byte[800];
-            double[] tal = new double[1000];
+            List<BloodPressureData> bp = new List<BloodPressureData>();
+
+            byte[] sysArr = new byte[800];
+            double[] tal = new double[10000];
             SqlDataReader rdr;
-            string selectString = "Select * from BloodPressure where Id = 1";
+            string selectString = "Select * from BloodPressure where Id=(SELECT MAX(Id) from BloodPressure where CPR='" + socSecNb + "')";
 
             using (_command = new SqlCommand(selectString, _Connection))
             {
                 rdr = _command.ExecuteReader();
                 if (rdr.Read())
                 {
-                    bytesArr = (byte[])rdr["Systolic"];
+                    sysArr = (byte[])rdr["Systolic"];
                 }
 
-                for (int i = 0, j = 0; i < bytesArr.Length; i+=8, j++)
+                for (int i = 0, j = 0; i < sysArr.Length; i += 8, j++)
                 {
-                    tal[j] = BitConverter.ToDouble(bytesArr, i);
+                    tal[j] = BitConverter.ToDouble(sysArr, i);
+                }
+
+                for (int i = 0; i < tal.Length; i++)
+                {
+                    bp.Add(new BloodPressureData(tal[i], 0, 0));
                 }
             }
             _Connection.Close();
-            return tal;
+            return bp;
         }
     }
 }

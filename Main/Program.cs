@@ -28,9 +28,8 @@ namespace Main
 
             //LogFile af SendToDatabase-klasse
             SendToDatabase send = new SendToDatabase();
-            
-            Console.WriteLine(send.GetData());
-            
+
+            send.GetData("8888888888");
 
             //send.SendData();
 
@@ -45,8 +44,8 @@ namespace Main
             //Console.WriteLine(regression.GetRSquared());
 
             //Metode til at beregne systole og få alarmen til at køre
-            var rand = new Random();
-            List<int> sys = new List<int>();
+            //var rand = new Random();
+            //List<int> sys = new List<int>();
 
             //var data = new List<int>();  //Laver en liste og putter random værdier ind
 
@@ -59,7 +58,7 @@ namespace Main
             //{
             //    Console.WriteLine(item);
             //}
-            
+
             //{
             //    for (int i = 5; i <= data.Count - 5; i++)
             //    {
@@ -96,7 +95,7 @@ namespace Main
             //        }
 
             //    }
-            
+
 
             //Console.ReadLine();
         }
