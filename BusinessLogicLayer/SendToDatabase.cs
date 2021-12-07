@@ -51,6 +51,31 @@ namespace BusinessLogicLayer
 
             _Connection.Close();
         }
+
+        public double[] GetData()
+        {
+            byte[] bytesArr = new byte[800];
+            double[] tal = new double[1000];
+            SqlDataReader rdr;
+            string selectString = "Select * from BloodPressure where Id = 1";
+
+            using (_command = new SqlCommand(selectString, _Connection))
+            {
+                rdr = _command.ExecuteReader();
+                if (rdr.Read())
+                {
+                    bytesArr = (byte[])rdr["Systolic"];
+                }
+
+                for (int i = 0, j = 0; i < bytesArr.Length; i+=8, j++)
+                {
+                    tal[j] = BitConverter.ToDouble(bytesArr, i);
+                }
+            }
+
+            _Connection.Close();
+            return tal;
+        }
     }
 }
 

@@ -52,10 +52,5 @@ namespace PresentationLayer
             mw.UpdatePulseTextBox(Convert.ToString(Convert.ToInt32(bp.Værdi)));
             mw.UpdateDiaSysTextbox(bp.Systolic, bp.Diastolic);
         }
-
-
-
     }
-
-
 }

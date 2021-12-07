@@ -27,6 +27,7 @@ namespace PresentationLayer
         private CalibrateWindow _calibrateW;
         public Filter _filter;
         private SendToDatabase send;
+        private CheckCPR _checkCPR;
 
         public bool LoginOk { get; set; }
        // public String Username { get; set; }
@@ -35,12 +36,17 @@ namespace PresentationLayer
         public ChartValues<int> YValues { get; set; }   //YValues til puls graf
         public ChartValues<int> XValues { get; set; }   //XValues til puls graf
 
+        public double A { get; set; }
+        public double B { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
            
             _logicobj = new CheckLogin();
             _loginW = new LoginWindow(this, _logicobj);
+
+            _checkCPR = new CheckCPR();
 
             _subject = new BloodPressureSubject();
 
@@ -56,11 +62,7 @@ namespace PresentationLayer
 
             AlarmObserver aObserver = new AlarmObserver(_filter, this);
 
-
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
-
-           
-
 
             // Må ikke slettes!!
 
@@ -92,42 +94,18 @@ namespace PresentationLayer
             alarm.Visibility = Visibility.Hidden;
         }
 
-        private bool CheckSocSecNb(string number)
-        {
-            int[] integer = new int[10];
-
-            if (number.Length != 10) // Hvis antal cifre er forkert returnes false
-                return false;
-
-            for (int index = 0; index < 10; index++)
-            {
-                if (number[index] < '0' ||
-                    '9' < number[
-                        index]) // Hvis karakteren på plads index i den modtagne streng ikke er et tal returnes false
-                    return false;
-
-                integer[index] =
-                    Convert.ToInt16(number[index]) -
-                    48; // Karakteren på plads index konverteres til den tilhørende integer - eksempel '6' konverteres til 6
-            }
-
-            return true;
-        }
-
         private void SaveData_button_Click(object sender, RoutedEventArgs e)
         {
             string socSecNb = CPR_txtbox.Text;
 
-            if (CheckSocSecNb(socSecNb) == true) //Hvis det intastede CPR i tekstboksen er gyldig sker følgende:
+            if (_checkCPR.CheckSocSecNb(socSecNb) == true) //Hvis det intastede CPR i tekstboksen er gyldig sker følgende:
             {
                 send.SendData(socSecNb);
                 dataSaved_Box.Text = "Data er sendt";
             }
-
             else
             {
-                dataSaved_Box.Text =
-                    "Data kunne ikke sendes"; //Hvis det intastede CPR i tekstboksen er ugyldig sker følgende:
+                dataSaved_Box.Text = "Data kunne ikke sendes"; //Hvis det intastede CPR i tekstboksen er ugyldig sker følgende:
             }
 
         }
@@ -147,11 +125,6 @@ namespace PresentationLayer
             {
                 this.Close();
             }
-        }
-
-        private void CPR_txtbox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void Close_button_Click(object sender, RoutedEventArgs e)
@@ -208,7 +181,7 @@ namespace PresentationLayer
             
         //} Alarmsound er også flyttet i Alarmklassen
 
-        
+
         public void Alarm(double sys)
         {
             Alarm a = new Alarm(alarm);
@@ -228,21 +201,11 @@ namespace PresentationLayer
         private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
 
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        private void GetData_button_Click(object sender, RoutedEventArgs e)
+        {
+            dataSaved_Box.Text = "A: " + A + " B: " + B;
         }
     }
 }

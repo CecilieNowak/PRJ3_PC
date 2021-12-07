@@ -28,7 +28,9 @@ namespace Main
             //Test af SendToDatabase-klasse
             SendToDatabase send = new SendToDatabase();
             
+            Console.WriteLine(send.GetData());
             
+
             //send.SendData();
 
             //Test af lineær regression

@@ -24,10 +24,7 @@ namespace BusinessLogicLayer
         public void NewDataRecieved(BloodPressureData bp)
         {
             dtoList.Add(bp);
-
-
-                Notify();
-            
+            Notify();
         }
 
         public List<BloodPressureData> GetNewestDTO()
@@ -35,23 +32,19 @@ namespace BusinessLogicLayer
             List<BloodPressureData> lokal = new List<BloodPressureData>();
             if (dtoList.Count == 10)
             {
-                
                 foreach (var dto in dtoList)
                 {
-                   
                     lokal.Add(dto);
                 }
 
                 dtoList.RemoveRange(0, 10);
-
-
             }
 
             return lokal;
 
         }
-        }
-
     }
+
+}
 
 

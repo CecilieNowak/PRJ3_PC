@@ -22,21 +22,21 @@ namespace BusinessLogicLayer
 
         }
 
-        public double GetADCvaluesFromDataLayer()
-        {
-
-            double adcValue = _filter.getSmoothDTO().Værdi;
-
-            return adcValue;
-
-            //return adc.ReadAdcValues();
-        }
-
-        //public double getADCvaluesFromDataLayer()
+        //public double GetADCvaluesFromDataLayer()
         //{
-        //    double adcValue = adc.ReadAdcValues();
+
+        //    double adcValue = _filter.getSmoothDTO().Værdi;
 
         //    return adcValue;
+
+        //    //return adc.ReadAdcValues();
         //}
+
+        public double getADCvaluesFromDataLayer()
+        {
+            double adcValue = adc.ReadAdcValues();
+
+            return adcValue;
+        }
     }
 }

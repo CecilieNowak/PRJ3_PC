@@ -41,7 +41,7 @@ namespace PresentationLayer
             {
                 fejlmeddelelse_Box.Text = "Fejl i brugernavn eller adgangskode";
                 Username_txtbox.Text = "";
-                Username_txtbox.Text = "";
+                Password_txtbox.Text = "";
                 Username_txtbox.Focus();
             }
 
