@@ -134,7 +134,7 @@ namespace PresentationLayer
 
                 double adcValue = ADCValue; //VED IKKE *      //Til at teste adc værdi fra bpSubject (observermønster)
 
-                var point = new Point() { X = adcValue, Y = userInput};                                                             //Der oprettes et nyt punkt. X = adc-værdi, Y = indtastet trykværdi
+                var point = new Point() {X = adcValue, Y = userInput};                                                           //Der oprettes et nyt punkt. X = adc-værdi, Y = indtastet trykværdi
                 _values.Add(point);                                                                                                 //Punktet tilføjes til grafen - altså plottes
 
                 Values_box.Clear();
