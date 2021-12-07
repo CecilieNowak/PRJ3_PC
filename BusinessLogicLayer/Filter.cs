@@ -56,7 +56,7 @@ namespace BusinessLogicLayer
         }
 
 
-        public BloodPressureData getSmoothDTO()
+        public BloodPressureData getDTOSample()
         {
             return lokalBp;
         }
