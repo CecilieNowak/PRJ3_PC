@@ -39,7 +39,7 @@ namespace PresentationLayer
             bp = _filter.getSmoothDTO();
 
 
-            mw.doStuff(bp);
+            mw.AddDisplayValues(bp);
 
             //mw.XValues.Add(1);
 

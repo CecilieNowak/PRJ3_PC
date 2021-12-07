@@ -112,8 +112,6 @@ namespace PresentationLayer
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
-           
-
             _subject.Remove(_filter);
 
             _calibrateW = new CalibrateWindow(this, _subject);
@@ -147,7 +145,7 @@ namespace PresentationLayer
                 );
         }
 
-        public void doStuff(BloodPressureData bp)
+        public void AddDisplayValues(BloodPressureData bp)
         {
             YValues.Add(Convert.ToInt16(bp.Værdi));      //SKAL add'e værdi!!!
             if (YValues.Count > 200)
