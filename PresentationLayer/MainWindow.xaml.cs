@@ -120,7 +120,7 @@ namespace PresentationLayer
         {
             _subject.Remove(_filter);
 
-            _calibrateW = new CalibrateWindow(this, _subject);
+            _calibrateW = new CalibrateWindow(this);
 
             this.Hide();             //SKAL MAIN LUKKES, FOR AT ALARM STOPPES?                                                            //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
