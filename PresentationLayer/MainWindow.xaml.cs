@@ -146,6 +146,8 @@ namespace PresentationLayer
         public void UpdateDiaSysTextbox(double sys, double dia)
         {
             //Fra stackoverflow - metoden opdaterer sysDia textbox
+            //Dispatcher-metoden flytter kode fra baggrundstråden (tråd der kører udp-listener og udp-consumer) til foregrundstråden (GUI/Main-tråden). 
+            //Når foregrundstråden har tid (Invoke), kører koden. Dispatcher gør, at GUI ikke crasher. 
             Dispatcher.Invoke(() =>
                 {
                     BP_value_box.Text = Convert.ToString(Convert.ToInt16(sys)) + "/" + Convert.ToString(Convert.ToInt16(dia));
