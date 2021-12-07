@@ -18,7 +18,8 @@ namespace BusinessLogicLayer
         private BloodPressureData lokalBp;
         private CalcBP calcBp;
         private List<BloodPressureData> lokalList;
-
+        public double A { get; set; }
+        public double B { get; set; }
 
 
 
@@ -26,8 +27,10 @@ namespace BusinessLogicLayer
         {
             _bp = bp;
             bp.Add(this);
+
             smooth = new Smoothing();
             calcBp = new CalcBP();
+
             lokalList = new List<BloodPressureData>();
 
         }
@@ -37,8 +40,7 @@ namespace BusinessLogicLayer
         {
             lokalList = _bp.GetNewestDTO();                         //Henter seneste 10 DTO'er
             lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er 
-            //TODO uncomment 37 38
-            //lokalBp.Værdi = lokalBp.Værdi;
+            
            
             //lokalBp = _bp.dtoList.Last();
 
