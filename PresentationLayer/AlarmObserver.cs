@@ -6,6 +6,7 @@ using DTO_BloodPressureData;
 using System.Media;
 using System.Windows.Media.Animation;
 using System.Windows;
+using System.Windows.Shapes;
 
 namespace PresentationLayer
 {
@@ -15,6 +16,7 @@ namespace PresentationLayer
         private List<BloodPressureData> _local;
         private MainWindow mw;
         private readonly Filter _filter;
+        Ellipse alarm1;
 
         public AlarmObserver(Filter filter, MainWindow mainWindow)
         {
@@ -62,6 +64,7 @@ namespace PresentationLayer
 
             //kald getNewestDTO 6 antal gange, gem i lokal liste
             //if sætning med alarm algoritme med dto.Systolic
+
 
         }
 

@@ -159,6 +159,8 @@ namespace PresentationLayer
         public void UpdateDiaSysTextbox(double sys, double dia)
         {
             //Fra stackoverflow - metoden opdaterer sysDia textbox
+            //Dispatcher-metoden flytter kode fra baggrundstråden (tråd der kører udp-listener og udp-consumer) til foregrundstråden (GUI/Main-tråden). 
+            //Når foregrundstråden har tid (Invoke), kører koden. Dispatcher gør, at GUI ikke crasher. 
             Dispatcher.Invoke(() =>
                 {
                     BP_value_box.Text = Convert.ToString(Convert.ToInt16(sys)) + "/" + Convert.ToString(Convert.ToInt16(dia));
@@ -186,26 +188,47 @@ namespace PresentationLayer
 
         // Ovenstående alarmmetode er sat ind i Alarm klassen i buisness laget ved at lave en constructor
         // i alarmklassen med en ellipse (WPF objecktet som bruges til alarmen) https://stackoverflow.com/questions/6114277/how-to-access-wpf-mainwindows-controls-from-another-class-in-the-same-namespace/11747955
-        
+
         //public void AlarmSound()
         //{
         //    SoundPlayer alarm = new SoundPlayer("alarm1.wav");
         //    alarm.PlayLooping();
-            
+
         //} Alarmsound er også flyttet i Alarmklassen
 
 
-        public void Alarm(double sys)
+        public void Alarm()
         {
+            BloodPressureData bloodPressureData = new BloodPressureData();
             Alarm a = new Alarm(alarm);
+            ReadBloodPressureData bp = new ReadBloodPressureData();
+            CalcBP cbp = new CalcBP();
+
+
+
+            foreach (var item in cbp.GetSys())
+            {
+                SysList.Add(Convert.ToDouble(item));
+            }
+
+            DiaList = cbp.GetDia();
+            SysList = cbp.GetSys();
+            //foreach (var item in cbp.GetDia())
+            //{
+            //    DiaList.Add(Convert.ToDouble(item));
+            //}
+
             Dispatcher.Invoke(() =>
                 {
-                    if (sys >= 10)
-                    {
-                        alarm.Visibility = Visibility.Visible;
-                        a.Alarmblink(100, 5);
-                        a.AlarmSound();
-                    }
+                    a.Alarmblink(SysList, DiaList, 250, 10);
+                    //alarm.Visibility = Visibility.Visible;
+                    //a.StartAlarm(SysList, DiaList);
+                    //if (sys >= 10)
+                    //{
+                    //    alarm.Visibility = Visibility.Visible;
+                    //    a.Alarmblink(100, 5);
+                    //    a.AlarmSound();
+                    //}
                 }
             );
         }
