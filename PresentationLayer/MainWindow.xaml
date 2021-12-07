@@ -52,7 +52,7 @@
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Title="[s]" FontSize="14" Foreground="White" >
                             <lvc:Axis.Separator>
-                                <lvc:Separator Step="30" />
+                                <lvc:Separator Step="200" />
 
                             </lvc:Axis.Separator>
                         </lvc:Axis>
