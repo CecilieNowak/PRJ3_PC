@@ -14,11 +14,11 @@ namespace Main
         {
 
             //CalcBP calc = new CalcBP();
-            SaveDataToTxtfile test = new SaveDataToTxtfile();
+            //SaveDataToTxtfile test = new SaveDataToTxtfile();
             //data.CalcSys();
             //data.CalcDia();
 
-            test.Test();
+            //test.Test();
 
             //Alarm a1 = new Alarm();
             //List<int> testSys = new List<int> { 1, 1, 1, 1, 11, 1, 1, 3, 3, 11, 1, 6 };
@@ -26,7 +26,7 @@ namespace Main
             //Console.ReadKey();
             
 
-            //Test af SendToDatabase-klasse
+            //LogFile af SendToDatabase-klasse
             SendToDatabase send = new SendToDatabase();
             
             Console.WriteLine(send.GetData());
@@ -34,7 +34,7 @@ namespace Main
 
             //send.SendData();
 
-            //Test af lineær regression
+            //LogFile af lineær regression
             //double[] adcValues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };                   //Array with x-values (adc [V])
             //double[] pressureValues = { 2, 3, 5, 6, 8, 9, 10, 12, 14, 15 };                 //Array with y-values (pressure [mmHg]
 

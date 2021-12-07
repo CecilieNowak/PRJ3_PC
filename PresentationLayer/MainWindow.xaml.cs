@@ -26,6 +26,7 @@ namespace PresentationLayer
         private CalibrateWindow _calibrateW;
         public Filter _filter;
         private SendToDatabase send;
+        private SaveDataToTxtfile saveData;
         private CheckCPR _checkCPR;
 
         public bool LoginOk { get; set; }
@@ -55,6 +56,8 @@ namespace PresentationLayer
             DataContext = this;
 
             send = new SendToDatabase();
+
+            saveData = new SaveDataToTxtfile();
             
             _filter = new Filter(_subject);
             
@@ -62,12 +65,14 @@ namespace PresentationLayer
 
             AlarmObserver aObserver = new AlarmObserver(_filter, this);
 
+            LogFileObserver logFile = new LogFileObserver(_filter, saveData);
+
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
             // Må ikke slettes!!
 
 
-            // Test med UDP-kommunikation
+            // LogFile med UDP-kommunikation
             //UDPListener udpListener = new UDPListener(dataQueue);
             //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
             //Thread t2 = new Thread(udpListener.StartListener);
@@ -76,12 +81,12 @@ namespace PresentationLayer
             //t3.Start();
 
 
-            //Test til alarm
+            //LogFile til alarm
             //Testtråd testtråd = new Testtråd(this, subject);
             //Thread t5 = new Thread(testtråd.updateChart);
             //t5.Start();
 
-            //Test med filter
+            //LogFile med filter
             FilterTest filterTest = new FilterTest(this, _subject);
             Thread t6 = new Thread(filterTest.randomDTO);
             t6.Start();
@@ -108,6 +113,7 @@ namespace PresentationLayer
                 dataSaved_Box.Text = "Data kunne ikke sendes"; //Hvis det intastede CPR i tekstboksen er ugyldig sker følgende:
             }
 
+            saveData.DeleteFromFile();
         }
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
@@ -195,6 +201,7 @@ namespace PresentationLayer
         //} Alarmsound er også flyttet i Alarmklassen
 
 
+        /*
         public void Alarm()
         {
             BloodPressureData bloodPressureData = new BloodPressureData();
@@ -230,6 +237,7 @@ namespace PresentationLayer
                 }
             );
         }
+        */
 
       
         private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

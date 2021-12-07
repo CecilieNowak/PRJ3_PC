@@ -15,7 +15,7 @@ namespace DataAccessLayer
         {
             List<BloodPressureData> bpList = new List<BloodPressureData>();
 
-            input = new FileStream("BloodPressureData.txt", FileMode.Open, FileAccess.Read);
+            input = new FileStream("Data.txt", FileMode.Open, FileAccess.Read);
             reader = new StreamReader(input);
 
             string inputRecord;
@@ -41,7 +41,7 @@ namespace DataAccessLayer
         {
             ReadBloodPressureData readFile = new ReadBloodPressureData();
             List<double> systolicValues = new List<double>();
-            double[] systolicArr = new double[100];
+            double[] systolicArr = new double[10000];
 
             foreach (var systolic in readFile.ReadFromFile())
             {
@@ -61,7 +61,7 @@ namespace DataAccessLayer
         {
             ReadBloodPressureData readFile = new ReadBloodPressureData();
             List<double> diastolicValues = new List<double>();
-            double[] diastolicArr = new double[100];
+            double[] diastolicArr = new double[10000];
 
             foreach (var diastolic in readFile.ReadFromFile())
             {
@@ -81,7 +81,7 @@ namespace DataAccessLayer
         {
             ReadBloodPressureData readFile = new ReadBloodPressureData();
             List<int> pulseValues = new List<int>();
-            int[] pulseArr = new int[100];
+            int[] pulseArr = new int[10000];
 
             foreach (var pulse in readFile.ReadFromFile())
             {

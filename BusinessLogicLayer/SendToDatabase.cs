@@ -72,7 +72,6 @@ namespace BusinessLogicLayer
                     tal[j] = BitConverter.ToDouble(bytesArr, i);
                 }
             }
-
             _Connection.Close();
             return tal;
         }
