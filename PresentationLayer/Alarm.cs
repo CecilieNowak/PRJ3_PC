@@ -8,25 +8,26 @@ using System.Windows;
 using System.Windows.Shapes;
 using DTO_BloodPressureData;
 
-namespace BusinessLogicLayer
+
+namespace PresentationLayer
 {
     public class Alarm
     {
-        List<int> sys = new List<int>();
 
         SoundPlayer alarm = new SoundPlayer("alarm1.wav");
-        Ellipse alarm1;
-
-        List<BloodPressureData> syst = new List<BloodPressureData>();
-        List<BloodPressureData> dia = new List<BloodPressureData>();
+        Ellipse _alarm;
+        private MainWindow _mw;
         private BloodPressureData bp;
+        private Storyboard _st;
 
-        public Alarm(Ellipse alarm1)
+        public Alarm(Ellipse alarm1, MainWindow mw, Storyboard st)
         {
-            this.alarm1 = alarm1;
+            _mw = mw;
+            _alarm = alarm1;
             bp = new BloodPressureData();
+            _st = st;
         }
-        
+
         public void Alarmblink(List<double> SysList, List<double> DiaList, int length, int repetition)
         {
             
@@ -38,28 +39,28 @@ namespace BusinessLogicLayer
                 AutoReverse = true,
                 RepeatBehavior = new RepeatBehavior(repetition)
             };
-            Storyboard storyboard = new Storyboard();
-            storyboard.Children.Add(opacityAlarm);
-            Storyboard.SetTarget(opacityAlarm, alarm1);
+            
+            _st.Children.Add(opacityAlarm);
+            Storyboard.SetTarget(opacityAlarm, _alarm);
             Storyboard.SetTargetProperty(opacityAlarm, new PropertyPath("Opacity"));
 
 
 
-            for (int i = 5; i <= SysList.Count - 5; i++)
+            for (int i = 1; i <= SysList.Count - 1; i++)
             {
-                if (SysList[i] > 1.3 * SysList[i - 5] || SysList[i] < 0.7 * SysList[i - 5])
-                {
-                    alarm1.Visibility = Visibility.Visible;
-                    storyboard.Begin(alarm1);
-                }
+             if (SysList[i] > 1.3 * SysList[i - 1] || SysList[i] < 0.7 * SysList[i - 1])
+             {
+                 _mw.BlinkAlarm(_alarm);
+                _mw.BeginAlarm(_alarm);
+             }
             }
 
             for (int i = 5; i <= DiaList.Count - 5; i++)
             {
                 if (DiaList[i] > 1.3 * DiaList[i - 5] || DiaList[i] < 0.7 * DiaList[i - 5])
                 {
-                    alarm1.Visibility = Visibility.Visible;
-                    storyboard.Begin(alarm1);
+                    _alarm.Visibility = Visibility.Visible;
+                    _st.Begin(_alarm);
                 }
             }
         }

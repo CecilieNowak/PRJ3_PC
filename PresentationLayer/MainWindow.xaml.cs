@@ -10,6 +10,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
+using System.Windows.Threading;
+using DataAccessLayer;
 using DTO_BloodPressureData;
 
 
@@ -38,6 +41,7 @@ namespace PresentationLayer
         public double A { get; set; }
         public double B { get; set; }
 
+
         public MainWindow()
         {
             InitializeComponent();
@@ -60,7 +64,7 @@ namespace PresentationLayer
             
             DisplayObserver display = new DisplayObserver(_filter, this);
 
-            AlarmObserver aObserver = new AlarmObserver(_filter, this);
+            AlarmObserver aObserver = new AlarmObserver(_filter, alarm, this);
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
@@ -77,14 +81,14 @@ namespace PresentationLayer
 
 
             //Test til alarm
-            //Testtråd testtråd = new Testtråd(this, subject);
-            //Thread t5 = new Thread(testtråd.updateChart);
-            //t5.Start();
+            Testtråd testtråd = new Testtråd(this, _subject);
+            Thread t5 = new Thread(testtråd.updateChart);
+            t5.Start();
 
             //Test med filter
-            FilterTest filterTest = new FilterTest(this, _subject);
-            Thread t6 = new Thread(filterTest.randomDTO);
-            t6.Start();
+            //FilterTest filterTest = new FilterTest(this, _subject);
+            //Thread t6 = new Thread(filterTest.randomDTO);
+            //t6.Start();
 
         }
 
@@ -147,7 +151,7 @@ namespace PresentationLayer
                 );
         }
 
-        public void doStuff(BloodPressureData bp)
+        public void UpdateYvalues(BloodPressureData bp)
         {
             YValues.Add(Convert.ToInt16(bp.Værdi));      //SKAL add'e værdi!!!
             if (YValues.Count > 200)
@@ -197,43 +201,46 @@ namespace PresentationLayer
         //} Alarmsound er også flyttet i Alarmklassen
 
 
-        public void Alarm()
-        {
-            BloodPressureData bloodPressureData = new BloodPressureData();
-            Alarm a = new Alarm(alarm);
-            ReadBloodPressureData bp = new ReadBloodPressureData();
-            CalcBP cbp = new CalcBP();
+        //public void Alarm()
+        //{
+        //    BloodPressureData bloodPressureData = new BloodPressureData();
+        //    Alarm a = new Alarm(alarm);
+        //    ReadBloodPressureData bp = new ReadBloodPressureData();
+        //    CalcBP cbp = new CalcBP();
 
 
 
-            foreach (var item in cbp.GetSys())
-            {
-                SysList.Add(Convert.ToDouble(item));
-            }
+        //    foreach (var item in cbp.GetSys())
+        //    {
+        //        SysList.Add(Convert.ToDouble(item));
+        //    }
 
-            DiaList = cbp.GetDia();
-            SysList = cbp.GetSys();
-            //foreach (var item in cbp.GetDia())
-            //{
-            //    DiaList.Add(Convert.ToDouble(item));
-            //}
+        //    DiaList = cbp.GetDia();
+        //    SysList = cbp.GetSys();
+        //    //foreach (var item in cbp.GetDia())
+        //    //{
+        //    //    DiaList.Add(Convert.ToDouble(item));
+        //    //}
 
-            Dispatcher.Invoke(() =>
-                {
-                    a.Alarmblink(SysList, DiaList, 250, 10);
-                    //alarm.Visibility = Visibility.Visible;
-                    //a.StartAlarm(SysList, DiaList);
-                    //if (sys >= 10)
-                    //{
-                    //    alarm.Visibility = Visibility.Visible;
-                    //    a.Alarmblink(100, 5);
-                    //    a.AlarmSound();
-                    //}
-                }
-            );
-        }
+       public void BlinkAlarm(Ellipse a)
+       {
+           Dispatcher.Invoke(() => { a.Visibility = Visibility.Visible; }
+           );
+
 
       
+        }
+
+       public void BeginAlarm(Ellipse a)
+       {
+           Dispatcher.Invoke(() => { .Begin(a); ; }
+           );
+
+
+
+       }
+
+
         private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
 

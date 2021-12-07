@@ -7,11 +7,11 @@ namespace BusinessLogicLayer
 {
     public class CalcBP
     {
-        //List<int> data = new List<int> { 1, 5, 4, 3, 2, 5, 7, 8, 4, 2, 1, 4 };
+       
 
         List<BloodPressureData> sys = new List<BloodPressureData>();
         List<BloodPressureData> dia = new List<BloodPressureData>();
-        List<double> SysList = new List<double>();
+        private List<double> SysList;
         List<double> DiaList = new List<double>();
 
         private BloodPressureData bp;
@@ -19,6 +19,8 @@ namespace BusinessLogicLayer
         public CalcBP()
         {
             bp = new BloodPressureData();
+            sys = new List<BloodPressureData>();
+            SysList = new List<double>();
         }
 
         public double CalcSys(List<BloodPressureData> data)
@@ -33,24 +35,24 @@ namespace BusinessLogicLayer
 
             // Metode opdateret med filter
 
-            for (int i = 5; i <= data.Count - 5; i++)
-            {
+
+
+          
+                int i = 5;
                 if (data[i].Værdi > data[i - 1].Værdi && data[i].Værdi > data[i - 2].Værdi && data[i].Værdi > data[i - 3].Værdi && data[i].Værdi > data[i - 4].Værdi && data[i].Værdi > data[i + 1].Værdi && data[i].Værdi > data[i + 2].Værdi && data[i].Værdi > data[i + 3].Værdi && data[i].Værdi > data[i + 4].Værdi)
                 {
                     bp.Systolic = data[i].Værdi;
                     sys.Add(data[i]);
+                    SysList.Add(data[i].Værdi);
                 }
-            }
-            return bp.Systolic;
+
+                return bp.Systolic;
         }
 
 
         public List<double> GetSys()
         {
-            foreach (var item in sys)
-            {
-                SysList.Add(Convert.ToDouble(item));
-            }
+            
             return SysList;
         }
 
@@ -72,7 +74,7 @@ namespace BusinessLogicLayer
         {
             foreach (var item in dia)
             {
-                DiaList.Add(Convert.ToDouble(item));
+                DiaList.Add(item.Diastolic);
             }
             return DiaList;
         }

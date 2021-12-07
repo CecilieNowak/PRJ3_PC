@@ -39,7 +39,7 @@ namespace PresentationLayer
             bp = _filter.getDTOSample();
 
 
-            mw.doStuff(bp);
+            mw.UpdateYvalues(bp);
 
             //mw.XValues.Add(1);
 

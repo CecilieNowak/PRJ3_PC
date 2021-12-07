@@ -35,7 +35,7 @@ namespace PresentationLayer
             while (true)
             {
                 BloodPressureData dto = new BloodPressureData();
-                dto.Værdi = random.Next(1000,10000);
+                dto.Værdi = random.Next(0,100);
                 
                 _bp.NewDataReceived(dto);
 

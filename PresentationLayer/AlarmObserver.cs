@@ -1,66 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BusinessLogicLayer;
 using DTO_BloodPressureData;
 using System.Media;
 using System.Windows.Media.Animation;
 using System.Windows;
 using System.Windows.Shapes;
+using PresentationLayer;
 
-namespace PresentationLayer
+namespace BusinessLogicLayer
 {
-    class AlarmObserver : IBloodPressureObserver
+    public class AlarmObserver : IBloodPressureObserver
     {
 
-        private List<BloodPressureData> _local;
-        private MainWindow mw;
-        private readonly Filter _filter;
-        Ellipse alarm1;
+        private List<double> _local_sys;
+        private List<double> _local_dia;
+        private Alarm _alarm;
 
-        public AlarmObserver(Filter filter, MainWindow mainWindow)
+        private readonly Filter _filter;
+        private Ellipse alarm1;
+        private MainWindow _mw;
+        private Storyboard st;
+
+        public AlarmObserver(Filter filter, Ellipse alarmEllipse, MainWindow mw)
         {
-            mw = mainWindow;
-            _local = new List<BloodPressureData>();
+            st = new Storyboard();
+            _alarm = new Alarm(alarmEllipse,mw, st);
+            _local_sys = new List<double>();
+            _local_dia = new List<double>();
             _filter = filter;
+            alarm1 = alarmEllipse;
+            _mw = mw;
             filter.Add(this);
         }
 
         public void Update()
         {
-            //for (int i = 1; i < 6; i++)
-            //{
-            //    BloodPressureData b = new BloodPressureData();
-            //    b = _bp.GetNewestDTO();
-            //    _local.Add(b);
-            //    if (i >= 6)
-            //    {
+            _local_dia = _filter.GetListOfDia();
+            _local_sys = _filter.getListOfSys();
 
+            _alarm.Alarmblink(_local_sys,_local_dia,250,10);
+            _alarm.StartAlarm(_local_dia,_local_sys);
 
-            //        if (_local[i].Systolic > 1.3 * _local[i - 5].Systolic || _local[i].Systolic < 0.7 * _local[i - 5].Systolic)
-            //        {
-            //            SoundPlayer alarm = new SoundPlayer("sonnette_reveil.wav");
-            //            alarm.PlayLooping();
-            //        }
-            //    }
-            //}
-            BloodPressureData bp = new BloodPressureData();
-
-
-            bp = _filter.getDTOSample();
             
-
-            //mw.Alarm(bp.Værdi);
-
-
-            //for (int i = 6; i < 6; i++)
-            //{
-            //    if (_local[i].Systolic > 1.3 * _local[i - 5].Systolic || _local[i].Systolic < 0.7 * _local[i - 5].Systolic)
-            //    {
-            //        alarm.PlayLooping();
-            //    }
-            //}
-
 
             //kald getNewestDTO 6 antal gange, gem i lokal liste
             //if sætning med alarm algoritme med dto.Systolic
