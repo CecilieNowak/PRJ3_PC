@@ -31,7 +31,7 @@ namespace BusinessLogicLayer
                 var container = _dataQueue.Take();
 
               
-                    _bps.NewDataRecieved(container);
+                    _bps.NewDataReceived(container);
                 
                 //Thread.Sleep(100);
                 

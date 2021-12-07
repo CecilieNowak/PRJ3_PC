@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using DataAccessLayer;
 using DTO_BloodPressureData;
 
 
@@ -58,6 +57,7 @@ namespace PresentationLayer
             send = new SendToDatabase();
             
             _filter = new Filter(_subject);
+            
             DisplayObserver display = new DisplayObserver(_filter, this);
 
             AlarmObserver aObserver = new AlarmObserver(_filter, this);
@@ -68,12 +68,12 @@ namespace PresentationLayer
 
 
             // Test med UDP-kommunikation
-            UDPListener udpListener = new UDPListener(dataQueue);
-            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
-            Thread t2 = new Thread(udpListener.StartListener);
-            Thread t3 = new Thread(udpConsumer.UpdateChart);
-            t2.Start();
-            t3.Start();
+            //UDPListener udpListener = new UDPListener(dataQueue);
+            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
+            //Thread t2 = new Thread(udpListener.StartListener);
+            //Thread t3 = new Thread(udpConsumer.UpdateChart);
+            //t2.Start();
+            //t3.Start();
 
 
             //Test til alarm
@@ -82,9 +82,9 @@ namespace PresentationLayer
             //t5.Start();
 
             //Test med filter
-            //FilterTest filterTest = new FilterTest(this, _subject);
-            //Thread t6 = new Thread(filterTest.randomDTO);
-            //t6.Start();
+            FilterTest filterTest = new FilterTest(this, _subject);
+            Thread t6 = new Thread(filterTest.randomDTO);
+            t6.Start();
 
         }
 
@@ -112,7 +112,11 @@ namespace PresentationLayer
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
-            _calibrateW = new CalibrateWindow(this);
+           
+
+            _subject.Remove(_filter);
+
+            _calibrateW = new CalibrateWindow(this, _subject);
 
             this.Hide();             //SKAL MAIN LUKKES, FOR AT ALARM STOPPES?                                                            //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
@@ -141,6 +145,15 @@ namespace PresentationLayer
                 Puls_value_box.Text = text;
             }
                 );
+        }
+
+        public void doStuff(BloodPressureData bp)
+        {
+            YValues.Add(Convert.ToInt16(bp.Værdi));      //SKAL add'e værdi!!!
+            if (YValues.Count > 200)
+            {
+                YValues.RemoveAt(0);
+            }
         }
 
         public void UpdateDiaSysTextbox(double sys, double dia)

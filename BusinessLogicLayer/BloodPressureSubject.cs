@@ -9,19 +9,19 @@ namespace BusinessLogicLayer
     public class BloodPressureSubject : AbstractBloodPressureData
     {
         public readonly List<BloodPressureData> dtoList; //TODO make private
-        public int counter { get; set; } 
+        
         
         
 
         public BloodPressureSubject()
         {
             dtoList = new List<BloodPressureData>();
-            counter = 0;
+            
 
 
         }
 
-        public void NewDataRecieved(BloodPressureData bp)
+        public void NewDataReceived(BloodPressureData bp)
         {
             dtoList.Add(bp);
 

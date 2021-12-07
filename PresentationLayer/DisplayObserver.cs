@@ -39,11 +39,7 @@ namespace PresentationLayer
             bp = _filter.getSmoothDTO();
 
 
-            mw.YValues.Add(Convert.ToInt16(bp.Værdi));      //SKAL add'e værdi!!!
-            if (mw.YValues.Count > 200)
-            {
-                mw.YValues.RemoveAt(0);
-            }
+            mw.doStuff(bp);
 
             //mw.XValues.Add(1);
 
