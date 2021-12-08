@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using DTO_BloodPressureData;
-
+using DataAccessLayer;
 
 namespace PresentationLayer
 {
@@ -26,7 +26,7 @@ namespace PresentationLayer
         private CalibrateWindow _calibrateW;
         public Filter _filter;
         private SendToDatabase send;
-        private SaveDataToTxtfile saveData;
+        //private SaveDataToTxtfile saveData;
         private CheckCPR _checkCPR;
 
         public bool LoginOk { get; set; }
@@ -57,7 +57,7 @@ namespace PresentationLayer
 
             send = new SendToDatabase();
 
-            saveData = new SaveDataToTxtfile();
+          //  saveData = new SaveDataToTxtfile();
             
             _filter = new Filter(_subject);
             
@@ -65,7 +65,7 @@ namespace PresentationLayer
 
             AlarmObserver aObserver = new AlarmObserver(_filter, this);
 
-            LogFileObserver logFile = new LogFileObserver(_filter, saveData);
+           // LogFileObserver logFile = new LogFileObserver(_filter, saveData);
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
@@ -73,12 +73,12 @@ namespace PresentationLayer
 
 
             // LogFile med UDP-kommunikation
-            //UDPListener udpListener = new UDPListener(dataQueue);
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
-            //Thread t2 = new Thread(udpListener.StartListener);
-            //Thread t3 = new Thread(udpConsumer.UpdateChart);
-            //t2.Start();
-            //t3.Start();
+            UDPListener udpListener = new UDPListener(dataQueue);
+            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
+            Thread t2 = new Thread(udpListener.StartListener);
+            Thread t3 = new Thread(udpConsumer.UpdateChart);
+            t2.Start();
+            t3.Start();
 
 
             //LogFile til alarm
@@ -87,9 +87,9 @@ namespace PresentationLayer
             //t5.Start();
 
             //LogFile med filter
-            FilterTest filterTest = new FilterTest(this, _subject);
-            Thread t6 = new Thread(filterTest.randomDTO);
-            t6.Start();
+            //FilterTest filterTest = new FilterTest(this, _subject);
+            //Thread t6 = new Thread(filterTest.randomDTO);
+            //t6.Start();
 
         }
 
@@ -113,7 +113,7 @@ namespace PresentationLayer
                 dataSaved_Box.Text = "Data kunne ikke sendes"; //Hvis det intastede CPR i tekstboksen er ugyldig sker følgende:
             }
 
-            saveData.DeleteFromFile();  
+           // saveData.DeleteFromFile();  
         }
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
@@ -154,7 +154,7 @@ namespace PresentationLayer
         public void AddDisplayValues(BloodPressureData bp)
         {
             YValues.Add(Convert.ToInt16(bp.Værdi));      //SKAL add'e værdi!!!
-            if (YValues.Count > 200)
+            if (YValues.Count > 100)
             {
                 YValues.RemoveAt(0);
             }

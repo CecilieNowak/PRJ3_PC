@@ -40,8 +40,8 @@ namespace BusinessLogicLayer
         {
             lokalList = _bp.GetNewestDTO();                         //Henter seneste 10 DTO'er
             lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er 
-            
-           
+
+            lokalBp.Værdi = lokalBp.Værdi;
             //lokalBp = _bp.dtoList.Last();
 
             //Kalibrering
