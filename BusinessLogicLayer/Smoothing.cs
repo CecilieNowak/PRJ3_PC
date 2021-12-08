@@ -32,13 +32,13 @@ namespace BusinessLogicLayer
             double average = sum / bp.Count;
             BloodPressureData newBP = new BloodPressureData();
 
-            //if (!double.IsNaN(average))
-            //{
+            if (!double.IsNaN(average))
+            {
 
                 
                     newBP.Værdi = Convert.ToInt32(average); //SKAL være værdi!!
                 
-            //}
+            }
 
             return newBP;
 

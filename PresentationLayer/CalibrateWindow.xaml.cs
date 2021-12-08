@@ -30,14 +30,14 @@ namespace PresentationLayer
         private readonly ChartValues<Point> _values;
         private CalibrateObserver calibrateObserver;
 
-        private BloodPressureSubject bpSubject;  //VED IKKE 
+       private BloodPressureSubject bpSubject;  //VED IKKE 
 
         public SeriesCollection Data { get; set; }                                                                                      //Pressure input and ADC value skal sættes i denne property
         public string PressureInput { get; set; }                                                                                       //Den indtastede trykværdi sættes i denne property
 
         public double ADCValue { get; set; } //VED IKKE //til at få adc-værdi fra observermønster (bpSubject)
 
-        public CalibrateWindow(MainWindow mainRef, BloodPressureSubject bp)
+        public CalibrateWindow(MainWindow mainRef, BloodPressureSubject bp) 
         {
             InitializeComponent();
             _mainRef = mainRef;
@@ -48,7 +48,7 @@ namespace PresentationLayer
             pressureValue = new List<int>() {0, 25, 50, 125, 200, 250, 200, 125, 50, 25, 0};
 
             //bpSubject = new BloodPressureSubject(); //VED IKKE
-            calibrateObserver = new CalibrateObserver(bp, this); //VED IKKE om der er skal være filter eller bpSubject
+            calibrateObserver = new CalibrateObserver(bp, this); //VED IKKE om der er skal være filter eller bpSubject //TODO uncomment
 
         }
 
@@ -60,6 +60,7 @@ namespace PresentationLayer
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";                                                                          //Når vinduet åbner, udskrives denne streng
             Date_Box.Text = DateTime.Now.ToString("dd/MM/yyyy");
             calibrateButton.IsEnabled = true;
+
         }
 
         private void CalibrationGraph_Loaded(object sender, RoutedEventArgs e)

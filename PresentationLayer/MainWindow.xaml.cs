@@ -10,7 +10,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using DataAccessLayer;
 using DTO_BloodPressureData;
+using SaveDataToTxtfile = BusinessLogicLayer.SaveDataToTxtfile;
 
 
 namespace PresentationLayer
@@ -28,7 +30,8 @@ namespace PresentationLayer
         private SendToDatabase send;
         private SaveDataToTxtfile saveData;
         private CheckCPR _checkCPR;
-
+        private LogFileObserver logFile;
+        private CalibrateObserver calibrateObserver;
         public bool LoginOk { get; set; }
        // public String Username { get; set; }
         public String Password { get; set; }
@@ -50,6 +53,8 @@ namespace PresentationLayer
 
             _subject = new BloodPressureSubject();
 
+            _calibrateW = new CalibrateWindow(this, _subject);
+            _calibrateW.Hide();
 
             YValues = new ChartValues<int>();
             XValues = new ChartValues<int>();
@@ -60,14 +65,15 @@ namespace PresentationLayer
             saveData = new SaveDataToTxtfile();
             
             _filter = new Filter(_subject);
+           
             
             DisplayObserver display = new DisplayObserver(_filter, this);
 
             AlarmObserver aObserver = new AlarmObserver(_filter, this);
 
-            LogFileObserver logFile = new LogFileObserver(_filter, saveData);
+            logFile = new LogFileObserver(_filter, saveData);
 
-            BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
+             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
             // Må ikke slettes!!
 
@@ -87,9 +93,9 @@ namespace PresentationLayer
             //t5.Start();
 
             //LogFile med filter
-            FilterTest filterTest = new FilterTest(this, _subject);
-            Thread t6 = new Thread(filterTest.randomDTO);
-            t6.Start();
+            //FilterTest filterTest = new FilterTest(this, _subject);
+            //Thread t6 = new Thread(filterTest.randomDTO);
+            //t6.Start();
 
         }
 
@@ -118,16 +124,24 @@ namespace PresentationLayer
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
-            _subject.Remove(_filter);
+            //Test med ADC værdier fra RPI
+            
+            
+                //_subject.Remove(_filter);
+                //_filter.Remove(logFile);
+            
 
-            _calibrateW = new CalibrateWindow(this, _subject);
 
-            this.Hide();             //SKAL MAIN LUKKES, FOR AT ALARM STOPPES?                                                            //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+           
+
+            //this.Hide();             //SKAL MAIN LUKKES, FOR AT ALARM STOPPES?                                                            //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
 
             if (LoginOk)
             {
                 _calibrateW.ShowDialog(); //Hvis Login er ok, fuldføres login, og vi til kalibreringsvindue
+                _filter.Remove(logFile);
+                _subject.Remove(_filter);
             }
             else
             {
