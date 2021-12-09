@@ -15,6 +15,9 @@ namespace DTO_BloodPressureData
         public int Værdi { get; set; }
        public int battery { get; set; }
 
+       public int A { get; set; }
+       public int B { get; set; }
+
         public BloodPressureData()
         {
 

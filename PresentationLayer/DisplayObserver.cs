@@ -36,7 +36,7 @@ namespace PresentationLayer
         {
 
             BloodPressureData bp = new BloodPressureData();
-            bp = _filter.getDTOSample();
+            bp = _filter.getDTOSample();           //Parameterne er a og b fra regression 
 
 
             mw.AddDisplayValues(bp);
@@ -47,6 +47,10 @@ namespace PresentationLayer
             //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
             mw.UpdatePulseTextBox(Convert.ToString(Convert.ToInt32(bp.Værdi)));
             mw.UpdateDiaSysTextbox(bp.Systolic, bp.Diastolic);
+            string batteri = Convert.ToString(bp.battery);
+            mw.BatteryStatus(batteri);
+            mw.updateBatteryBar((bp.battery));
+
         }
     }
 }

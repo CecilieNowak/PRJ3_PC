@@ -17,6 +17,7 @@ namespace BusinessLogicLayer
         private Smoothing smooth;
         private BloodPressureData lokalBp;
         private CalcBP calcBp;
+        private BatteriMonitorering battery;
         private List<BloodPressureData> lokalList;
         public double A { get; set; }
         public double B { get; set; }
@@ -30,14 +31,24 @@ namespace BusinessLogicLayer
 
             smooth = new Smoothing();
             calcBp = new CalcBP();
+            battery = new BatteriMonitorering();
 
             lokalList = new List<BloodPressureData>();
 
+
+
+        }
+
+        public void getAndSetCalibrationValues(double a, double b)
+        {
+            lokalBp.Systolic = a*lokalBp.Værdi+b;
+            lokalBp.Diastolic = a*lokalBp.Værdi+b;
         }
 
 
         public void Update() //metoden skal retunere en DTO med gennemsnit over 10 første samples, som displayObserveren skal opdatere guien med
         {
+
             lokalList = _bp.GetNewestDTO();                         //Henter seneste 10 DTO'er
             lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er 
             
@@ -47,7 +58,9 @@ namespace BusinessLogicLayer
             //Kalibrering
             
             lokalBp.Systolic = calcBp.CalcSys(lokalList);
-            lokalBp.Diastolic = calcBp.CalcDia(lokalList); 
+            lokalBp.Diastolic = calcBp.CalcDia(lokalList);
+            
+            battery.requestbatterystatus(lokalBp);
             //Log data
 
             Notify();
@@ -55,9 +68,11 @@ namespace BusinessLogicLayer
 
         }
 
+        
 
         public BloodPressureData getDTOSample()
         {
+
             return lokalBp;
         }
     }

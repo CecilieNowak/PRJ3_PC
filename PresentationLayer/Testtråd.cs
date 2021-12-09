@@ -31,23 +31,34 @@ namespace PresentationLayer
 
         public void updateChart()
         {
-            for (int i = 0; i < 100; i++)
+            while (true)
             {
-                _bp.NewDataReceived(new BloodPressureData(1, 0, 0));
-                if (i == 33 || i == 34 || i == 35 || i == 36 || i == 37 || i == 38 || i == 39 || i == 40 || i == 41 || i == 42 || i == 43 || i == 44 || i == 45 || i == 46 || i == 47 || i == 48)
+                for (int i = 0; i < 100; i++)
                 {
-                    _bp.NewDataReceived(new BloodPressureData(10, 0, 0));
-                }
-                else if (i == 66)
-                {
-                    _bp.NewDataReceived(new BloodPressureData(10, 0, 0));
+                    BloodPressureData dto = new BloodPressureData();
+                    dto.battery = 900;
+                    dto.Værdi = 100;
+                    _bp.NewDataReceived(dto);
 
+
+                    if (i == 33 || i == 34 || i == 35 || i == 36 || i == 37 || i == 38 || i == 39 || i == 40 ||
+                        i == 41 || i == 42 || i == 43 || i == 44 || i == 45 || i == 46 || i == 47 || i == 48)
+                    {
+                        _bp.NewDataReceived(dto);
+                        dto.Værdi = 50;
+                    }
+                    else if (i == 66)
+                    {
+                        _bp.NewDataReceived(dto);
+                        dto.Værdi = 100;
+                    }
+
+                    Thread.Sleep(100);
                 }
-                Thread.Sleep(100);
             }
 
-                
-                }
+
+        }
             } 
         }
     

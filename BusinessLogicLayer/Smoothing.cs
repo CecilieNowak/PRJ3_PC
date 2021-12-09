@@ -23,13 +23,16 @@ namespace BusinessLogicLayer
         {
 
             double sum = 0;
+            double batterySum = 0;
 
             foreach (var dto in bp)
             {
                 sum += dto.Værdi;           //SKAL være værdi!!
+                batterySum += dto.battery;
             }
 
             double average = sum / bp.Count;
+            double avgerageBattery = batterySum / bp.Count;
             BloodPressureData newBP = new BloodPressureData();
 
             if (!double.IsNaN(average))
@@ -37,7 +40,8 @@ namespace BusinessLogicLayer
 
                 
                     newBP.Værdi = Convert.ToInt32(average); //SKAL være værdi!!
-                
+                    newBP.battery = Convert.ToInt32(avgerageBattery);
+
             }
 
             return newBP;

@@ -115,8 +115,8 @@ namespace PresentationLayer
             }
             insertValues_Box.Text = "Kalibrering foretaget";
 
-            _mainRef._filter.A = Convert.ToDouble(a);       //Gemmer a i main
-            _mainRef._filter.B = Convert.ToDouble(b);       //Gemmer b i main
+            _mainRef.A = Convert.ToDouble(a);       //Gemmer a i main
+            _mainRef.B = Convert.ToDouble(b);       //Gemmer b i main
             
         }
 
@@ -167,8 +167,8 @@ namespace PresentationLayer
         {
             //Environment.Exit(0);
             this.Hide();                                                                                                           //Når der logges af, skjules kalibreringsvindue
+           _mainRef.PrepMainWindow();
             _mainRef.ShowDialog();       
-            _mainRef._subject.Add(_mainRef._filter);
             
             //og hovedvindue åbner
         }

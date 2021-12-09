@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using DataAccessLayer;
 using DTO_BloodPressureData;
 using SaveDataToTxtfile = BusinessLogicLayer.SaveDataToTxtfile;
 
@@ -26,12 +25,13 @@ namespace PresentationLayer
         private readonly LoginWindow _loginW;
         public BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
-        public Filter _filter;
+        private Filter _filter;
         private SendToDatabase send;
         private SaveDataToTxtfile saveData;
         private CheckCPR _checkCPR;
         private LogFileObserver logFile;
-        private CalibrateObserver calibrateObserver;
+        private Thread t4;
+        private Testtråd testTråd;
         public bool LoginOk { get; set; }
        // public String Username { get; set; }
         public String Password { get; set; }
@@ -39,7 +39,7 @@ namespace PresentationLayer
         public ChartValues<int> YValues { get; set; }   //YValues til puls graf
         public ChartValues<int> XValues { get; set; }   //XValues til puls graf
 
-        public double A { get; set; }
+        public double A { get; set; } 
         public double B { get; set; }
 
         public MainWindow()
@@ -52,10 +52,7 @@ namespace PresentationLayer
             _checkCPR = new CheckCPR();
 
             _subject = new BloodPressureSubject();
-
-            _calibrateW = new CalibrateWindow(this, _subject);
-            _calibrateW.Hide();
-
+            
             YValues = new ChartValues<int>();
             XValues = new ChartValues<int>();
             DataContext = this;
@@ -65,11 +62,13 @@ namespace PresentationLayer
             saveData = new SaveDataToTxtfile();
             
             _filter = new Filter(_subject);
+                testTråd = new Testtråd(this, _subject);
            
             
             DisplayObserver display = new DisplayObserver(_filter, this);
 
             AlarmObserver aObserver = new AlarmObserver(_filter, this);
+
 
             logFile = new LogFileObserver(_filter, saveData);
 
@@ -79,17 +78,18 @@ namespace PresentationLayer
 
 
             // LogFile med UDP-kommunikation
-            //UDPListener udpListener = new UDPListener(dataQueue);
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
-            //Thread t2 = new Thread(udpListener.StartListener);
-            //Thread t3 = new Thread(udpConsumer.UpdateChart);
-            //t2.Start();
-            //t3.Start();
+            UDP_Listener_BLL udpListener = new UDP_Listener_BLL(dataQueue);
+            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
+            Thread t2 = new Thread(udpListener.startUDPListener);
+            Thread t3 = new Thread(udpConsumer.UpdateChart);
+
+            t2.Start();
+            t3.Start();
 
 
             //LogFile til alarm
-            //Testtråd testtråd = new Testtråd(this, subject);
-            //Thread t5 = new Thread(testtråd.updateChart);
+            //Testtråd testtråd = new Testtråd(this, _subject);
+            //Thread t5 = new Thread(testTråd.updateChart);
             //t5.Start();
 
             //LogFile med filter
@@ -103,6 +103,15 @@ namespace PresentationLayer
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
             alarm.Visibility = Visibility.Hidden;
+        }
+
+        public void updateBatteryBar(double battery)
+        {
+            Dispatcher.Invoke(() =>
+                {
+                    BatteriBar.Value = battery;
+                }
+            );
         }
 
         private void SaveData_button_Click(object sender, RoutedEventArgs e)
@@ -122,30 +131,58 @@ namespace PresentationLayer
             saveData.DeleteFromFile();  
         }
 
+        public void PrepCalibrateWindow()
+        {
+            Dispatcher.Invoke(() =>         //DISPATCHER behøves ikke
+            {
+                _filter.Remove(logFile);
+            _subject.Remove(_filter);
+            }
+            );
+        }
+
+
+        public void PrepMainWindow()
+        {
+            Dispatcher.Invoke(() =>     //Dispatcher behøves ikke
+                {
+                    _filter.Add(logFile);
+                    _subject.Add(_filter);
+                    _filter.getAndSetCalibrationValues(A,B);
+                }
+            );
+        }
+
+        public void BatteryStatus(string text)
+        {
+            Dispatcher.Invoke(() =>     //Dispatcher behøves ikke
+                {
+                    Batteri_Status_Text.Text = text;
+                }
+            );
+        }
+
+
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
-            //Test med ADC værdier fra RPI
-            
-            
-                //_subject.Remove(_filter);
-                //_filter.Remove(logFile);
-            
+            PrepCalibrateWindow();
+
+            _calibrateW = new CalibrateWindow(this, _subject);
 
 
-           
-
-            //this.Hide();             //SKAL MAIN LUKKES, FOR AT ALARM STOPPES?                                                            //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            
+            this.Hide();             //SKAL MAIN LUKKES, FOR AT ALARM STOPPES?                                                            //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog();                                                               //og Loginvindue vises
 
             if (LoginOk)
             {
                 _calibrateW.ShowDialog(); //Hvis Login er ok, fuldføres login, og vi til kalibreringsvindue
-                _filter.Remove(logFile);
-                _subject.Remove(_filter);
+              
             }
             else
             {
-                this.Close();
+
+               // this.Close();
             }
         }
 
@@ -254,14 +291,11 @@ namespace PresentationLayer
         */
 
       
-        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
-        }
 
         private void GetData_button_Click(object sender, RoutedEventArgs e)
         {
             dataSaved_Box.Text = "A: " + A + " B: " + B;
         }
+        
     }
 }
