@@ -72,7 +72,7 @@ namespace PresentationLayer
 
             AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
 
-            alarm1 = new Alarm(alarm, _st);
+            alarm1 = new Alarm(alarm, _st, Dispatcher);
 
             Storyboard st = new Storyboard();
 
@@ -229,15 +229,14 @@ namespace PresentationLayer
             );
         }
 
-        public void AlarmStart(List<double> sys, List<double> dia)
+        public void AlarmVisibility(List<double> sys, List<double> dia)
         {
             Dispatcher.Invoke(() =>
             {
-                //if (alarm.Visibility == Visibility.Hidden)
-                //{
+                if (alarm.Visibility == Visibility.Hidden)
+                {
                 alarm1.StartAlarm(sys, dia);
-                //alarm1.StartAlarm(sys, dia);
-                //}
+                }
 
             }
            );
