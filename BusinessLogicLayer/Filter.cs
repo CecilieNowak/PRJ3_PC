@@ -41,8 +41,8 @@ namespace BusinessLogicLayer
 
         public void getAndSetCalibrationValues(double a, double b)
         {
-            lokalBp.Systolic = a*lokalBp.Værdi+b;
-            lokalBp.Diastolic = a*lokalBp.Værdi+b;
+            A = a;
+            B = b;
         }
 
 
@@ -51,16 +51,21 @@ namespace BusinessLogicLayer
 
             lokalList = _bp.GetNewestDTO();                         //Henter seneste 10 DTO'er
             lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er 
-            
-           
+
+
             //lokalBp = _bp.dtoList.Last();
 
             //Kalibrering
-            
+
             lokalBp.Systolic = calcBp.CalcSys(lokalList);
+            lokalBp.Systolic = Convert.ToInt32(A * lokalBp.Systolic + B);               //Omregner ADC værdi (Systolisk) til mmHg
             lokalBp.Diastolic = calcBp.CalcDia(lokalList);
+            lokalBp.Diastolic = Convert.ToInt32(A * lokalBp.Diastolic + B);             //Omregner ADC værdi (Diastolisk) til mmHg
             
+
             battery.requestbatterystatus(lokalBp);
+
+            
             //Log data
 
             Notify();
