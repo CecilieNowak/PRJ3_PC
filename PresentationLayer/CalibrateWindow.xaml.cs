@@ -29,8 +29,8 @@ namespace PresentationLayer
         private List<double> _adcValuesList;                                                                                            //List til at gemme ADC values 
         private readonly ChartValues<Point> _values;
         private CalibrateObserver calibrateObserver;
-
-       private BloodPressureSubject bpSubject;  //VED IKKE 
+        
+        //private BloodPressureSubject bpSubject;  //VED IKKE 
 
         public SeriesCollection Data { get; set; }                                                                                      //Pressure input and ADC value skal sættes i denne property
         public string PressureInput { get; set; }                                                                                       //Den indtastede trykværdi sættes i denne property
@@ -150,7 +150,6 @@ namespace PresentationLayer
                 }
                 else if (_pressureValuesList.Count == 11)
                 {
-                    //calibrateButton.IsEnabled = false;
                     LinearRegression();
                 }
             }

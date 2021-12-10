@@ -5,17 +5,18 @@ using DTO_BloodPressureData;
 
 namespace BusinessLogicLayer
 {
-    class BatteriMonitorering
+    public class BatteryMonitorering
     {
 
         private int batteristatus;
         //private Battery batteryData;
 
-        public BatteriMonitorering()
+        public BatteryMonitorering()
         {
             //batteryData = new Battery(); Værdien hentes ikke fra data pga RPi
         }
-        public BloodPressureData requestbatterystatus(BloodPressureData bp)
+
+        public BloodPressureData RequestBatterystatus(BloodPressureData bp)
         {
             double sample = bp.battery;
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using DTO_BloodPressureData;
-using SaveDataToTxtfile = BusinessLogicLayer.SaveDataToTxtfile;
+//using SaveDataToTxtfile = BusinessLogicLayer.SaveDataToTxtfile;
 using System.Windows.Media.Animation;
 
 namespace PresentationLayer
@@ -71,6 +71,8 @@ namespace PresentationLayer
             DisplayObserver display = new DisplayObserver(_filter, this);
 
             AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
+
+            BatteryObserver batteryObserver = new BatteryObserver(_filter, this);
 
             alarm1 = new Alarm(alarm, _st, Dispatcher);
 
