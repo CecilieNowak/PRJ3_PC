@@ -18,6 +18,8 @@ namespace BusinessLogicLayer
         private BloodPressureData lokalBp;
         private CalcBP calcBp;
         private List<BloodPressureData> lokalList;
+        private List<BloodPressureData> lokalListMean;
+        private BloodPressureData lokalBPMean;
         public double A { get; set; }
         public double B { get; set; }
 
@@ -32,6 +34,7 @@ namespace BusinessLogicLayer
             calcBp = new CalcBP();
 
             lokalList = new List<BloodPressureData>();
+            lokalListMean = new List<BloodPressureData>();
 
         }
 
@@ -40,12 +43,14 @@ namespace BusinessLogicLayer
         {
             lokalList = _bp.GetNewestDTO();                         //Henter seneste 10 DTO'er
             lokalBp = smooth.smoothGraph(lokalList);                //Gennemsnit af DTO'er 
-            
-           
+
+            lokalListMean = _bp.GetNewestDTOMean(); //Andreas
+            lokalBPMean = smooth.smoothGraph(lokalListMean); //Andreas !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
             //lokalBp = _bp.dtoList.Last();
 
             //Kalibrering
-            
+            lokalBPMean.Avg = calcBp.CalcMean(lokalListMean); //Andreas
             lokalBp.Systolic = calcBp.CalcSys(lokalList);
             lokalBp.Diastolic = calcBp.CalcDia(lokalList); 
             //Log data
@@ -60,6 +65,11 @@ namespace BusinessLogicLayer
         {
             return lokalBp;
         }
+
+        //public BloodPressureData GetMean()
+        //{
+            
+        //}
 
         public List<double> getListOfSys()
         {

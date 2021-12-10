@@ -13,7 +13,7 @@ namespace DTO_BloodPressureData
 
         public double Avg { get; set; }
         public int Værdi { get; set; }
-       public int battery { get; set; }
+        public int battery { get; set; }
 
         public BloodPressureData()
         {

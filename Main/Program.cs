@@ -13,40 +13,41 @@ namespace Main
         static void Main(string[] args)
         {
 
-            //CalcBP calc = new CalcBP();
-            SaveDataToTxtfile test = new SaveDataToTxtfile();
-            //data.CalcSys();
-            //data.CalcDia();
 
-            test.Test();
+            ////CalcBP calc = new CalcBP();
+            //SaveDataToTxtfile test = new SaveDataToTxtfile();
+            ////data.CalcSys();
+            ////data.CalcDia();
 
-            //Alarm a1 = new Alarm();
-            //List<int> testSys = new List<int> { 1, 1, 1, 1, 11, 1, 1, 3, 3, 11, 1, 6 };
-            //a1.StartAlarm(testSys);
-            //Console.ReadKey();
-            
+            //test.Test();
 
-            //Test af SendToDatabase-klasse
-            SendToDatabase send = new SendToDatabase();
-            
-            Console.WriteLine(send.GetData());
-            
+            ////Alarm a1 = new Alarm();
+            ////List<int> testSys = new List<int> { 1, 1, 1, 1, 11, 1, 1, 3, 3, 11, 1, 6 };
+            ////a1.StartAlarm(testSys);
+            ////Console.ReadKey();
 
-            //send.SendData();
 
-            //Test af lineær regression
-            //double[] adcValues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };                   //Array with x-values (adc [V])
-            //double[] pressureValues = { 2, 3, 5, 6, 8, 9, 10, 12, 14, 15 };                 //Array with y-values (pressure [mmHg]
+            ////Test af SendToDatabase-klasse
+            //SendToDatabase send = new SendToDatabase();
 
-            //LinearRegression regression = new LinearRegression(adcValues, pressureValues);
+            //Console.WriteLine(send.GetData());
 
-            //Console.WriteLine(regression.GetSlope());
-            //Console.WriteLine(regression.GetIntercept());
-            //Console.WriteLine(regression.GetRSquared());
 
-            //Metode til at beregne systole og få alarmen til at køre
-            var rand = new Random();
-            List<int> sys = new List<int>();
+            ////send.SendData();
+
+            ////Test af lineær regression
+            ////double[] adcValues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };                   //Array with x-values (adc [V])
+            ////double[] pressureValues = { 2, 3, 5, 6, 8, 9, 10, 12, 14, 15 };                 //Array with y-values (pressure [mmHg]
+
+            ////LinearRegression regression = new LinearRegression(adcValues, pressureValues);
+
+            ////Console.WriteLine(regression.GetSlope());
+            ////Console.WriteLine(regression.GetIntercept());
+            ////Console.WriteLine(regression.GetRSquared());
+
+            ////Metode til at beregne systole og få alarmen til at køre
+            //var rand = new Random();
+            //List<int> sys = new List<int>();
 
             //var data = new List<int>();  //Laver en liste og putter random værdier ind
 
@@ -59,7 +60,7 @@ namespace Main
             //{
             //    Console.WriteLine(item);
             //}
-            
+
             //{
             //    for (int i = 5; i <= data.Count - 5; i++)
             //    {
@@ -79,7 +80,17 @@ namespace Main
             //    }
             //}
 
-            //SoundPlayer alarm = new SoundPlayer("alarm1.wav");
+            SoundPlayer alarm = new SoundPlayer("alarm1.wav");
+
+            alarm.PlayLooping();
+
+            Thread t = new Thread(Wait);
+            t.Start();
+            void Wait()
+            {
+                Thread.Sleep(5000);
+
+            }
             //Thread t1 = new Thread(WriteSys);
             //t1.Start();
 
@@ -96,7 +107,7 @@ namespace Main
             //        }
 
             //    }
-            
+
 
             //Console.ReadLine();
         }

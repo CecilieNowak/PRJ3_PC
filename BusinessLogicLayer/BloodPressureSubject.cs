@@ -9,14 +9,15 @@ namespace BusinessLogicLayer
     public class BloodPressureSubject : AbstractBloodPressureData
     {
         public readonly List<BloodPressureData> dtoList; //TODO make private
-        
-        
+
+
+        public readonly List<BloodPressureData> dtoListMean; //Andreas
         
 
         public BloodPressureSubject()
         {
             dtoList = new List<BloodPressureData>();
-            
+            dtoListMean = new List<BloodPressureData>(); //Andreas
 
 
         }
@@ -44,6 +45,28 @@ namespace BusinessLogicLayer
                 //}
 
                 dtoList.RemoveAt(0);
+
+
+            }
+
+            return lokal;
+
+        }
+
+
+        public List<BloodPressureData> GetNewestDTOMean() //Andreas
+        {
+            List<BloodPressureData> lokal = new List<BloodPressureData>();
+            if (dtoList.Count == 10)
+            {
+                lokal.AddRange(dtoListMean);
+                //foreach (var dto in dtoList)
+                //{
+
+                //    lokal.Add(dto);
+                //}
+
+                dtoListMean.RemoveAt(0);
 
 
             }

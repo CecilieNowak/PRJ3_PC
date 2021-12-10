@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using DataAccessLayer;
 using DTO_BloodPressureData;
-
+using System.Windows.Media.Animation;
 
 namespace PresentationLayer
 {
@@ -30,6 +30,9 @@ namespace PresentationLayer
         public Filter _filter;
         private SendToDatabase send;
         private CheckCPR _checkCPR;
+        private Alarm alarm1;
+        private Storyboard _st;
+
 
         public bool LoginOk { get; set; }
        // public String Username { get; set; }
@@ -64,7 +67,11 @@ namespace PresentationLayer
             
             DisplayObserver display = new DisplayObserver(_filter, this);
 
-            AlarmObserver aObserver = new AlarmObserver(_filter, alarm, this);
+            AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
+
+            alarm1 = new Alarm(alarm, /*this,*/ _st, Dispatcher);
+
+            Storyboard st = new Storyboard();
 
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
@@ -172,6 +179,28 @@ namespace PresentationLayer
             );
         }
 
+        public void AlarmVisibility(List<double> sys, List<double> dia)
+        {
+
+            Dispatcher.Invoke(() =>
+                {
+                if (alarm.Visibility == Visibility.Hidden)
+                {
+                    alarm1.StartAlarm(sys, dia);
+                }
+
+                }
+            );
+        }
+        public void setAlarmVisibility()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                alarm.Visibility = Visibility.Hidden;
+            }
+);
+        }
+
         //Nedenstående kode får alarmen til at blinke
         //public void Alarmblink(int length, double repetition)
         //{
@@ -222,23 +251,85 @@ namespace PresentationLayer
         //    //    DiaList.Add(Convert.ToDouble(item));
         //    //}
 
-       public void BlinkAlarm(Ellipse a)
-       {
-           Dispatcher.Invoke(() => { a.Visibility = Visibility.Visible; }
-           );
+        //public void BlinkAlarm(Ellipse a)
+        //{
+        //    Dispatcher.Invoke(() => 
+        //    {
+        //        a.Visibility = Visibility.Visible;
+        //        BloodPressureData bp = new BloodPressureData();
+        //        //bp = _subject.GetNewestDTO();
+        //        double sys = bp.Systolic;
 
 
-      
-        }
+        //        if (sys == 10)
+        //        {
+        //            DoubleAnimation opacityAlarm = new DoubleAnimation()
+        //            {
+        //                From = 0.0,
+        //                To = 1.0,
+        //                Duration = new Duration(TimeSpan.FromMilliseconds(250)),
+        //                AutoReverse = true,
+        //                RepeatBehavior = new RepeatBehavior(10)
+        //            };
+        //            Storyboard storyboard = new Storyboard();
+        //            storyboard.Children.Add(opacityAlarm);
+        //            Storyboard.SetTarget(opacityAlarm, alarm);
+        //            Storyboard.SetTargetProperty(opacityAlarm, new PropertyPath("Opacity"));
+        //            alarm.Visibility = Visibility.Visible;
 
-       public void BeginAlarm(Ellipse a)
-       {
-           Dispatcher.Invoke(() => { .Begin(a); ; }
-           );
+        //            storyboard.Begin(alarm);
+
+
+        //        }
+        //    }
+        //    );
 
 
 
-       }
+        // }
+        //public void Alarmblink()
+        //{
+
+        //    while (true)
+        //    {
+        //        BloodPressureData bp = new BloodPressureData();
+        //        //bp = _subject.GetNewestDTO();
+        //        double sys = bp.Systolic;
+
+
+        //        if (sys == 10)
+        //        {
+        //            DoubleAnimation opacityAlarm = new DoubleAnimation()
+        //            {
+        //                From = 0.0,
+        //                To = 1.0,
+        //                Duration = new Duration(TimeSpan.FromMilliseconds(250)),
+        //                AutoReverse = true,
+        //                RepeatBehavior = new RepeatBehavior(10)
+        //            };
+        //            Storyboard storyboard = new Storyboard();
+        //            storyboard.Children.Add(opacityAlarm);
+        //            Storyboard.SetTarget(opacityAlarm, alarm);
+        //            Storyboard.SetTargetProperty(opacityAlarm, new PropertyPath("Opacity"));
+        //            alarm.Visibility = Visibility.Visible;
+
+        //            storyboard.Begin(alarm);
+
+
+        //        }
+        //    }
+        //}
+
+
+
+        //public void BeginAlarm(Ellipse a)
+        //{
+        //    Dispatcher.Invoke(() => {aBegin(a); ; }
+        //    );
+
+
+
+        //}
 
 
         private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

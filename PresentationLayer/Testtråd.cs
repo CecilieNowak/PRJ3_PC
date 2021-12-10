@@ -31,32 +31,34 @@ namespace PresentationLayer
 
         public void updateChart()
         {
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
                 BloodPressureData bp = new BloodPressureData();
-               
-                bp.Værdi = 10;
-                
-                if (i == 10) 
-                {
+                //bp.Værdi = random.Next(1, 500);
 
+                if (i == 15)
+                {
                     bp.Værdi = 100;
                 }
 
-                if (i == 20)
+                if (i == 45)
                 {
-                    bp.Værdi = 300;
+                    bp.Værdi = 139;
                 }
 
+                if (i == 120)
+                {
+                    bp.Værdi = 211;
+                }
                 _bp.NewDataReceived(bp);
 
                 Thread.Sleep(100);
             }
 
                 
-                }
-            } 
         }
+    } 
+}
     
 
 

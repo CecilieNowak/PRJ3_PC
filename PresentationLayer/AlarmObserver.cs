@@ -12,41 +12,45 @@ namespace BusinessLogicLayer
 {
     public class AlarmObserver : IBloodPressureObserver
     {
-
-        private List<double> _local_sys;
-        private List<double> _local_dia;
-        private Alarm _alarm;
-
         private readonly Filter _filter;
-        private Ellipse alarm1;
-        private MainWindow _mw;
-        private Storyboard st;
+        private readonly MainWindow mw;
+        private Ellipse _alarmEllipse;
 
-        public AlarmObserver(Filter filter, Ellipse alarmEllipse, MainWindow mw)
+
+        public AlarmObserver(Filter filter, MainWindow mainWindow, Ellipse alarmEllipse)
         {
-            st = new Storyboard();
-            _alarm = new Alarm(alarmEllipse,mw, st);
-            _local_sys = new List<double>();
-            _local_dia = new List<double>();
+            mw = mainWindow;
             _filter = filter;
-            alarm1 = alarmEllipse;
-            _mw = mw;
+            _alarmEllipse = alarmEllipse;
             filter.Add(this);
         }
 
-        public void Update()
+        //bool b = false;
+        public void Update()                                            //Metoden henter nyeste DTO fra subjectet og opdaterer livecharten (Lige nu opdaterer den kun puls!)
         {
-            _local_dia = _filter.GetListOfDia();
-            _local_sys = _filter.getListOfSys();
 
-            _alarm.Alarmblink(_local_sys,_local_dia,250,10);
-            _alarm.StartAlarm(_local_dia,_local_sys);
+            BloodPressureData bp = new BloodPressureData();
+            bp = _filter.getDTOSample();
+            List <double> sysList = mw._filter.getListOfSys();
+            List<double> diaList = mw._filter.GetListOfDia();
+
+            //if (b == false)
+            //{
+
+            mw.AlarmVisibility(sysList, new List<double>());
 
             
+            //}
 
-            //kald getNewestDTO 6 antal gange, gem i lokal liste
-            //if sætning med alarm algoritme med dto.Systolic
+            //else
+            //{
+            //    mw.Blink(new List<double>(), diaList);
+            //}
 
+            //if (sysList.Count == 2)
+            //{
+            //    b = true;
+            //}
 
         }
 
