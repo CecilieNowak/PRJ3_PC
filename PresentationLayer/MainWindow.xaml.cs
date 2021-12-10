@@ -37,7 +37,7 @@ namespace PresentationLayer
         public String Password { get; set; }
 
         public ChartValues<int> YValues { get; set; }   //YValues til puls graf
-        public ChartValues<int> XValues { get; set; }   //XValues til puls graf
+        public ChartValues<string> XValues { get; set; }   //XValues til puls graf
 
         public double A { get; set; } 
         public double B { get; set; }
@@ -54,7 +54,7 @@ namespace PresentationLayer
             _subject = new BloodPressureSubject();
             
             YValues = new ChartValues<int>();
-            XValues = new ChartValues<int>();
+            XValues = new ChartValues<string>();
             DataContext = this;
 
             send = new SendToDatabase();
@@ -146,8 +146,8 @@ namespace PresentationLayer
         {
             Dispatcher.Invoke(() =>     //Dispatcher behøves ikke
                 {
-                    _filter.Add(logFile);
                     _subject.Add(_filter);
+                    _filter.Add(logFile);
                     _filter.getAndSetCalibrationValues(A,B);
                 }
             );

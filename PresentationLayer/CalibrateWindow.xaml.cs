@@ -168,7 +168,8 @@ namespace PresentationLayer
             //Environment.Exit(0);
             this.Hide();                                                                                                           //Når der logges af, skjules kalibreringsvindue
            _mainRef.PrepMainWindow();
-            _mainRef.ShowDialog();       
+            //_mainRef.ShowDialog();     
+            _mainRef.Show();
             
             //og hovedvindue åbner
         }

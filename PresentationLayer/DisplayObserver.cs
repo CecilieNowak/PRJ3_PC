@@ -11,6 +11,7 @@ using Microsoft.Identity.Client;
 using Microsoft.VisualBasic;
 
 
+
 namespace PresentationLayer
 {
     class DisplayObserver : IBloodPressureObserver
@@ -20,6 +21,7 @@ namespace PresentationLayer
 
         private readonly Filter _filter;
         private readonly MainWindow mw;
+        public DateTime _datetime { get; set; }
 
 
 
@@ -28,20 +30,20 @@ namespace PresentationLayer
             mw = mainWindow;
             _filter = filter;
             filter.Add(this);
-
+            
 
         }
 
         public void Update()                                            //Metoden henter nyeste DTO fra subjectet og opdaterer livecharten (Lige nu opdaterer den kun puls!)
         {
-
+            DateTime now = DateTime.Now;
             BloodPressureData bp = new BloodPressureData();
             bp = _filter.getDTOSample();           //Parameterne er a og b fra regression 
 
 
             mw.AddDisplayValues(bp);
 
-            //mw.XValues.Add(1);
+            mw.XValues.Add(now.ToString());
 
 
             //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
