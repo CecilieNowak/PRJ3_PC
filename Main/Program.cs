@@ -26,10 +26,18 @@ namespace Main
             //Console.ReadKey();
             
 
-            //LogFile af SendToDatabase-klasse
+            //Test af SendToDatabase-klasse
             SendToDatabase send = new SendToDatabase();
+            send.GetData("1234567890");
 
-            send.GetData("8888888888");
+
+
+            //for (int i = 0; i < send.GetData("1234567890").Count; i++)
+            //{
+            //    Console.WriteLine(send.GetData("1234567890")[0]);
+            //}
+
+            //
 
             //send.SendData();
 
