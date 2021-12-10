@@ -17,7 +17,7 @@ namespace BusinessLogicLayer
         }
         public BloodPressureData requestbatterystatus(BloodPressureData bp)
         {
-            double sample = (bp.battery / 2048.0) * 6.144;  //2048.0 ???
+            double sample = bp.battery;
 
             if (sample >= 2.9)
             {
