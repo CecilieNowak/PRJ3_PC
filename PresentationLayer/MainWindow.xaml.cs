@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using DTO_BloodPressureData;
 using SaveDataToTxtfile = BusinessLogicLayer.SaveDataToTxtfile;
-
+using System.Windows.Media.Animation;
 
 namespace PresentationLayer
 {
@@ -25,13 +25,16 @@ namespace PresentationLayer
         private readonly LoginWindow _loginW;
         public BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
-        private Filter _filter;
+        public Filter _filter; //Har lavet denne public for at tilgå den i alarmobserver. Må jeg det?
         private SendToDatabase send;
         private SaveDataToTxtfile saveData;
         private CheckCPR _checkCPR;
         private LogFileObserver logFile;
         private Thread t4;
         private Testtråd testTråd;
+        private Storyboard _st;
+        private Alarm alarm1;
+
         public bool LoginOk { get; set; }
        // public String Username { get; set; }
         public String Password { get; set; }
@@ -67,8 +70,11 @@ namespace PresentationLayer
             
             DisplayObserver display = new DisplayObserver(_filter, this);
 
-            AlarmObserver aObserver = new AlarmObserver(_filter, this);
+            AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
 
+            alarm1 = new Alarm(alarm, _st);
+
+            Storyboard st = new Storyboard();
 
             logFile = new LogFileObserver(_filter, saveData);
 
@@ -221,6 +227,20 @@ namespace PresentationLayer
                     BP_value_box.Text = Convert.ToString(Convert.ToInt16(sys)) + "/" + Convert.ToString(Convert.ToInt16(dia));
                 }
             );
+        }
+
+        public void AlarmStart(List<double> sys, List<double> dia)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                //if (alarm.Visibility == Visibility.Hidden)
+                //{
+                alarm1.StartAlarm(sys, dia);
+                //alarm1.StartAlarm(sys, dia);
+                //}
+
+            }
+           );
         }
 
         //Nedenstående kode får alarmen til at blinke

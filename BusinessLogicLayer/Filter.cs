@@ -80,5 +80,15 @@ namespace BusinessLogicLayer
 
             return lokalBp;
         }
+
+        public List<double> getListOfSys()
+        {
+            return calcBp.GetSys();
+        }
+
+        public List<double> GetListOfDia()
+        {
+            return calcBp.GetDia();
+        }
     }
 }
