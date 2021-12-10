@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:PresentationLayer"
         mc:Ignorable="d"
         Title="LoginWindow" Height="400" Width="600" Loaded="Window_Loaded">
-    <Grid Background="#FFD0E4FF">
-        <TextBox x:Name="Username_txtbox" HorizontalAlignment="Left" Margin="256,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Height="43" FontSize="16" Background="White" SelectionTextBrush="White" />
-        <TextBox x:Name="Password_txtbox" HorizontalAlignment="Left" Margin="256,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" Height="41" FontSize="16" Background="White" KeyUp="Password_txtbox_KeyUp"/>
+    <Grid Background="White">
+        <TextBox x:Name="Username_txtbox" HorizontalAlignment="Left" Margin="256,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Height="43" FontSize="16" Background="White" SelectionTextBrush="White" BorderBrush="Black" />
+        <TextBox x:Name="Password_txtbox" HorizontalAlignment="Left" Margin="256,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" Height="41" FontSize="16" Background="White" KeyUp="Password_txtbox_KeyUp" BorderBrush="Black"/>
         <Label Content="Brugernavn:" HorizontalAlignment="Left" Margin="120,91,0,0" VerticalAlignment="Top" Width="127" Height="46" FontSize="20" Foreground="Black" RenderTransformOrigin="0.5,0.5"/>
         <Label Content="Kodeord:" HorizontalAlignment="Left" Margin="120,168,0,0" VerticalAlignment="Top" Width="123" Height="46" FontSize="20" Foreground="Black"/>
-        <Button x:Name="Back_button" Content="Tilbage" HorizontalAlignment="Left" Margin="124,263,0,0" VerticalAlignment="Top" Height="38" Width="126" FontSize="16" Background="#FFE6FBFE" Click="Back_button_Click"/>
-        <Button x:Name="LogIn_button" Content="Log ind" HorizontalAlignment="Left" Margin="312,263,0,0" VerticalAlignment="Top" Height="38" Width="126" FontSize="16" Background="#FFE6FBFE" RenderTransformOrigin="0.481,2.021" Click="LogIn_button_Click"/>
+        <Button x:Name="Back_button" Content="Tilbage" HorizontalAlignment="Left" Margin="124,263,0,0" VerticalAlignment="Top" Height="38" Width="126" FontSize="16" Background="#FFF80A0A" Click="Back_button_Click" BorderBrush="#FFE5E5E5"/>
+        <Button x:Name="LogIn_button" Content="Log ind" HorizontalAlignment="Left" Margin="312,263,0,0" VerticalAlignment="Top" Height="38" Width="126" FontSize="16" Background="#FFE5E5E5" RenderTransformOrigin="0.481,2.021" Click="LogIn_button_Click" BorderBrush="#FFE5E5E5"/>
         <Label Content="LOG IN" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top" FontSize="30" Width="112" Foreground="#FF010000"/>
         <TextBox HorizontalAlignment="Left" Margin="52,318,0,0" Text="batteri status" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Height="38"/>
         <TextBlock x:Name="Date_box" HorizontalAlignment="Left" Margin="481,318,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Height="27" FontSize="14" Foreground="Black"/>

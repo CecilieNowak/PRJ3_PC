@@ -31,10 +31,6 @@ namespace BusinessLogicLayer
         {
             List<BloodPressureData> DTO = new List<BloodPressureData>();
 
-            //DTO.Add(new BloodPressureData(140,90,90));
-            //DTO.Add(new BloodPressureData(130, 95, 90));
-            //DTO.Add(new BloodPressureData(145, 90, 93));
-
             DTO.Add(new BloodPressureData(bp.Systolic, bp.Diastolic, bp.Pulse));
 
             if (File.Exists(path))
@@ -58,20 +54,6 @@ namespace BusinessLogicLayer
             {
                 using StreamWriter sw = File.AppendText(path);
             }
-                
-            
-
-            //input = new FileStream("Data.txt", FileMode.Open, FileAccess.Read);
-            //reader = new StreamReader(input);
-
-            //string inputRecord;
-
-            //while ((inputRecord = reader.ReadLine()) != null)
-            //{
-            //    File.WriteAllText(path, String.Empty);
-            //}
-
-            //reader.Close();
         }
     }
 }
