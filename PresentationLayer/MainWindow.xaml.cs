@@ -86,13 +86,13 @@ namespace PresentationLayer
 
 
             // LogFile med UDP-kommunikation
-            UDP_Listener_BLL udpListener = new UDP_Listener_BLL(dataQueue);
-            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
-            Thread t2 = new Thread(udpListener.startUDPListener);
-            Thread t3 = new Thread(udpConsumer.UpdateChart);
+            //UDP_Listener_BLL udpListener = new UDP_Listener_BLL(dataQueue);
+            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
+            //Thread t2 = new Thread(udpListener.startUDPListener);
+            //Thread t3 = new Thread(udpConsumer.UpdateChart);
 
-            t2.Start();
-            t3.Start();
+            //t2.Start();
+            //t3.Start();
 
 
             //LogFile til alarm
@@ -101,9 +101,9 @@ namespace PresentationLayer
             //t5.Start();
 
             //LogFile med filter
-            //FilterTest filterTest = new FilterTest(this, _subject);
-            //Thread t6 = new Thread(filterTest.randomDTO);
-            //t6.Start();
+            FilterTest filterTest = new FilterTest(this, _subject);
+            Thread t6 = new Thread(filterTest.randomDTO);
+            t6.Start();
 
         }
 
@@ -144,7 +144,7 @@ namespace PresentationLayer
             Dispatcher.Invoke(() =>         //DISPATCHER behøves ikke
             {
                 _filter.Remove(logFile);
-            _subject.Remove(_filter);
+                _subject.Remove(_filter);
             }
             );
         }
@@ -177,10 +177,8 @@ namespace PresentationLayer
 
             _calibrateW = new CalibrateWindow(this, _subject);
 
-
-            
-            this.Hide();             //SKAL MAIN LUKKES, FOR AT ALARM STOPPES?                                                            //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
-            _loginW.ShowDialog();                                                               //og Loginvindue vises
+            this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            _loginW.ShowDialog(); //og Loginvindue vises
 
             if (LoginOk)
             {
@@ -196,7 +194,7 @@ namespace PresentationLayer
 
         private void Close_button_Click(object sender, RoutedEventArgs e)
         {
-            Environment.Exit(0);                                                                //Program lukker, når der trkkes på Luk-knappen
+            Environment.Exit(0); //Program lukker, når der trkkes på Luk-knappen
         }
 
         public void UpdatePulseTextBox(string text)
@@ -212,7 +210,7 @@ namespace PresentationLayer
 
         public void AddDisplayValues(BloodPressureData bp)
         {
-            YValues.Add(Convert.ToInt16(bp.Værdi));      //SKAL add'e værdi!!!
+            YValues.Add(Convert.ToInt16(bp.Værdi)); //SKAL add'e værdi!!!
             if (YValues.Count > 200)
             {
                 YValues.RemoveAt(0);

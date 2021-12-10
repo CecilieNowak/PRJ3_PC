@@ -19,10 +19,10 @@ namespace BusinessLogicLayer
 
         public void Remove(IBloodPressureObserver o)
         {
-            lock (myLock)
-            {
+            //lock (myLock)
+            //{
                 _Observers.Remove(o); //
-            }
+            //}
         }
 
         public void Notify()

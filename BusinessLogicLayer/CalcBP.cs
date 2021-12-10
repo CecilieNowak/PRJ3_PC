@@ -35,11 +35,11 @@ namespace BusinessLogicLayer
 
             for (int i = 5; i <= data.Count - 5; i++)
             {
-                if (data[i].Værdi > data[i - 1].Værdi && data[i].Værdi > data[i - 2].Værdi && data[i].Værdi > data[i - 3].Værdi && data[i].Værdi > data[i - 4].Værdi && data[i].Værdi > data[i + 1].Værdi && data[i].Værdi > data[i + 2].Værdi && data[i].Værdi > data[i + 3].Værdi && data[i].Værdi > data[i + 4].Værdi)
-                {
-                    bp.Systolic = data[i].Værdi;
-                    sys.Add(data[i]);
-                }
+                //if (data[i].Værdi > data[i - 1].Værdi && data[i].Værdi > data[i - 2].Værdi && data[i].Værdi > data[i - 3].Værdi && data[i].Værdi > data[i - 4].Værdi && data[i].Værdi > data[i + 1].Værdi && data[i].Værdi > data[i + 2].Værdi && data[i].Værdi > data[i + 3].Værdi && data[i].Værdi > data[i + 4].Værdi)
+                //{
+                //    bp.Systolic = data[i].Værdi;
+                //    sys.Add(data[i]);
+                //}
             }
             return bp.Systolic;
         }
@@ -49,7 +49,7 @@ namespace BusinessLogicLayer
         {
             foreach (var item in sys)
             {
-                SysList.Add(Convert.ToDouble(item));
+                //SysList.Add(Convert.ToDouble(item));
             }
             return SysList;
         }
@@ -58,11 +58,11 @@ namespace BusinessLogicLayer
         {
             for (int i = 5; i <= data.Count - 5; i++)
             {
-                if (data[i].Værdi < data[i - 1].Værdi && data[i].Værdi < data[i - 2].Værdi && data[i].Værdi < data[i - 3].Værdi && data[i].Værdi < data[i - 4].Værdi && data[i].Værdi < data[i + 1].Værdi && data[i].Værdi < data[i + 2].Værdi && data[i].Værdi < data[i + 3].Værdi && data[i].Værdi < data[i + 4].Værdi)
-                {
-                    bp.Diastolic = data[i].Værdi;
-                    dia.Add(data[i]);
-                }
+                //if (data[i].Værdi < data[i - 1].Værdi && data[i].Værdi < data[i - 2].Værdi && data[i].Værdi < data[i - 3].Værdi && data[i].Værdi < data[i - 4].Værdi && data[i].Værdi < data[i + 1].Værdi && data[i].Værdi < data[i + 2].Værdi && data[i].Værdi < data[i + 3].Værdi && data[i].Værdi < data[i + 4].Værdi)
+                //{
+                //    bp.Diastolic = data[i].Værdi;
+                //    dia.Add(data[i]);
+                //}
             }
             return bp.Diastolic;
         }
@@ -72,7 +72,7 @@ namespace BusinessLogicLayer
         {
             foreach (var item in dia)
             {
-                DiaList.Add(Convert.ToDouble(item));
+                //DiaList.Add(Convert.ToDouble(item));
             }
             return DiaList;
         }

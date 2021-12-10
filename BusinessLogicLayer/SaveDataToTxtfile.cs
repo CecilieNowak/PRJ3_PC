@@ -10,11 +10,7 @@ namespace BusinessLogicLayer
 {
     public class SaveDataToTxtfile
     {
-        private FileStream input;
-        private StreamReader reader;
         private string path;
-        private StreamWriter _sw;
-
         public Filter _filter;
         public BloodPressureSubject _subject;
 
@@ -39,7 +35,6 @@ namespace BusinessLogicLayer
 
             if (File.Exists(path))
             {
-                //using _sw = File.AppendText(path);
                 using StreamWriter sw = File.AppendText(path);
                 foreach (BloodPressureData dtoData in DTO)
                 {
@@ -58,20 +53,6 @@ namespace BusinessLogicLayer
             {
                 using StreamWriter sw = File.AppendText(path);
             }
-                
-            
-
-            //input = new FileStream("Data.txt", FileMode.Open, FileAccess.Read);
-            //reader = new StreamReader(input);
-
-            //string inputRecord;
-
-            //while ((inputRecord = reader.ReadLine()) != null)
-            //{
-            //    File.WriteAllText(path, String.Empty);
-            //}
-
-            //reader.Close();
         }
     }
 }
