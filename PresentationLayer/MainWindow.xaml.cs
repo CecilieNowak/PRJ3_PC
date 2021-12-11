@@ -70,11 +70,11 @@ namespace PresentationLayer
             
             DisplayObserver display = new DisplayObserver(_filter, this);
 
-            AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
+            //AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
 
-            alarm1 = new Alarm(alarm, _st);
+            //alarm1 = new Alarm(alarm, _st);
 
-            Storyboard st = new Storyboard();
+            //Storyboard st = new Storyboard();
 
             logFile = new LogFileObserver(_filter, saveData);
 
@@ -154,6 +154,7 @@ namespace PresentationLayer
                 {
                     _subject.Add(_filter);
                     _filter.Add(logFile);
+                    
                     _filter.getAndSetCalibrationValues(A,B);
                 }
             );

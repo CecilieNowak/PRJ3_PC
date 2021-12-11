@@ -168,6 +168,7 @@ namespace PresentationLayer
             //Environment.Exit(0);
             this.Hide();                                                                                                           //Når der logges af, skjules kalibreringsvindue
            _mainRef.PrepMainWindow();
+           bpSubject.Remove(calibrateObserver);
             //_mainRef.ShowDialog();     
             _mainRef.Show();
             
