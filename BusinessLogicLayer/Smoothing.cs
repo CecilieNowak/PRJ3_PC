@@ -40,7 +40,7 @@ namespace BusinessLogicLayer
 
                 
                     newBP.Værdi = Convert.ToInt32(average); //SKAL være værdi!!
-                    newBP.battery = Convert.ToInt32(avgerageBattery);
+                    newBP.battery = avgerageBattery;
 
             }
 

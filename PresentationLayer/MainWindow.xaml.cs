@@ -69,9 +69,11 @@ namespace PresentationLayer
             
             DisplayObserver display = new DisplayObserver(_filter, this);
 
-            AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
+            //AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
 
             BatteryObserver batteryObserver = new BatteryObserver(_filter, this);
+
+            alarm1 = new Alarm(alarm, _st, Dispatcher);
 
             alarm1 = new Alarm(alarm, _st, Dispatcher);
 
@@ -100,8 +102,8 @@ namespace PresentationLayer
             //t5.Start();
 
             //LogFile med filter
-            FilterTest filterTest = new FilterTest(this, _subject);
-            Thread t6 = new Thread(filterTest.randomDTO);
+            UDPmock udPmock = new UDPmock(this, _subject);
+            Thread t6 = new Thread(udPmock.randomDTO);
             t6.Start();
 
         }
