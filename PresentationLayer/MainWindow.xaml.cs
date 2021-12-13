@@ -103,8 +103,8 @@ namespace PresentationLayer
             //t5.Start();
 
             //LogFile med filter
-            FilterTest filterTest = new FilterTest(this, _subject);
-            Thread t6 = new Thread(filterTest.randomDTO);
+            UDPmock udPmock = new UDPmock(this, _subject);
+            Thread t6 = new Thread(udPmock.randomDTO);
             t6.Start();
 
         }
