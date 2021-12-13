@@ -72,11 +72,10 @@
                             </TransformGroup>
                         </TextBlock.RenderTransform>
                     </TextBlock>
-                    <TextBox x:Name="battery_txtbox" Text="Batteristatus" HorizontalAlignment="Left" Margin="41,24,0,0" VerticalAlignment="Top" Foreground="Black" Height="37" Width="99"/>
                     <TextBlock x:Name="dataSaved_Box" HorizontalAlignment="Left" Margin="601,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="174" Foreground="Crimson"  FontSize="14"/>
-                    <Ellipse  x:Name="alarm"  Stroke="white" Width="52" HorizontalAlignment="Left" RenderTransformOrigin="0.49,0.536" Fill="Red" Height="51" Margin="180,10,0,61"/>
-                    <ProgressBar x:Name="BatteriBar" HorizontalAlignment="Left" Height="30" Margin="41,86,0,0" VerticalAlignment="Top" Width="156"/>
-                    <TextBlock x:Name="Batteri_Status_Text" HorizontalAlignment="Left" Margin="206,100,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White"/>
+                    <Ellipse  x:Name="alarm"  Stroke="white" Width="52" HorizontalAlignment="Left" RenderTransformOrigin="0.49,0.536" Fill="Red" Height="51" Margin="259,68,0,17"/>
+                    <ProgressBar x:Name="BatteriBar" HorizontalAlignment="Left" Height="30" Margin="24,42,0,0" VerticalAlignment="Top" Width="156"/>
+                    <TextBlock x:Name="Batteri_Status_Text" HorizontalAlignment="Left" Margin="185,52,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Black"/>
                 </Grid>
 
             </StackPanel>
