@@ -23,9 +23,9 @@ namespace PresentationLayer
     {
         private readonly CheckLogin _logicobj;
         private readonly LoginWindow _loginW;
-        public BloodPressureSubject _subject;
+        private BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
-        public Filter _filter; //Har lavet denne public for at tilgå den i alarmobserver. Må jeg det?
+        private Filter _filter; //Har lavet denne public for at tilgå den i alarmobserver. Må jeg det?
         private SendToDatabase send;
         private SaveDataToTxtfile saveData;
         private CheckCPR _checkCPR;
@@ -73,9 +73,9 @@ namespace PresentationLayer
 
             BatteryObserver batteryObserver = new BatteryObserver(_filter, this);
 
-            alarm1 = new Alarm(alarm, _st, Dispatcher);
+            AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
 
-            alarm1 = new Alarm(alarm, _st, Dispatcher);
+            alarm1 = new Alarm(alarm, AlarmLabel, _st, Dispatcher);
 
             Storyboard st = new Storyboard();
 
@@ -97,14 +97,14 @@ namespace PresentationLayer
 
 
             //LogFile til alarm
-            //Testtråd testtråd = new Testtråd(this, _subject);
-            //Thread t5 = new Thread(testTråd.updateChart);
-            //t5.Start();
+            Testtråd testtråd = new Testtråd(this, _subject);
+            Thread t5 = new Thread(testTråd.updateChart);
+            t5.Start();
 
             //LogFile med filter
-            UDPmock udPmock = new UDPmock(this, _subject);
-            Thread t6 = new Thread(udPmock.randomDTO);
-            t6.Start();
+            //UDPmock udPmock = new UDPmock(this, _subject);
+            //Thread t6 = new Thread(udPmock.randomDTO);
+            //t6.Start();
 
         }
 
@@ -112,6 +112,7 @@ namespace PresentationLayer
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
             alarm.Visibility = Visibility.Hidden;
+            AlarmLabel.Visibility = Visibility.Hidden;
             //_filter.getAndSetCalibrationValues(A, B);
         }
 
@@ -226,17 +227,18 @@ namespace PresentationLayer
             );
         }
 
-        public void AlarmVisibility(List<double> sys, List<double> dia)
+        public void AlarmVisibility(List<double> sys)
         {
+
             Dispatcher.Invoke(() =>
             {
                 if (alarm.Visibility == Visibility.Hidden)
                 {
-                alarm1.StartAlarm(sys, dia);
+                    alarm1.StartAlarm(sys);
                 }
 
             }
-           );
+            );
         }
 
         //Nedenstående kode får alarmen til at blinke
@@ -306,7 +308,7 @@ namespace PresentationLayer
         }
         */
 
-      
+
 
         private void GetData_button_Click(object sender, RoutedEventArgs e)
         {

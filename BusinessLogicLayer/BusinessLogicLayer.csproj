@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="sonnette_reveil.wav">
+    <None Update="alarm1.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
