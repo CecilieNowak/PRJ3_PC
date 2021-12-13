@@ -70,9 +70,11 @@ namespace PresentationLayer
             
             DisplayObserver display = new DisplayObserver(_filter, this);
 
-            AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
+            //AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
 
             BatteryObserver batteryObserver = new BatteryObserver(_filter, this);
+
+            alarm1 = new Alarm(alarm, _st, Dispatcher);
 
             alarm1 = new Alarm(alarm, _st, Dispatcher);
 
@@ -156,6 +158,7 @@ namespace PresentationLayer
                 {
                     _subject.Add(_filter);
                     _filter.Add(logFile);
+                    
                     _filter.getAndSetCalibrationValues(A,B);
                 }
             );
