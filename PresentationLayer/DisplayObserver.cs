@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using LiveCharts;
 using LiveCharts.Wpf;
-
 using BusinessLogicLayer;
 using DTO_BloodPressureData;
 using Microsoft.Identity.Client;
@@ -49,9 +48,10 @@ namespace PresentationLayer
             //Her kaldes metoden updatePulsTextBox som opdaterer textboxen med pulsværdien fra den modtagede DTO
             mw.UpdatePulseTextBox(Convert.ToString(Convert.ToInt32(bp.Værdi)));
             mw.UpdateDiaSysTextbox(bp.Systolic, bp.Diastolic);
-            string batteri = Convert.ToString(bp.battery);
-            mw.BatteryStatus(batteri);
-            mw.updateBatteryBar((bp.battery));
+
+            //string batteri = Convert.ToString(bp.battery);
+            //mw.BatteryStatus(batteri);
+            //mw.updateBatteryBar((bp.battery));
 
         }
     }

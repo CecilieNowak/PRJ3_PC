@@ -25,16 +25,15 @@ namespace DataAccessLayer
             string path = @"Data.txt";
 
             if (File.Exists(path))
-              {
+            {
                 using StreamWriter sw = File.AppendText(path);
                 foreach (BloodPressureData dtoData in DTO)
                 {
                     sw.WriteLine(dtoData.Systolic + ";" + dtoData.Diastolic + ";" + dtoData.Pulse);
-
                 }
-                  sw.WriteLine();
-                  sw.Close();
-                
+
+                sw.WriteLine();
+                sw.Close();
             }
         }
     }

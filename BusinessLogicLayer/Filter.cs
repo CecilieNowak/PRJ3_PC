@@ -17,7 +17,7 @@ namespace BusinessLogicLayer
         private Smoothing smooth;
         private BloodPressureData lokalBp;
         private CalcBP calcBp;
-        private BatteriMonitorering battery;
+        private BatteryMonitorering battery;
         private List<BloodPressureData> lokalList;
         public double A { get; set; }
         public double B { get; set; }
@@ -31,7 +31,7 @@ namespace BusinessLogicLayer
 
             smooth = new Smoothing();
             calcBp = new CalcBP();
-            battery = new BatteriMonitorering();
+            battery = new BatteryMonitorering();
 
             lokalList = new List<BloodPressureData>();
 
@@ -63,7 +63,7 @@ namespace BusinessLogicLayer
             lokalBp.Diastolic = Convert.ToInt32(A * lokalBp.Diastolic + B);             //Omregner ADC værdi (Diastolisk) til mmHg
             
 
-            battery.requestbatterystatus(lokalBp);
+            battery.RequestBatterystatus(lokalBp);
 
             
             //Log data

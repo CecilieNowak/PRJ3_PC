@@ -59,7 +59,11 @@ namespace BusinessLogicLayer
             List<BloodPressureData> bp = new List<BloodPressureData>();
 
             byte[] sysArr = new byte[800];
-            double[] tal = new double[10000];
+            byte[] diaArr = new byte[800];
+            byte[] pulseArr = new byte[400];
+            double[] sys = new double[10000];
+            double[] dia = new double[10000];
+            int[] puls = new int[10000];
             SqlDataReader rdr;
             string selectString = "Select * from BloodPressure where Id=(SELECT MAX(Id) from BloodPressure where CPR='" + socSecNb + "')";
 
@@ -69,16 +73,25 @@ namespace BusinessLogicLayer
                 if (rdr.Read())
                 {
                     sysArr = (byte[])rdr["Systolic"];
+                    diaArr = (byte[])rdr["Diastolic"];
+                    pulseArr = (byte[])rdr["Pulse"];
                 }
 
                 for (int i = 0, j = 0; i < sysArr.Length; i += 8, j++)
                 {
-                    tal[j] = BitConverter.ToDouble(sysArr, i);
+                    sys[j] = BitConverter.ToDouble(sysArr, i);
+                    dia[j] = BitConverter.ToDouble(diaArr, i);
+                    //puls[j] = BitConverter.ToInt32(pulseArr, i);
                 }
 
-                for (int i = 0; i < tal.Length; i++)
+                for (int i = 0, j = 0; i < pulseArr.Length; i += 8, j++)
                 {
-                    bp.Add(new BloodPressureData(tal[i], 0, 0));
+                    puls[j] = BitConverter.ToInt32(pulseArr, i);
+                }
+
+                for (int i = 0; i < sys.Length; i++)
+                {
+                    bp.Add(new BloodPressureData(sys[i], dia[i], puls[i]));
                 }
             }
             _Connection.Close();

@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Shapes;
 using DTO_BloodPressureData;
 using System.Linq;
+using System.Windows.Threading;
 
 namespace PresentationLayer
 {
@@ -16,16 +17,16 @@ namespace PresentationLayer
 
         SoundPlayer alarm = new SoundPlayer("alarm1.wav");
         Ellipse _alarm;
-        //private readonly MainWindow _mw;
         private readonly BloodPressureData bp;
         private Storyboard _st;
+        private Dispatcher _d;
 
-        public Alarm(Ellipse alarm1, /*MainWindow mw,*/ Storyboard st)
+        public Alarm(Ellipse alarm1, Storyboard st, Dispatcher d)
         {
-            //_mw = mw;
             _alarm = alarm1;
             bp = new BloodPressureData();
             _st = new Storyboard();
+            _d = d;
         }
 
 
@@ -61,15 +62,14 @@ namespace PresentationLayer
 
             for (int i = 1; i <= SysList.Count - 1; i++)
             {
-                if (SysList[i] >= 1.01 * SysList[i - 1] || SysList[i] <= 0.99 * SysList[i - 1])
+                if (SysList[i] >= 1.3 * SysList[i - 1] || SysList[i] <= 0.7 * SysList[i - 1])
                 {
-                    if (_alarm.Visibility == Visibility.Hidden)
-                    {
-                        _alarm.Visibility = Visibility.Visible;
-                        _st.Begin(_alarm);
-                        alarm.Play();
-                    }
-
+                    _alarm.Visibility = Visibility.Visible;
+                    _st.Begin(_alarm);
+                    alarm.Play();
+                    SysList.RemoveAt(0);
+                    Thread t = new Thread(Unshow);
+                    t.Start();
                 }
             }
 
@@ -158,6 +158,16 @@ namespace PresentationLayer
             //}
 
 
+        }
+
+        void Unshow()
+        {
+            Thread.Sleep(5000);
+            _d.Invoke(() =>
+            {
+                _alarm.Visibility = Visibility.Hidden;
+
+            });
         }
     }
 }

@@ -37,7 +37,7 @@ namespace BusinessLogicLayer
             //if (b == false)
             //{
 
-            mw.AlarmStart(sysList, new List<double>());
+            mw.AlarmVisibility(sysList, new List<double>());
 
 
             //}

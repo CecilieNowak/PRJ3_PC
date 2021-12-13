@@ -23,13 +23,13 @@ namespace BusinessLogicLayer
 
         public double CalcSys(List<BloodPressureData> data)
         {
-            //for (int i = 1; i <= data.Count - 2; i++)
-            //{
-            //    if (data[i].Værdi > data[i - 1].Værdi && data[i].Værdi > data[i + 1].Værdi)
-            //    {
-            //        bp.Diastolic = data[i].Værdi;
-            //    }
-            //}
+            for (int i = 1; i <= data.Count - 2; i++)
+            {
+                if (data[i].Værdi > data[i - 1].Værdi && data[i].Værdi > data[i + 1].Værdi)
+                {
+                    bp.Diastolic = data[i].Værdi;
+                }
+            }
 
             // Metode opdateret med filter
 
