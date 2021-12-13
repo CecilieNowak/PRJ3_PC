@@ -36,9 +36,6 @@ namespace PresentationLayer
         private Alarm alarm1;
 
         public bool LoginOk { get; set; }
-       // public String Username { get; set; }
-        public String Password { get; set; }
-
         public ChartValues<int> YValues { get; set; }   //YValues til puls graf
         public ChartValues<string> XValues { get; set; }   //XValues til puls graf
 
@@ -61,6 +58,8 @@ namespace PresentationLayer
             DataContext = this;
 
             send = new SendToDatabase();
+            A = 50;
+            B = 1;
 
             saveData = new SaveDataToTxtfile();
             
@@ -111,6 +110,7 @@ namespace PresentationLayer
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
             alarm.Visibility = Visibility.Hidden;
+            //_filter.getAndSetCalibrationValues(A, B);
         }
 
         public void updateBatteryBar(double battery)
@@ -156,7 +156,7 @@ namespace PresentationLayer
                 {
                     _subject.Add(_filter);
                     _filter.Add(logFile);
-                    _filter.getAndSetCalibrationValues(A,B);
+                 _filter.getAndSetCalibrationValues(A,B); //TODO uncommunt
                 }
             );
         }
@@ -184,11 +184,6 @@ namespace PresentationLayer
             {
                 _calibrateW.ShowDialog(); //Hvis Login er ok, fuldføres login, og vi til kalibreringsvindue
               
-            }
-            else
-            {
-
-               // this.Close();
             }
         }
 

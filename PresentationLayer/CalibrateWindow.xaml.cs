@@ -150,18 +150,20 @@ namespace PresentationLayer
             string rSquared = Math.Round(regression.GetRSquared(), 4).ToString(); //r^2 beregnes med GetRSquared()
 
             //Forskrift udskrives
-            if (regression.GetIntercept() < 0)
-            {
-                Regression_Box.Text = "y = " + a + "x" + b + "\n R^2 = " + rSquared; //Hvis b er negativ, udskrives streng uden "+"
-            }
-            else
-            {
-                Regression_Box.Text = "y = " + a + "x +  " + b + "\n R^2 = " + rSquared;
-            }
+            regression.ToString();
+
+            //if (regression.GetIntercept() < 0)
+            //{
+            //    Regression_Box.Text = "y = " + a + "x" + b + "\n R^2 = " + rSquared; //Hvis b er negativ, udskrives streng uden "+"
+            //}
+            //else
+            //{
+            //    Regression_Box.Text = "y = " + a + "x +  " + b + "\n R^2 = " + rSquared;
+            //}
             insertValues_Box.Text = "Kalibrering foretaget";
 
-            _mainRef.A = Convert.ToDouble(a);       //a gemmes i Main's property A
-            _mainRef.B = Convert.ToDouble(b);       //b gemmes i Main's property B
+            //_mainRef.A = Convert.ToDouble(a);       //a gemmes i Main's property A
+            //_mainRef.B = Convert.ToDouble(b);       //b gemmes i Main's property B
 
         }
 

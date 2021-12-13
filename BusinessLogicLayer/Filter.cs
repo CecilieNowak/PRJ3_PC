@@ -35,8 +35,6 @@ namespace BusinessLogicLayer
 
             lokalList = new List<BloodPressureData>();
 
-
-
         }
 
         public void getAndSetCalibrationValues(double a, double b)
@@ -61,7 +59,7 @@ namespace BusinessLogicLayer
             lokalBp.Systolic = Convert.ToInt32(A * lokalBp.Systolic + B);               //Omregner ADC værdi (Systolisk) til mmHg
             lokalBp.Diastolic = calcBp.CalcDia(lokalList);
             lokalBp.Diastolic = Convert.ToInt32(A * lokalBp.Diastolic + B);             //Omregner ADC værdi (Diastolisk) til mmHg
-            
+            lokalBp.Værdi = Convert.ToInt32(A * lokalBp.Værdi + B);
 
             battery.RequestBatterystatus(lokalBp);
 

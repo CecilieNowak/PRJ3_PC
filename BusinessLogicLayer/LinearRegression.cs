@@ -43,6 +43,18 @@ namespace BusinessLogicLayer
 
             return RSquared;
         }
+
+        public override string ToString()
+        {
+            if (GetIntercept() < 0)
+            {
+                return "y = " + A + "x" + B + "\n R^2 = " + RSquared; //Hvis b er negativ, udskrives streng uden "+"
+            }
+            else
+            {
+                return "y = " + A + "x +  " + B + "\n R^2 = " + RSquared;
+            }
+        }
     }
 }
 

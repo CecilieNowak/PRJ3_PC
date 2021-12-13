@@ -26,9 +26,9 @@ namespace Main
             //Console.ReadKey();
             
 
-            //Test af SendToDatabase-klasse
+            //Test af DataBaseConnection-klasse
             SendToDatabase send = new SendToDatabase();
-            send.GetData("1234567890");
+            //send.GetData("1234567890");
 
 
 

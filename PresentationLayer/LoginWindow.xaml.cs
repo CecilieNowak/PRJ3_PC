@@ -34,7 +34,6 @@ namespace PresentationLayer
             if (_logicRef.LoginCheck(Username_txtbox.Text, Password_txtbox.Text) == true)
             {
                 _mainWRef.LoginOk = true;
-                //mainWRef.SocSecNb = usernameTB.Text;
                 this.Close();
             }
             else
