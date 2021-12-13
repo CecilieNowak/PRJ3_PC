@@ -18,12 +18,12 @@
                 <RowDefinition Height="0"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Column="1" Grid.Row="1" Background="#FFD0E4FF">
+            <StackPanel Grid.Column="1" Grid.Row="1" Background="White">
                 <TextBlock x:Name="insertValues_Box" Margin="10, 100, 10, 10" HorizontalAlignment="Center" FontSize="14"/>
-                <TextBox x:Name="Values_box" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="16" />
+                <TextBox x:Name="Values_box" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="16" BorderBrush="Black" />
                 <TextBlock x:Name="Fejlmeddelese_Box" FontSize="14" Foreground="#FFD11919" Width="150"/>
-                <Button x:Name="calibrateButton" Content="Kalibrer" HorizontalAlignment="Center" Margin="15" VerticalAlignment="Top" Height="30" Width="100" FontSize="16" BorderBrush="{x:Null}" Background="#FFE6FBFE" Click="calibrateButton_Click"/>
-                <Button x:Name="logOffButton" Content="Log af" Width="92" Margin="0,150,0,0" FontSize="16" BorderBrush="{x:Null}" Background="#FFE6FBFE" Click="LogOffButton_Click"/>
+                <Button x:Name="calibrateButton" Content="Kalibrer" HorizontalAlignment="Center" Margin="15" VerticalAlignment="Top" Height="30" Width="100" FontSize="16" BorderBrush="Black" Background="#FFE5E5E5" Click="calibrateButton_Click"/>
+                <Button x:Name="logOffButton" Content="Log af" Width="92" Margin="0,150,0,0" FontSize="16" BorderBrush="{x:Null}" Background="#FFF80A0A" Click="LogOffButton_Click"/>
             </StackPanel>
 
             <StackPanel Grid.Column="0" Grid.Row="1">

@@ -18,15 +18,15 @@
                 <RowDefinition Height="0"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Column="1" Grid.Row="1" Background="#FFD0E4FF">
+            <StackPanel Grid.Column="1" Grid.Row="1" Background="White">
                 <Label x:Name="bp_LB" Content="BLODTRYK" Height="28" Width="80" Margin="5" HorizontalAlignment="Center" FontSize="15" FontFamily="Segoe UI"/>
-                <TextBox x:Name="BP_value_box" Height="80" Width="150" Background="White" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48"/>
+                <TextBox x:Name="BP_value_box" Height="80" Width="150" Background="White" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48" BorderBrush="#FF010101"/>
                 <Label x:Name="puls_LB" Content="PULS" Height="28" Width="50" HorizontalAlignment="Center" FontSize="15"/>
-                <TextBox x:Name="Puls_value_box" TextWrapping="Wrap" VerticalAlignment="Top" Height ="80" Width="150" Margin="5" Text="100" FontSize="48" HorizontalAlignment="Stretch" TextAlignment="Center"/>
-                <Button x:Name="SaveData_button" Content="Gem måling" Height="35" Width="150" Margin ="10" VerticalAlignment="Top" FontSize="16" BorderBrush="{x:Null}" Background="#FFE6FBFE" Click="SaveData_button_Click"/>
-                <Button x:Name="GetData_button" Content="Hent måling" Height="35" Width="150" Margin ="10" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FFE6FBFE" FontSize="16" Click="GetData_button_Click"/>
-                <Button x:Name="Calibrate_button" Content="Kalibrer" Height="35" Width="150" Margin ="10" BorderBrush="{x:Null}" Background="#FFE6FBFE" FontSize="16" Click="Calibrate_button_Click"/>
-                <Button x:Name="Close_button" Content="Luk" Height="30" Width="80" Margin="15" BorderBrush="{x:Null}" Background="#FFE6FBFE" FontSize="16" Click="Close_button_Click"/>
+                <TextBox x:Name="Puls_value_box" TextWrapping="Wrap" VerticalAlignment="Top" Height ="80" Width="150" Margin="5" Text="100" FontSize="48" HorizontalAlignment="Stretch" TextAlignment="Center" BorderBrush="Black"/>
+                <Button x:Name="SaveData_button" Content="Gem måling" Height="35" Width="150" Margin ="10" VerticalAlignment="Top" FontSize="16" BorderBrush="{x:Null}" Background="#FFE5E5E5" Click="SaveData_button_Click"/>
+                <Button x:Name="GetData_button" Content="Hent måling" Height="35" Width="150" Margin ="10" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FFE5E5E5" FontSize="16" Click="GetData_button_Click"/>
+                <Button x:Name="Calibrate_button" Content="Kalibrer" Height="35" Width="150" Margin ="10" BorderBrush="{x:Null}" Background="#FFE5E5E5" FontSize="16" Click="Calibrate_button_Click"/>
+                <Button x:Name="Close_button" Content="Luk" Height="30" Width="80" Margin="15" BorderBrush="{x:Null}" Background="#FFF80A0A" FontSize="16" Click="Close_button_Click"/>
 
             </StackPanel>
 
@@ -59,10 +59,10 @@
                     </lvc:CartesianChart.AxisX>
 
                 </lvc:CartesianChart>
-                <Grid Height="135">
-                    <Label Content="CPR-NR" Foreground="White" FontSize="14" Margin="259,22,385,74"/>
-                    <TextBox x:Name="CPR_txtbox" Margin="323,20,259,84" Background="#FF39394A" BorderBrush="{x:Null}" FontSize="14" Foreground="White"/>
-                    <TextBlock x:Name="Date_box" Margin="0,76,10,10" Foreground="White" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="189" TextAlignment="Right">
+                <Grid Height="135" Background="White">
+                    <Label Content="CPR-NR" Foreground="Black" FontSize="14" Margin="259,22,385,74"/>
+                    <TextBox x:Name="CPR_txtbox" Margin="323,20,259,84" Background="White" BorderBrush="Black" FontSize="14" Foreground="White"/>
+                    <TextBlock x:Name="Date_box" Margin="0,76,10,10" Foreground="Black" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="189" TextAlignment="Right">
                         <TextBlock.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform ScaleX="1"/>
@@ -74,7 +74,7 @@
                     </TextBlock>
                     <TextBox x:Name="battery_txtbox" Text="Batteristatus" HorizontalAlignment="Left" Margin="41,24,0,0" VerticalAlignment="Top" Foreground="Black" Height="37" Width="99"/>
                     <TextBlock x:Name="dataSaved_Box" HorizontalAlignment="Left" Margin="601,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="174" Foreground="Crimson"  FontSize="14"/>
-                    <Ellipse  x:Name="alarm"  Stroke="Black" Width="52" HorizontalAlignment="Left" RenderTransformOrigin="0.49,0.536" Fill="Red" Height="51" Margin="180,10,0,61"/>
+                    <Ellipse  x:Name="alarm"  Stroke="white" Width="52" HorizontalAlignment="Left" RenderTransformOrigin="0.49,0.536" Fill="Red" Height="51" Margin="180,10,0,61"/>
                     <ProgressBar x:Name="BatteriBar" HorizontalAlignment="Left" Height="30" Margin="41,86,0,0" VerticalAlignment="Top" Width="156"/>
                     <TextBlock x:Name="Batteri_Status_Text" HorizontalAlignment="Left" Margin="206,100,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White"/>
                 </Grid>
