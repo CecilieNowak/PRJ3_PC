@@ -32,19 +32,19 @@ namespace PresentationLayer
 
         public void randomDTO()
         {
-            
-            //while (true)
-            //{
+
+            while (true)
+            {
                 //Batteristatus skal være < 2.506 og >2.9
-                for (int i = 0; i < 16; i++)
-                {
-                    BloodPressureData dto = new BloodPressureData();
+                //for (int i = 0; i < 16; i++)
+                //{
+                BloodPressureData dto = new BloodPressureData();
                     dto.Værdi = random.Next(0,100);
                     dto.battery = 2.701;
                     _list.Add(dto);
 
                     _bp.NewDataReceived(dto);
-                }
+            }
 
 
                 Thread.Sleep(100);
