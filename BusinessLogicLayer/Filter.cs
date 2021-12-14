@@ -56,10 +56,10 @@ namespace BusinessLogicLayer
             //Kalibrering
 
             lokalBp.Systolic = calcBp.CalcSys(lokalList);
-            lokalBp.Systolic = Convert.ToInt32(A * lokalBp.Systolic + B);               //Omregner ADC værdi (Systolisk) til mmHg
+            //lokalBp.Systolic = Convert.ToInt32(A * lokalBp.Systolic + B);               //Omregner ADC værdi (Systolisk) til mmHg
             lokalBp.Diastolic = calcBp.CalcDia(lokalList);
-            lokalBp.Diastolic = Convert.ToInt32(A * lokalBp.Diastolic + B);             //Omregner ADC værdi (Diastolisk) til mmHg
-            lokalBp.Værdi = Convert.ToInt32(A * lokalBp.Værdi + B);
+            //lokalBp.Diastolic = Convert.ToInt32(A * lokalBp.Diastolic + B);             //Omregner ADC værdi (Diastolisk) til mmHg
+            //lokalBp.Værdi = Convert.ToInt32(A * lokalBp.Værdi + B);
 
             battery.RequestBatterystatus(lokalBp);
 
