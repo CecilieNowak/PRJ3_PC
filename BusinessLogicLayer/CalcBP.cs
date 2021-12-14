@@ -15,8 +15,9 @@ namespace BusinessLogicLayer
         List<double> DiaList;
         List<double> MeanList;
         private BloodPressureData bp;
-        private BloodPressureSubject subject;
+        //private BloodPressureSubject subject;
         List<BloodPressureData> sys = new List<BloodPressureData>();
+        List<BloodPressureData> dia = new List<BloodPressureData>();
 
         public CalcBP()
         {
@@ -24,8 +25,9 @@ namespace BusinessLogicLayer
             SysList = new List<double>();
             DiaList = new List<double>();
             MeanList = new List<double>();
-            subject = new BloodPressureSubject();
+            //subject = new BloodPressureSubject();
             sys = new List<BloodPressureData>();
+            dia = new List<BloodPressureData>();
         }
 
         //public double CalcMean(List<BloodPressureData> data)
@@ -68,9 +70,11 @@ namespace BusinessLogicLayer
         public double CalcDia(List<BloodPressureData> data)
         {
             int i = 5;
-            if (data[i].Værdi < data[i - 1].Værdi && data[i].Værdi < data[i - 2].Værdi && data[i].Værdi < data[i - 3].Værdi && data[i].Værdi < data[i - 4].Værdi && data[i].Værdi < data[i + 1].Værdi && data[i].Værdi < data[i + 2].Værdi && data[i].Værdi < data[i + 3].Værdi && data[i].Værdi < data[i + 4].Værdi)
+            if (data[i].Værdi < data[i - 1].Værdi && data[i].Værdi < data[i - 2].Værdi && data[i].Værdi < data[i - 3].Værdi && data[i].Værdi < data[i - 4].Værdi 
+            && data[i].Værdi < data[i + 1].Værdi && data[i].Værdi < data[i + 2].Værdi && data[i].Værdi < data[i + 3].Værdi && data[i].Værdi < data[i + 4].Værdi)
             {
                 bp.Diastolic = data[i].Værdi;
+                dia.Add(data[i]);
                 DiaList.Add(data[i].Værdi);
             }
             return bp.Diastolic;

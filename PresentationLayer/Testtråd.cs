@@ -29,11 +29,13 @@ namespace PresentationLayer
 
         public void updateChart()
         {
+            
             for (int i = 0; i < 1000; i++)
             {
                 BloodPressureData bp = new BloodPressureData();
 
-                bp.Værdi = 10;
+                bp.Værdi = random.Next(100, 250);
+
 
                 if (i == 5)
                 {

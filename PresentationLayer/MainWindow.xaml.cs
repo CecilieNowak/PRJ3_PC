@@ -241,72 +241,11 @@ namespace PresentationLayer
             );
         }
 
-        //Nedenstående kode får alarmen til at blinke
-        //public void Alarmblink(int length, double repetition)
-        //{
-        //    DoubleAnimation opacityAlarm = new DoubleAnimation()
-        //    {
-        //        From = 0.0,
-        //        To = 1.0,
-        //        Duration = new Duration(TimeSpan.FromMilliseconds(length)),
-        //        AutoReverse = true,
-        //        RepeatBehavior = new RepeatBehavior(repetition)
-        //    };
-        //    Storyboard storyboard = new Storyboard();
-        //    storyboard.Children.Add(opacityAlarm);
-        //    Storyboard.SetTarget(opacityAlarm, alarm);
-        //    Storyboard.SetTargetProperty(opacityAlarm, new PropertyPath("Opacity"));
-        //    storyboard.Begin(alarm);
-        //}
 
-        // Ovenstående alarmmetode er sat ind i Alarm klassen i buisness laget ved at lave en constructor
+
+        // alarmmetode er sat ind i Alarm klassen i buisness laget ved at lave en constructor
         // i alarmklassen med en ellipse (WPF objecktet som bruges til alarmen) https://stackoverflow.com/questions/6114277/how-to-access-wpf-mainwindows-controls-from-another-class-in-the-same-namespace/11747955
 
-        //public void AlarmSound()
-        //{
-        //    SoundPlayer alarm = new SoundPlayer("alarm1.wav");
-        //    alarm.PlayLooping();
-
-        //} Alarmsound er også flyttet i Alarmklassen
-
-
-        /*
-        public void Alarm()
-        {
-            BloodPressureData bloodPressureData = new BloodPressureData();
-            Alarm a = new Alarm(alarm);
-            ReadBloodPressureData bp = new ReadBloodPressureData();
-            CalcBP cbp = new CalcBP();
-
-
-
-            foreach (var item in cbp.GetSys())
-            {
-                SysList.Add(Convert.ToDouble(item));
-            }
-
-            DiaList = cbp.GetDia();
-            SysList = cbp.GetSys();
-            //foreach (var item in cbp.GetDia())
-            //{
-            //    DiaList.Add(Convert.ToDouble(item));
-            //}
-
-            Dispatcher.Invoke(() =>
-                {
-                    a.Alarmblink(SysList, DiaList, 250, 10);
-                    //alarm.Visibility = Visibility.Visible;
-                    //a.StartAlarm(SysList, DiaList);
-                    //if (sys >= 10)
-                    //{
-                    //    alarm.Visibility = Visibility.Visible;
-                    //    a.Alarmblink(100, 5);
-                    //    a.AlarmSound();
-                    //}
-                }
-            );
-        }
-        */
 
 
 
