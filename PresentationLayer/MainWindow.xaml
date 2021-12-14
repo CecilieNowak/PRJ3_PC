@@ -76,6 +76,7 @@
                     <Ellipse  x:Name="alarm"  Stroke="white" Width="52" HorizontalAlignment="Left" RenderTransformOrigin="0.49,0.536" Fill="Red" Height="51" Margin="259,68,0,17"/>
                     <ProgressBar x:Name="BatteriBar" HorizontalAlignment="Left" Height="30" Margin="24,42,0,0" VerticalAlignment="Top" Width="156"/>
                     <TextBlock x:Name="Batteri_Status_Text" HorizontalAlignment="Left" Margin="185,52,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Black"/>
+                    <Label x:Name="AlarmLabel" Content="KRITISK BLODTRYK" Foreground="Red" HorizontalAlignment="Left" Margin="323,80,0,0" VerticalAlignment="Top" Height="42" Width="207" Background="White" FontStyle="Normal" FontSize="24"/>
                 </Grid>
 
             </StackPanel>
