@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using DTO_BloodPressureData;
-//using SaveDataToTxtfile = BusinessLogicLayer.SaveDataToTxtfile;
 using System.Windows.Media.Animation;
 
 namespace PresentationLayer
@@ -25,7 +24,7 @@ namespace PresentationLayer
         private readonly LoginWindow _loginW;
         private BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
-        private Filter _filter; //Har lavet denne public for at tilgå den i alarmobserver. Må jeg det?
+        private Filter _filter; 
         private SendToDatabase send;
         private SaveDataToTxtfile saveData;
         private CheckCPR _checkCPR;
@@ -65,7 +64,6 @@ namespace PresentationLayer
             cd = new CalibrateData();
             calibrateValues = new CalibrateValuesFile();
             
-
             saveData = new SaveDataToTxtfile();
             
             _filter = new Filter(_subject); 
@@ -73,8 +71,6 @@ namespace PresentationLayer
            
             
             DisplayObserver display = new DisplayObserver(_filter, this);
-
-            //AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
 
             BatteryObserver batteryObserver = new BatteryObserver(_filter, this);
 
@@ -102,14 +98,14 @@ namespace PresentationLayer
 
 
             //LogFile til alarm
-            Testtråd testtråd = new Testtråd(this, _subject);
-            Thread t5 = new Thread(testTråd.updateChart);
-            t5.Start();
+            //Testtråd testtråd = new Testtråd(this, _subject);
+            //Thread t5 = new Thread(testTråd.updateChart);
+            //t5.Start();
 
             //LogFile med filter
-            //UDPmock udPmock = new UDPmock(this, _subject);
-            //Thread t6 = new Thread(udPmock.randomDTO);
-            //t6.Start();
+            UDPmock udPmock = new UDPmock(this, _subject);
+            Thread t6 = new Thread(udPmock.randomDTO);
+            t6.Start();
 
         }
 
@@ -118,7 +114,6 @@ namespace PresentationLayer
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
             alarm.Visibility = Visibility.Hidden;
             AlarmLabel.Visibility = Visibility.Hidden;
-            //_filter.getAndSetCalibrationValues(A, B);
             A = calibrateValues.ReadFromFile().A;
             B = calibrateValues.ReadFromFile().B;
         }
