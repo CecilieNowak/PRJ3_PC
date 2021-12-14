@@ -31,6 +31,7 @@ namespace PresentationLayer
             BloodPressureData bp = new BloodPressureData();
             bp = _filter.getDTOSample();
             List<double> sysList = _filter.getListOfSys(); // fjernet mw. i mw._filter.getListOfSys();
+            List<double> diaList = _filter.GetListOfDia();
 
             mw.AlarmVisibility(sysList);
         }
