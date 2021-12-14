@@ -6,7 +6,6 @@ using System.Windows.Documents;
 using System.Collections.Generic;
 using System.Windows;
 using DTO_BloodPressureData;
-using DataAccessLayer;
 
 namespace BusinessLogicLayer
 {

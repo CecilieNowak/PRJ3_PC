@@ -9,10 +9,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 using LiveCharts;
 using LiveCharts.Wpf;
 using BusinessLogicLayer;
 using LiveCharts.Configurations;
+using DTO_BloodPressureData;
 
 namespace PresentationLayer
 {
@@ -28,6 +30,9 @@ namespace PresentationLayer
         private List<double> _adcValuesList; //aflæste ADC-værdier gemmes her                                                                                             
         private readonly ChartValues<Point> _values; //kalibreringspunkter til graf gemmes i denne variabel
         private CalibrateObserver calibrateObserver; //Oberser der attacher sig til bpSubject, for at få ADC-værdier (DTO.Værdi)
+        private CalibrateValuesFile calibrateFile;
+        private CalibrateData calibrateData;
+        public BloodPressureSubject _subject;
 
         public SeriesCollection Data { get; set; } //Property bruges til at plotte trykværdi og ADC-værdi (med binding i xaml) 
         public string PressureInput { get; set; } //Property til indtastet trykværdi
@@ -40,9 +45,13 @@ namespace PresentationLayer
             _pressureValuesList = new List<double>();                                                                                    
             _adcValuesList = new List<double>();                                                                                        
             _values = new ChartValues<Point>();
-            pressureValue = new List<int>() {0, 25, 50, 125, 200, 250, 200, 125, 50, 25, 0};    
+            pressureValue = new List<int>() {0, 25, 50, 125, 200, 250, 200, 125, 50, 25, 0};
 
-            calibrateObserver = new CalibrateObserver(bp, this); 
+            _subject = new BloodPressureSubject();
+
+            calibrateObserver = new CalibrateObserver(bp, this); //før bp, this
+            calibrateFile = new CalibrateValuesFile();
+            
 
         }
 
@@ -145,12 +154,15 @@ namespace PresentationLayer
             //De to arrays sættes ind som parametre i et nyt objekt for klassen LinearRegression
             LinearRegression regression = new LinearRegression(adcValues, pressureValues);
 
-            string a = Math.Round(regression.GetSlope(), 4).ToString(); //Hældningskoefficient beregnes med GetSlope()
-            string b = Math.Round(regression.GetIntercept(), 4).ToString(); //Skæring med y-akse beregnes GetIntercept()
-            string rSquared = Math.Round(regression.GetRSquared(), 4).ToString(); //r^2 beregnes med GetRSquared()
+            //string a = Math.Round(regression.GetSlope(), 4).ToString(); //Hældningskoefficient beregnes med GetSlope()
+            //string b = Math.Round(regression.GetIntercept(), 4).ToString(); //Skæring med y-akse beregnes GetIntercept()
+            //string rSquared = Math.Round(regression.GetRSquared(), 4).ToString(); //r^2 beregnes med GetRSquared()
+
+            double a = regression.GetSlope();
+            double b = regression.GetIntercept();
 
             //Forskrift udskrives
-            regression.ToString();
+            //regression.ToString();
 
             //if (regression.GetIntercept() < 0)
             //{
@@ -160,20 +172,31 @@ namespace PresentationLayer
             //{
             //    Regression_Box.Text = "y = " + a + "x +  " + b + "\n R^2 = " + rSquared;
             //}
+            Regression_Box.Text = regression.ToString();
+
             insertValues_Box.Text = "Kalibrering foretaget";
 
             //_mainRef.A = Convert.ToDouble(a);       //a gemmes i Main's property A
             //_mainRef.B = Convert.ToDouble(b);       //b gemmes i Main's property B
 
+            calibrateData = new CalibrateData(a, b);
+
+            calibrateFile.LogFile(calibrateData);
+
         }
+
 
         private void LogOffButton_Click(object sender, RoutedEventArgs e)
         {
-            //Environment.Exit(0);
-            this.Hide(); //Når der logges af, skjules kalibreringsvindue                                                                                                          
-            _mainRef.PrepMainWindow(); //filter-observer tilføjes igen
+            
+            Environment.Exit(0);
+            //this.Hide(); //Når der logges af, skjules kalibreringsvindue                                                                                                          
+
+            //_subject.Remove(calibrateObserver);
+            //_mainRef.PrepMainWindow(); //filter-observer tilføjes igen
             //_mainRef.ShowDialog();     
-            _mainRef.Show();
+            //_mainRef.Show();
+            
 
         }
     }

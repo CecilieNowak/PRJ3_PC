@@ -34,9 +34,12 @@ namespace PresentationLayer
         private Testtråd testTråd;
         private Storyboard _st;
         private Alarm alarm1;
+        private CalibrateData cd;
+        private CalibrateValuesFile calibrateValues;
+        
 
         public bool LoginOk { get; set; }
-        public ChartValues<int> YValues { get; set; }   //YValues til puls graf
+        public ChartValues<double> YValues { get; set; }   //YValues til puls graf //Jeg har ændret fra int til double
         public ChartValues<string> XValues { get; set; }   //XValues til puls graf
 
         public double A { get; set; } 
@@ -53,18 +56,20 @@ namespace PresentationLayer
 
             _subject = new BloodPressureSubject();
             
-            YValues = new ChartValues<int>();
+            YValues = new ChartValues<double>(); //Jeg har ændret fra int til double
             XValues = new ChartValues<string>();
             DataContext = this;
 
             send = new SendToDatabase();
-            A = 50;
-            B = 1;
+
+            cd = new CalibrateData();
+            calibrateValues = new CalibrateValuesFile();
+            
 
             saveData = new SaveDataToTxtfile();
             
-            _filter = new Filter(_subject);
-                testTråd = new Testtråd(this, _subject);
+            _filter = new Filter(_subject); 
+            testTråd = new Testtråd(this, _subject);
            
             
             DisplayObserver display = new DisplayObserver(_filter, this);
@@ -81,7 +86,7 @@ namespace PresentationLayer
 
             logFile = new LogFileObserver(_filter, saveData);
 
-             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
+            BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
             // Må ikke slettes!!
 
@@ -114,6 +119,8 @@ namespace PresentationLayer
             alarm.Visibility = Visibility.Hidden;
             AlarmLabel.Visibility = Visibility.Hidden;
             //_filter.getAndSetCalibrationValues(A, B);
+            A = calibrateValues.ReadFromFile().A;
+            B = calibrateValues.ReadFromFile().B;
         }
 
         public void updateBatteryBar(double battery)
@@ -159,7 +166,7 @@ namespace PresentationLayer
                 {
                     _subject.Add(_filter);
                     _filter.Add(logFile);
-                 _filter.getAndSetCalibrationValues(A,B); //TODO uncommunt
+                    //_filter.getAndSetCalibrationValues(A,B); //TODO uncommunt
                 }
             );
         }
@@ -176,11 +183,10 @@ namespace PresentationLayer
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
-            PrepCalibrateWindow();
-
             _calibrateW = new CalibrateWindow(this, _subject);
-
-            this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            PrepCalibrateWindow();
+            //this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            this.Close();
             _loginW.ShowDialog(); //og Loginvindue vises
 
             if (LoginOk)
@@ -208,7 +214,13 @@ namespace PresentationLayer
 
         public void AddDisplayValues(BloodPressureData bp)
         {
-            YValues.Add(Convert.ToInt16(bp.Værdi)); //SKAL add'e værdi!!!
+            //A = Convert.ToInt32(cd.A);
+            //A = calibrateValues.ReadFromFile().A;
+            //B = calibrateValues.ReadFromFile().B;
+            double value = Convert.ToDouble(bp.Værdi);
+            double calValue = (A * value) + B;
+
+            YValues.Add(calValue); //SKAL add'e værdi!!!
             if (YValues.Count > 200)
             {
                 YValues.RemoveAt(0);
@@ -222,7 +234,11 @@ namespace PresentationLayer
             //Når foregrundstråden har tid (Invoke), kører koden. Dispatcher gør, at GUI ikke crasher. 
             Dispatcher.Invoke(() =>
                 {
-                    BP_value_box.Text = Convert.ToString(Convert.ToInt16(sys)) + "/" + Convert.ToString(Convert.ToInt16(dia));
+                    double sysCalibrate = (A * sys) + B;
+                    double diaCalibrate = (A * dia) + B;
+
+                    BP_value_box.Text = Convert.ToString(Convert.ToInt16(sysCalibrate)) + "/" + Convert.ToString(Convert.ToInt16(diaCalibrate));
+                    //BP_value_box.Text = Convert.ToString((A * sys) + B) + "/" + Convert.ToString((A * dia) + B);
                 }
             );
         }
