@@ -7,39 +7,56 @@ namespace BusinessLogicLayer
 {
     public class CalcBP
     {
-        //List<int> data = new List<int> { 1, 5, 4, 3, 2, 5, 7, 8, 4, 2, 1, 4 };
 
+
+        //List<BloodPressureData> sys = new List<BloodPressureData>();
+        //List<BloodPressureData> dia = new List<BloodPressureData>();
+        List<double> SysList;
+        List<double> DiaList;
+        List<double> MeanList;
+        private BloodPressureData bp;
+        //private BloodPressureSubject subject;
         List<BloodPressureData> sys = new List<BloodPressureData>();
         List<BloodPressureData> dia = new List<BloodPressureData>();
-        List<double> SysList = new List<double>();
-        List<double> DiaList = new List<double>();
-
-        private BloodPressureData bp;
 
         public CalcBP()
         {
             bp = new BloodPressureData();
+            SysList = new List<double>();
+            DiaList = new List<double>();
+            MeanList = new List<double>();
+            //subject = new BloodPressureSubject();
+            sys = new List<BloodPressureData>();
+            dia = new List<BloodPressureData>();
         }
+
+        //public double CalcMean(List<BloodPressureData> data)
+        //{
+        //    data = subject.GetNewestDTOMean();
+        //    if (SysList.Count > 1)
+        //    {
+        //        bp.Avg = data.Count / SysList.Count;
+        //    }
+
+
+        //    return bp.Avg;
+        //}
+
+        //public List<double> GetMean()
+        //{
+        //    return MeanList;
+        //}
+
 
         public double CalcSys(List<BloodPressureData> data)
         {
-            for (int i = 1; i <= data.Count - 2; i++)
+            int i = 5;
+            if (data[i].Værdi > data[i - 1].Værdi && data[i].Værdi > data[i - 2].Værdi && data[i].Værdi > data[i - 3].Værdi && data[i].Værdi > data[i - 4].Værdi
+            && data[i].Værdi > data[i + 1].Værdi && data[i].Værdi > data[i + 2].Værdi && data[i].Værdi > data[i + 3].Værdi && data[i].Værdi > data[i + 4].Værdi)
             {
-                if (data[i].Værdi > data[i - 1].Værdi && data[i].Værdi > data[i + 1].Værdi)
-                {
-                    //bp.Diastolic = data[i].Værdi;
-                }
-            }
-
-            // Metode opdateret med filter
-
-            for (int i = 5; i <= data.Count - 5; i++)
-            {
-                if (data[i].Værdi > data[i - 1].Værdi && data[i].Værdi > data[i - 2].Værdi && data[i].Værdi > data[i - 3].Værdi && data[i].Værdi > data[i - 4].Værdi && data[i].Værdi > data[i + 1].Værdi && data[i].Værdi > data[i + 2].Værdi && data[i].Værdi > data[i + 3].Værdi && data[i].Værdi > data[i + 4].Værdi)
-                {
-                    //bp.Systolic = data[i].Værdi;
-                    //sys.Add(data[i]);
-                }
+                bp.Systolic = data[i].Værdi;
+                sys.Add(data[i]);
+                SysList.Add(data[i].Værdi);
             }
             return bp.Systolic;
         }
@@ -47,22 +64,18 @@ namespace BusinessLogicLayer
 
         public List<double> GetSys()
         {
-            foreach (var item in sys)
-            {
-                //SysList.Add(Convert.ToDouble(item));
-            }
             return SysList;
         }
 
         public double CalcDia(List<BloodPressureData> data)
         {
-            for (int i = 5; i <= data.Count - 5; i++)
+            int i = 5;
+            if (data[i].Værdi < data[i - 1].Værdi && data[i].Værdi < data[i - 2].Værdi && data[i].Værdi < data[i - 3].Værdi && data[i].Værdi < data[i - 4].Værdi 
+            && data[i].Værdi < data[i + 1].Værdi && data[i].Værdi < data[i + 2].Værdi && data[i].Værdi < data[i + 3].Værdi && data[i].Værdi < data[i + 4].Værdi)
             {
-                if (data[i].Værdi < data[i - 1].Værdi && data[i].Værdi < data[i - 2].Værdi && data[i].Værdi < data[i - 3].Værdi && data[i].Værdi < data[i - 4].Værdi && data[i].Værdi < data[i + 1].Værdi && data[i].Værdi < data[i + 2].Værdi && data[i].Værdi < data[i + 3].Værdi && data[i].Værdi < data[i + 4].Værdi)
-                {
-                    //bp.Diastolic = data[i].Værdi;
-                    //dia.Add(data[i]);
-                }
+                bp.Diastolic = data[i].Værdi;
+                dia.Add(data[i]);
+                DiaList.Add(data[i].Værdi);
             }
             return bp.Diastolic;
         }
@@ -70,10 +83,6 @@ namespace BusinessLogicLayer
 
         public List<double> GetDia()
         {
-            foreach (var item in dia)
-            {
-                //DiaList.Add(Convert.ToDouble(item));
-            }
             return DiaList;
         }
     }

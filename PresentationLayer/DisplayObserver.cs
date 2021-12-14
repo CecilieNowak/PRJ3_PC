@@ -37,6 +37,7 @@ namespace PresentationLayer
         {
             DateTime now = DateTime.Now;
             BloodPressureData bp = new BloodPressureData();
+            CalibrateData cd = new CalibrateData();
             bp = _filter.getDTOSample();           //Parameterne er a og b fra regression 
 
 

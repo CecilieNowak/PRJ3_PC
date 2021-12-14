@@ -6,9 +6,9 @@ using System.Media;
 using System.Windows.Media.Animation;
 using System.Windows;
 using System.Windows.Shapes;
-using PresentationLayer;
+using BusinessLogicLayer;
 
-namespace BusinessLogicLayer
+namespace PresentationLayer
 {
     public class AlarmObserver : IBloodPressureObserver
     {
@@ -28,32 +28,12 @@ namespace BusinessLogicLayer
         //bool b = false;
         public void Update()                                            //Metoden henter nyeste DTO fra subjectet og opdaterer livecharten (Lige nu opdaterer den kun puls!)
         {
-
             BloodPressureData bp = new BloodPressureData();
             bp = _filter.getDTOSample();
-            List<double> sysList = mw._filter.getListOfSys();
-            List<double> diaList = mw._filter.GetListOfDia();
+            List<double> sysList = _filter.getListOfSys(); // fjernet mw. i mw._filter.getListOfSys();
+            List<double> diaList = _filter.GetListOfDia();
 
-            //if (b == false)
-            //{
-
-            mw.AlarmVisibility(sysList, new List<double>());
-
-
-            //}
-
-            //else
-            //{
-            //    mw.Blink(new List<double>(), diaList);
-            //}
-
-            //if (sysList.Count == 2)
-            //{
-            //    b = true;
-            //}
-
+            mw.AlarmVisibility(sysList);
         }
-
-
     }
 }

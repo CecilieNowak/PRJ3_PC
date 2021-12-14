@@ -44,10 +44,8 @@ namespace PresentationLayer
                     _list.Add(dto);
 
                     _bp.NewDataReceived(dto);
+                    Thread.Sleep(100);
             }
-
-
-                Thread.Sleep(100);
 
             //}
 

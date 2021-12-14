@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using DTO_BloodPressureData;
-//using SaveDataToTxtfile = BusinessLogicLayer.SaveDataToTxtfile;
 using System.Windows.Media.Animation;
 
 namespace PresentationLayer
@@ -23,9 +22,9 @@ namespace PresentationLayer
     {
         private readonly CheckLogin _logicobj;
         private readonly LoginWindow _loginW;
-        public BloodPressureSubject _subject;
+        private BloodPressureSubject _subject;
         private CalibrateWindow _calibrateW;
-        public Filter _filter; //Har lavet denne public for at tilgå den i alarmobserver. Må jeg det?
+        private Filter _filter; 
         private SendToDatabase send;
         private SaveDataToTxtfile saveData;
         private CheckCPR _checkCPR;
@@ -34,9 +33,12 @@ namespace PresentationLayer
         private Testtråd testTråd;
         private Storyboard _st;
         private Alarm alarm1;
+        private CalibrateData cd;
+        private CalibrateValuesFile calibrateValues;
+        
 
         public bool LoginOk { get; set; }
-        public ChartValues<int> YValues { get; set; }   //YValues til puls graf
+        public ChartValues<double> YValues { get; set; }   //YValues til puls graf //Jeg har ændret fra int til double
         public ChartValues<string> XValues { get; set; }   //XValues til puls graf
 
         public double A { get; set; } 
@@ -53,33 +55,34 @@ namespace PresentationLayer
 
             _subject = new BloodPressureSubject();
             
-            YValues = new ChartValues<int>();
+            YValues = new ChartValues<double>(); //Jeg har ændret fra int til double
             XValues = new ChartValues<string>();
             DataContext = this;
 
             send = new SendToDatabase();
-          
+
+            cd = new CalibrateData();
+            calibrateValues = new CalibrateValuesFile();
+            
             saveData = new SaveDataToTxtfile();
             
-            _filter = new Filter(_subject);
-                testTråd = new Testtråd(this, _subject);
+            _filter = new Filter(_subject); 
+            testTråd = new Testtråd(this, _subject);
            
             
             DisplayObserver display = new DisplayObserver(_filter, this);
 
-            //AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
-
             BatteryObserver batteryObserver = new BatteryObserver(_filter, this);
 
-            alarm1 = new Alarm(alarm, _st, Dispatcher);
+            AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
 
-            alarm1 = new Alarm(alarm, _st, Dispatcher);
+            alarm1 = new Alarm(alarm, AlarmLabel, _st, Dispatcher);
 
             Storyboard st = new Storyboard();
 
             logFile = new LogFileObserver(_filter, saveData);
 
-             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
+            BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
 
             // Må ikke slettes!!
 
@@ -110,7 +113,9 @@ namespace PresentationLayer
         {
             Date_box.Text = DateTime.Now.ToString("dd/MM/yyyy");                        //Dato vises på UI                                                                   //Der skal måske også være kode til at vise tid her
             alarm.Visibility = Visibility.Hidden;
-            //_filter.getAndSetCalibrationValues(A, B);
+            AlarmLabel.Visibility = Visibility.Hidden;
+            A = calibrateValues.ReadFromFile().A;
+            B = calibrateValues.ReadFromFile().B;
         }
 
         public void updateBatteryBar(double battery)
@@ -156,7 +161,7 @@ namespace PresentationLayer
                 {
                     _subject.Add(_filter);
                     _filter.Add(logFile);
-                 _filter.getAndSetCalibrationValues(A,B); //TODO uncommunt
+                    //_filter.getAndSetCalibrationValues(A,B); //TODO uncommunt
                 }
             );
         }
@@ -174,10 +179,9 @@ namespace PresentationLayer
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
             _calibrateW = new CalibrateWindow(this, _subject);
-
             PrepCalibrateWindow();
-
-            this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            //this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            this.Close();
             _loginW.ShowDialog(); //og Loginvindue vises
 
             if (LoginOk)
@@ -205,7 +209,13 @@ namespace PresentationLayer
 
         public void AddDisplayValues(BloodPressureData bp)
         {
-            YValues.Add(Convert.ToInt16(bp.Værdi)); //SKAL add'e værdi!!!
+            //A = Convert.ToInt32(cd.A);
+            //A = calibrateValues.ReadFromFile().A;
+            //B = calibrateValues.ReadFromFile().B;
+            double value = Convert.ToDouble(bp.Værdi);
+            double calValue = (A * value) + B;
+
+            YValues.Add(calValue); //SKAL add'e værdi!!!
             if (YValues.Count > 200)
             {
                 YValues.RemoveAt(0);
@@ -219,92 +229,36 @@ namespace PresentationLayer
             //Når foregrundstråden har tid (Invoke), kører koden. Dispatcher gør, at GUI ikke crasher. 
             Dispatcher.Invoke(() =>
                 {
-                    BP_value_box.Text = Convert.ToString(Convert.ToInt16(sys)) + "/" + Convert.ToString(Convert.ToInt16(dia));
+                    double sysCalibrate = (A * sys) + B;
+                    double diaCalibrate = (A * dia) + B;
+
+                    BP_value_box.Text = Convert.ToString(Convert.ToInt16(sysCalibrate)) + "/" + Convert.ToString(Convert.ToInt16(diaCalibrate));
+                    //BP_value_box.Text = Convert.ToString((A * sys) + B) + "/" + Convert.ToString((A * dia) + B);
                 }
             );
         }
 
-        public void AlarmVisibility(List<double> sys, List<double> dia)
+        public void AlarmVisibility(List<double> sys)
         {
+
             Dispatcher.Invoke(() =>
             {
                 if (alarm.Visibility == Visibility.Hidden)
                 {
-                alarm1.StartAlarm(sys, dia);
+                    alarm1.StartAlarm(sys);
                 }
 
             }
-           );
-        }
-
-        //Nedenstående kode får alarmen til at blinke
-        //public void Alarmblink(int length, double repetition)
-        //{
-        //    DoubleAnimation opacityAlarm = new DoubleAnimation()
-        //    {
-        //        From = 0.0,
-        //        To = 1.0,
-        //        Duration = new Duration(TimeSpan.FromMilliseconds(length)),
-        //        AutoReverse = true,
-        //        RepeatBehavior = new RepeatBehavior(repetition)
-        //    };
-        //    Storyboard storyboard = new Storyboard();
-        //    storyboard.Children.Add(opacityAlarm);
-        //    Storyboard.SetTarget(opacityAlarm, alarm);
-        //    Storyboard.SetTargetProperty(opacityAlarm, new PropertyPath("Opacity"));
-        //    storyboard.Begin(alarm);
-        //}
-
-        // Ovenstående alarmmetode er sat ind i Alarm klassen i buisness laget ved at lave en constructor
-        // i alarmklassen med en ellipse (WPF objecktet som bruges til alarmen) https://stackoverflow.com/questions/6114277/how-to-access-wpf-mainwindows-controls-from-another-class-in-the-same-namespace/11747955
-
-        //public void AlarmSound()
-        //{
-        //    SoundPlayer alarm = new SoundPlayer("alarm1.wav");
-        //    alarm.PlayLooping();
-
-        //} Alarmsound er også flyttet i Alarmklassen
-
-
-        /*
-        public void Alarm()
-        {
-            BloodPressureData bloodPressureData = new BloodPressureData();
-            Alarm a = new Alarm(alarm);
-            ReadBloodPressureData bp = new ReadBloodPressureData();
-            CalcBP cbp = new CalcBP();
-
-
-
-            foreach (var item in cbp.GetSys())
-            {
-                SysList.Add(Convert.ToDouble(item));
-            }
-
-            DiaList = cbp.GetDia();
-            SysList = cbp.GetSys();
-            //foreach (var item in cbp.GetDia())
-            //{
-            //    DiaList.Add(Convert.ToDouble(item));
-            //}
-
-            Dispatcher.Invoke(() =>
-                {
-                    a.Alarmblink(SysList, DiaList, 250, 10);
-                    //alarm.Visibility = Visibility.Visible;
-                    //a.StartAlarm(SysList, DiaList);
-                    //if (sys >= 10)
-                    //{
-                    //    alarm.Visibility = Visibility.Visible;
-                    //    a.Alarmblink(100, 5);
-                    //    a.AlarmSound();
-                    //}
-                }
             );
         }
-        */
 
-      
+
+
+        // alarmmetode er sat ind i Alarm klassen i buisness laget ved at lave en constructor
+        // i alarmklassen med en ellipse (WPF objecktet som bruges til alarmen) https://stackoverflow.com/questions/6114277/how-to-access-wpf-mainwindows-controls-from-another-class-in-the-same-namespace/11747955
+
+
+
 
         private void GetData_button_Click(object sender, RoutedEventArgs e)
         {

@@ -48,11 +48,11 @@ namespace BusinessLogicLayer
         {
             if (GetIntercept() < 0)
             {
-                return "y = " + A + "x" + B + "\n R^2 = " + RSquared; //Hvis b er negativ, udskrives streng uden "+"
+                return "y = " + Math.Round(A, 2)  + "x" + Math.Round(B, 2) + "\t R^2 = " + Math.Round(RSquared, 2); //Hvis b er negativ, udskrives streng uden "+"
             }
             else
             {
-                return "y = " + A + "x +  " + B + "\n R^2 = " + RSquared;
+                return "y = " + Math.Round(A, 2) + "x +  " + Math.Round(B, 2) + "\t R^2 = " + Math.Round(RSquared, 2);
             }
         }
     }
