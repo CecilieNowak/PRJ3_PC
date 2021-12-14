@@ -58,9 +58,7 @@ namespace PresentationLayer
             DataContext = this;
 
             send = new SendToDatabase();
-            A = 50;
-            B = 1;
-
+          
             saveData = new SaveDataToTxtfile();
             
             _filter = new Filter(_subject);
@@ -175,9 +173,9 @@ namespace PresentationLayer
 
         private void Calibrate_button_Click(object sender, RoutedEventArgs e)
         {
-            PrepCalibrateWindow();
-
             _calibrateW = new CalibrateWindow(this, _subject);
+
+            PrepCalibrateWindow();
 
             this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
             _loginW.ShowDialog(); //og Loginvindue vises
