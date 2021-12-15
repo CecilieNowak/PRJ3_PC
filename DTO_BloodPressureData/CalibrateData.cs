@@ -10,9 +10,7 @@ namespace DTO_BloodPressureData
         public double B { get; set; } = 0;
 
         public CalibrateData()
-        {
-
-        }
+        { }
 
         public CalibrateData(double a, double b)
         {

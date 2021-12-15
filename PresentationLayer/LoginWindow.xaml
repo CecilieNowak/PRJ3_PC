@@ -16,7 +16,7 @@
         <Label Content="LOG IN" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top" FontSize="30" Width="112" Foreground="#FF010000"/>
         <TextBox HorizontalAlignment="Left" Margin="52,318,0,0" Text="batteri status" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Height="38"/>
         <TextBlock x:Name="Date_box" HorizontalAlignment="Left" Margin="481,318,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Height="27" FontSize="14" Foreground="Black"/>
-        <TextBlock x:Name="fejlmeddelelse_Box" HorizontalAlignment="Left" Margin="124,244,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="316" FontSize="14" Foreground="#FFD91616"/>
+        <TextBlock x:Name="fejlmeddelelse_Box" HorizontalAlignment="Left" Margin="124,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="316" FontSize="14" Foreground="#FFD91616" Height="39"/>
 
     </Grid>
 </Window>

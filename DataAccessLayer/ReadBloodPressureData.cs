@@ -33,7 +33,6 @@ namespace DataAccessLayer
 
             }
             reader.Close();
-
             return bpList;
         }
 

@@ -41,7 +41,7 @@ namespace PresentationLayer
             bp = _filter.getDTOSample();           //Parameterne er a og b fra regression 
 
 
-            mw.AddDisplayValues(bp);
+            mw.AddDisplayValues(Convert.ToDouble(bp.Værdi)); //bp
 
             mw.XValues.Add(now.ToString());
 
