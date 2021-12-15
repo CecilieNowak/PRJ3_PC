@@ -37,12 +37,6 @@ namespace BusinessLogicLayer
 
         }
 
-        public void getAndSetCalibrationValues(double a, double b)
-        {
-            A = a;
-            B = b;
-        }
-
 
         public void Update() //metoden skal retunere en DTO med gennemsnit over 10 første samples, som displayObserveren skal opdatere guien med
         {
@@ -56,26 +50,15 @@ namespace BusinessLogicLayer
             //Kalibrering
 
             lokalBp.Systolic = calcBp.CalcSys(lokalList);
-            //lokalBp.Systolic = Convert.ToInt32(A * lokalBp.Systolic + B);               //Omregner ADC værdi (Systolisk) til mmHg
             lokalBp.Diastolic = calcBp.CalcDia(lokalList);
-            //lokalBp.Diastolic = Convert.ToInt32(A * lokalBp.Diastolic + B);             //Omregner ADC værdi (Diastolisk) til mmHg
-            //lokalBp.Værdi = Convert.ToInt32(A * lokalBp.Værdi + B);
 
             battery.RequestBatterystatus(lokalBp);
 
-            
-            //Log data
-
             Notify();
-
-
         }
-
-        
 
         public BloodPressureData getDTOSample()
         {
-
             return lokalBp;
         }
 

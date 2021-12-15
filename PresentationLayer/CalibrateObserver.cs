@@ -26,8 +26,7 @@ namespace PresentationLayer
 
         }
 
-        public void
-            Update() //Metoden henter nyeste DTO fra subjectet og opdaterer livecharten (Lige nu opdaterer den kun puls!)
+        public void Update() //Metoden henter nyeste DTO fra subjectet og opdaterer livecharten (Lige nu opdaterer den kun puls!)
         {
             _getDTO = _bpSubject.GetNewestDTO(); //Vi gemmer de nyeste DTO'er i en liste
 

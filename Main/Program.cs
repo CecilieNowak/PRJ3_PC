@@ -24,11 +24,14 @@ namespace Main
             //List<int> testSys = new List<int> { 1, 1, 1, 1, 11, 1, 1, 3, 3, 11, 1, 6 };
             //a1.StartAlarm(testSys);
             //Console.ReadKey();
-            
 
-            //Test af DataBaseConnection-klasse
-            SendToDatabase send = new SendToDatabase();
-            //send.GetData("1234567890");
+            //ReadBloodPressureData readData = new ReadBloodPressureData();
+            //readData.ReadFromFile();
+
+
+            //Test af DataBaseConnection - klasse
+            DataBaseConnection database = new DataBaseConnection();
+            database.GetData("1234567890");
 
 
 

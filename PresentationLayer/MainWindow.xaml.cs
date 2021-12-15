@@ -34,6 +34,7 @@ namespace PresentationLayer
         private Storyboard _st;
         private Alarm alarm1;
         private CalibrateData cd;
+        //private CalibrateValuesFile calibrateValues;
         private CalibrateValuesFile calibrateValues;
         
 
@@ -103,9 +104,9 @@ namespace PresentationLayer
             //t5.Start();
 
             //LogFile med filter
-            UDPmock udPmock = new UDPmock(this, _subject);
-            Thread t6 = new Thread(udPmock.randomDTO);
-            t6.Start();
+            //UDPmock udPmock = new UDPmock(this, _subject);
+            //Thread t6 = new Thread(udPmock.randomDTO);
+            //t6.Start();
 
         }
 
@@ -161,7 +162,6 @@ namespace PresentationLayer
                 {
                     _subject.Add(_filter);
                     _filter.Add(logFile);
-                    //_filter.getAndSetCalibrationValues(A,B); //TODO uncommunt
                 }
             );
         }
@@ -180,8 +180,8 @@ namespace PresentationLayer
         {
             _calibrateW = new CalibrateWindow(this, _subject);
             PrepCalibrateWindow();
-            //this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
-            this.Close();
+            this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+            //this.Close();
             _loginW.ShowDialog(); //og Loginvindue vises
 
             if (LoginOk)
@@ -207,13 +207,10 @@ namespace PresentationLayer
                 );
         }
 
-        public void AddDisplayValues(BloodPressureData bp)
+        public void AddDisplayValues(double bp) //BloodPressureData bp
         {
-            //A = Convert.ToInt32(cd.A);
-            //A = calibrateValues.ReadFromFile().A;
-            //B = calibrateValues.ReadFromFile().B;
-            double value = Convert.ToDouble(bp.Værdi);
-            double calValue = (A * value) + B;
+            //double value = Convert.ToDouble(bp.Værdi);
+            double calValue = (A * bp) + B; //value i stedet for bp
 
             YValues.Add(calValue); //SKAL add'e værdi!!!
             if (YValues.Count > 200)
@@ -229,8 +226,8 @@ namespace PresentationLayer
             //Når foregrundstråden har tid (Invoke), kører koden. Dispatcher gør, at GUI ikke crasher. 
             Dispatcher.Invoke(() =>
                 {
-                    double sysCalibrate = (A * sys) + B;
-                    double diaCalibrate = (A * dia) + B;
+                    double sysCalibrate = (A * sys) + B;  //Omregner ADC værdi(Diastolisk) til mmHg
+                    double diaCalibrate = (A * dia) + B;  //Omregner ADC værdi (Systolisk) til mmHg
 
                     BP_value_box.Text = Convert.ToString(Convert.ToInt16(sysCalibrate)) + "/" + Convert.ToString(Convert.ToInt16(diaCalibrate));
                     //BP_value_box.Text = Convert.ToString((A * sys) + B) + "/" + Convert.ToString((A * dia) + B);
@@ -247,23 +244,12 @@ namespace PresentationLayer
                 {
                     alarm1.StartAlarm(sys);
                 }
-
             }
             );
         }
 
-
-
         // alarmmetode er sat ind i Alarm klassen i buisness laget ved at lave en constructor
         // i alarmklassen med en ellipse (WPF objecktet som bruges til alarmen) https://stackoverflow.com/questions/6114277/how-to-access-wpf-mainwindows-controls-from-another-class-in-the-same-namespace/11747955
 
-
-
-
-        private void GetData_button_Click(object sender, RoutedEventArgs e)
-        {
-            dataSaved_Box.Text = "A: " + A + " B: " + B;
-        }
-        
     }
 }

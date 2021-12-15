@@ -24,12 +24,13 @@ namespace PresentationLayer
     public partial class CalibrateWindow : Window
     {
         private readonly MainWindow _mainRef; //Reference til Main                                                                                          
-        //private GetADCvalues _getAdc; //Test                                                                                    
+        private GetADCvalues _getAdc; //Test                                                                                    
         private List<int> pressureValue; //de ønskede trykværdier (defineret i UC1) findes her
         private List<double> _pressureValuesList; //indtastede trykværdier gemmes her                                                                                       
         private List<double> _adcValuesList; //aflæste ADC-værdier gemmes her                                                                                             
         private readonly ChartValues<Point> _values; //kalibreringspunkter til graf gemmes i denne variabel
         private CalibrateObserver calibrateObserver; //Oberser der attacher sig til bpSubject, for at få ADC-værdier (DTO.Værdi)
+        //private CalibrateValuesFile calibrateFile;
         private CalibrateValuesFile calibrateFile;
         private CalibrateData calibrateData;
         public BloodPressureSubject _subject;
@@ -51,7 +52,7 @@ namespace PresentationLayer
 
             calibrateObserver = new CalibrateObserver(bp, this); //før bp, this
             calibrateFile = new CalibrateValuesFile();
-            
+            _getAdc = new GetADCvalues();
 
         }
 
@@ -154,34 +155,27 @@ namespace PresentationLayer
             //De to arrays sættes ind som parametre i et nyt objekt for klassen LinearRegression
             LinearRegression regression = new LinearRegression(adcValues, pressureValues);
 
-            //string a = Math.Round(regression.GetSlope(), 4).ToString(); //Hældningskoefficient beregnes med GetSlope()
-            //string b = Math.Round(regression.GetIntercept(), 4).ToString(); //Skæring med y-akse beregnes GetIntercept()
-            //string rSquared = Math.Round(regression.GetRSquared(), 4).ToString(); //r^2 beregnes med GetRSquared()
+            string a = Math.Round(regression.GetSlope(), 4).ToString(); //Hældningskoefficient beregnes med GetSlope()
+            string b = Math.Round(regression.GetIntercept(), 4).ToString(); //Skæring med y-akse beregnes GetIntercept()
+            string rSquared = Math.Round(regression.GetRSquared(), 4).ToString(); //r^2 beregnes med GetRSquared()
 
-            double a = regression.GetSlope();
-            double b = regression.GetIntercept();
+            double aCal = regression.GetSlope();
+            double bCal = regression.GetIntercept();
 
-            //Forskrift udskrives
-            //regression.ToString();
-
-            //if (regression.GetIntercept() < 0)
-            //{
-            //    Regression_Box.Text = "y = " + a + "x" + b + "\n R^2 = " + rSquared; //Hvis b er negativ, udskrives streng uden "+"
-            //}
-            //else
-            //{
-            //    Regression_Box.Text = "y = " + a + "x +  " + b + "\n R^2 = " + rSquared;
-            //}
-            Regression_Box.Text = regression.ToString();
+            if (regression.GetIntercept() < 0)
+            {
+                Regression_Box.Text = "y = " + a + "x" + b + "\t R^2 = " + rSquared; //Hvis b er negativ, udskrives streng uden "+"
+            }
+            else
+            {
+                Regression_Box.Text = "y = " + a + "x +  " + b + "\t R^2 = " + rSquared;
+            }
 
             insertValues_Box.Text = "Kalibrering foretaget";
 
-            //_mainRef.A = Convert.ToDouble(a);       //a gemmes i Main's property A
-            //_mainRef.B = Convert.ToDouble(b);       //b gemmes i Main's property B
+            calibrateData = new CalibrateData(aCal, bCal);
 
-            calibrateData = new CalibrateData(a, b);
-
-            calibrateFile.LogFile(calibrateData);
+            calibrateFile.LogCalFile(calibrateData);
 
         }
 

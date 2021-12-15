@@ -26,11 +26,6 @@ namespace BusinessLogicLayer
         public void LogFile(BloodPressureData bp)
         {
             List<BloodPressureData> DTO = new List<BloodPressureData>();
-
-            //DTO.Add(new BloodPressureData(140,90,90));
-            //DTO.Add(new BloodPressureData(130, 95, 90));
-            //DTO.Add(new BloodPressureData(145, 90, 93));
-
             DTO.Add(new BloodPressureData(bp.Systolic, bp.Diastolic, bp.Pulse));
 
             if (File.Exists(path))

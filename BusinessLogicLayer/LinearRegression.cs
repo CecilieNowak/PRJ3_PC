@@ -39,21 +39,10 @@ namespace BusinessLogicLayer
 
         public double GetRSquared()
         {
-            RSquared = GoodnessOfFit.RSquared(_adcValues.Select(x => A * x + B), _pressureValues);
+            RSquared = GoodnessOfFit.RSquared(_adcValues.Select(x => B + A * x),
+                _pressureValues);
 
             return RSquared;
-        }
-
-        public override string ToString()
-        {
-            if (GetIntercept() < 0)
-            {
-                return "y = " + Math.Round(A, 2)  + "x" + Math.Round(B, 2) + "\t R^2 = " + Math.Round(RSquared, 2); //Hvis b er negativ, udskrives streng uden "+"
-            }
-            else
-            {
-                return "y = " + Math.Round(A, 2) + "x +  " + Math.Round(B, 2) + "\t R^2 = " + Math.Round(RSquared, 2);
-            }
         }
     }
 }

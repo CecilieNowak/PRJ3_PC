@@ -23,6 +23,7 @@ namespace BusinessLogicLayer
             _database.SendToData(socSecNb);
 
         }
+
     }
 }
 
