@@ -154,32 +154,32 @@ namespace PresentationLayer
             //De to arrays sættes ind som parametre i et nyt objekt for klassen LinearRegression
             LinearRegression regression = new LinearRegression(adcValues, pressureValues);
 
-            //string a = Math.Round(regression.GetSlope(), 4).ToString(); //Hældningskoefficient beregnes med GetSlope()
-            //string b = Math.Round(regression.GetIntercept(), 4).ToString(); //Skæring med y-akse beregnes GetIntercept()
-            //string rSquared = Math.Round(regression.GetRSquared(), 4).ToString(); //r^2 beregnes med GetRSquared()
+            string a = Math.Round(regression.GetSlope(), 4).ToString(); //Hældningskoefficient beregnes med GetSlope()
+            string b = Math.Round(regression.GetIntercept(), 4).ToString(); //Skæring med y-akse beregnes GetIntercept()
+            string rSquared = Math.Round(regression.GetRSquared(), 4).ToString(); //r^2 beregnes med GetRSquared()
 
-            double a = regression.GetSlope();
-            double b = regression.GetIntercept();
+            double aCal = regression.GetSlope();
+            double bCal = regression.GetIntercept();
 
             //Forskrift udskrives
             //regression.ToString();
 
-            //if (regression.GetIntercept() < 0)
-            //{
-            //    Regression_Box.Text = "y = " + a + "x" + b + "\n R^2 = " + rSquared; //Hvis b er negativ, udskrives streng uden "+"
-            //}
-            //else
-            //{
-            //    Regression_Box.Text = "y = " + a + "x +  " + b + "\n R^2 = " + rSquared;
-            //}
-            Regression_Box.Text = regression.ToString();
+            if (regression.GetIntercept() < 0)
+            {
+                Regression_Box.Text = "y = " + a + "x" + b + "\t R^2 = " + rSquared; //Hvis b er negativ, udskrives streng uden "+"
+            }
+            else
+            {
+                Regression_Box.Text = "y = " + a + "x +  " + b + "\t R^2 = " + rSquared;
+            }
+            //Regression_Box.Text = regression.ToString();
 
             insertValues_Box.Text = "Kalibrering foretaget";
 
             //_mainRef.A = Convert.ToDouble(a);       //a gemmes i Main's property A
             //_mainRef.B = Convert.ToDouble(b);       //b gemmes i Main's property B
 
-            calibrateData = new CalibrateData(a, b);
+            calibrateData = new CalibrateData(aCal, bCal);
 
             calibrateFile.LogFile(calibrateData);
 

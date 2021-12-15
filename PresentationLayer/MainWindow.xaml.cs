@@ -88,13 +88,13 @@ namespace PresentationLayer
 
 
             // LogFile med UDP-kommunikation
-            //UDP_Listener_BLL udpListener = new UDP_Listener_BLL(dataQueue);
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
-            //Thread t2 = new Thread(udpListener.startUDPListener);
-            //Thread t3 = new Thread(udpConsumer.UpdateChart);
+            UDP_Listener_BLL udpListener = new UDP_Listener_BLL(dataQueue);
+            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
+            Thread t2 = new Thread(udpListener.startUDPListener);
+            Thread t3 = new Thread(udpConsumer.UpdateChart);
 
-            //t2.Start();
-            //t3.Start();
+            t2.Start();
+            t3.Start();
 
 
             //LogFile til alarm
@@ -103,9 +103,9 @@ namespace PresentationLayer
             //t5.Start();
 
             //LogFile med filter
-            UDPmock udPmock = new UDPmock(this, _subject);
-            Thread t6 = new Thread(udPmock.randomDTO);
-            t6.Start();
+            //UDPmock udPmock = new UDPmock(this, _subject);
+            //Thread t6 = new Thread(udPmock.randomDTO);
+            //t6.Start();
 
         }
 
@@ -180,8 +180,8 @@ namespace PresentationLayer
         {
             _calibrateW = new CalibrateWindow(this, _subject);
             PrepCalibrateWindow();
-            //this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
-            this.Close();
+            this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
+           // this.Close();
             _loginW.ShowDialog(); //og Loginvindue vises
 
             if (LoginOk)
@@ -216,7 +216,7 @@ namespace PresentationLayer
             double calValue = (A * value) + B;
 
             YValues.Add(calValue); //SKAL add'e værdi!!!
-            if (YValues.Count > 200)
+            if (YValues.Count > 100)
             {
                 YValues.RemoveAt(0);
             }
@@ -232,7 +232,7 @@ namespace PresentationLayer
                     double sysCalibrate = (A * sys) + B;
                     double diaCalibrate = (A * dia) + B;
 
-                    BP_value_box.Text = Convert.ToString(Convert.ToInt16(sysCalibrate)) + "/" + Convert.ToString(Convert.ToInt16(diaCalibrate));
+                    BP_value_box.Text = Convert.ToString(Convert.ToInt16(sysCalibrate)) + "/" + Convert.ToString(Convert.ToInt32(diaCalibrate));
                     //BP_value_box.Text = Convert.ToString((A * sys) + B) + "/" + Convert.ToString((A * dia) + B);
                 }
             );

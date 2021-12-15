@@ -20,36 +20,51 @@ namespace BusinessLogicLayer
         {
             double sample = bp.battery;
 
-            if (sample >= 2.9)
+            if (sample >= 1796)
             {
                 bp.battery = 100;
             }
-            else if (sample >= 2.765 && sample < 2.9)
+            else if (sample >= 1706 && sample < 1796)
+            {
+                bp.battery = 90;
+            }
+            else if (sample >= 1641 && sample < 1706)
             {
                 bp.battery = 80;
             }
-            else if (sample >= 2.701 && sample < 2.765)
+            else if (sample >= 1621 && sample < 1641)
+            {
+                bp.battery = 70;
+            }
+            else if (sample >= 1600 && sample < 1621)
             {
                 bp.battery = 60;
             }
-            else if (sample >= 2.657 && sample < 2.701)
+            else if (sample >= 1586 && sample < 1600)
+            {
+                bp.battery = 50;
+            }
+            else if (sample >= 1576 && sample < 1586)
             {
                 bp.battery = 40;
             }
-            else if (sample >= 2.593 && sample < 2.657)
+            else if (sample >= 1556 && sample < 1576)
+            {
+                bp.battery = 30;
+            }
+            else if (sample >= 1536 && sample < 1556)
             {
                 bp.battery = 20;
             }
-            else if (sample >= 2.506 && sample < 2.593)
+            else if (sample >= 1481 && sample < 1536)
             {
                 bp.battery = 10;
             }
-            else if (sample < 2.506)
+            else
             {
-                bp.battery = 1;
+                bp.battery = 0;
             }
 
-            //batteristatus = batteryData.getbatterystatus(); - sample skulle gerne have været hentet fra datalag, men det kan ikke pga RPi
 
             return bp;
 
