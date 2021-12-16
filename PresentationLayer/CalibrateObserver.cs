@@ -26,16 +26,10 @@ namespace PresentationLayer
 
         }
 
-        public void Update() //Metoden henter nyeste DTO fra subjectet og opdaterer livecharten (Lige nu opdaterer den kun puls!)
+        public void Update() //Metoden henter nyeste DTO fra subjectet 
         {
             _getDTO = _bpSubject.GetNewestDTO(); //Vi gemmer de nyeste DTO'er i en liste
 
-
-            //if (_getDTO.Count == 10) //Ved ikke om det skal være == 10
-            //{
-            //    _getDTO.RemoveAt(0); //Hver gang der er modtaget 10 DTO'er, fjernes DTO'en på plads 0 i listen. 
-            //}
-            
             _calibrateW.ADCValue = _getDTO.Last().Værdi; //Den nyeste værdi i listen bliver parameter-værdi for metoden GetADC i kalibreringsvinduet
         }
     }

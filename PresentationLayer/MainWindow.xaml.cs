@@ -29,12 +29,8 @@ namespace PresentationLayer
         private SaveDataToTxtfile saveData;
         private CheckCPR _checkCPR;
         private LogFileObserver logFile;
-        private Thread t4;
-        private Testtråd testTråd;
         private Storyboard _st;
         private Alarm alarm1;
-        private CalibrateData cd;
-        //private CalibrateValuesFile calibrateValues;
         private CalibrateValuesFile calibrateValues;
         
 
@@ -51,63 +47,34 @@ namespace PresentationLayer
            
             _logicobj = new CheckLogin();
             _loginW = new LoginWindow(this, _logicobj);
-
             _checkCPR = new CheckCPR();
 
             _subject = new BloodPressureSubject();
             
-            YValues = new ChartValues<double>(); //Jeg har ændret fra int til double
+            YValues = new ChartValues<double>(); 
             XValues = new ChartValues<string>();
             DataContext = this;
 
             send = new SendToDatabase();
-
-            cd = new CalibrateData();
             calibrateValues = new CalibrateValuesFile();
-            
             saveData = new SaveDataToTxtfile();
             
-            _filter = new Filter(_subject); 
-            testTråd = new Testtråd(this, _subject);
-           
-            
+            //Observers
             DisplayObserver display = new DisplayObserver(_filter, this);
-
-            BatteryObserver batteryObserver = new BatteryObserver(_filter, this);
-
             AlarmObserver aObserver = new AlarmObserver(_filter, this, alarm);
-
+            logFile = new LogFileObserver(_filter, saveData);
+            _filter = new Filter(_subject);
+            
+            //Alarm
             alarm1 = new Alarm(alarm, AlarmLabel, _st, Dispatcher);
-
             Storyboard st = new Storyboard();
 
-            logFile = new LogFileObserver(_filter, saveData);
-
+            //Tråd UDP - kommunikation
             BlockingCollection<BloodPressureData> dataQueue = new BlockingCollection<BloodPressureData>();
-
-            // Må ikke slettes!!
-
-
-            // LogFile med UDP-kommunikation
-            //UDP_Listener_BLL udpListener = new UDP_Listener_BLL(dataQueue);
-            //UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
-            //Thread t2 = new Thread(udpListener.startUDPListener);
-            //Thread t3 = new Thread(udpConsumer.UpdateChart);
-
-            //t2.Start();
-            //t3.Start();
-
-
-            //LogFile til alarm
-            //Testtråd testtråd = new Testtråd(this, _subject);
-            //Thread t5 = new Thread(testTråd.updateChart);
-            //t5.Start();
-
-            //LogFile med filter
-            //UDPmock udPmock = new UDPmock(this, _subject);
-            //Thread t6 = new Thread(udPmock.randomDTO);
-            //t6.Start();
-
+            UDP_Listener_BLL udpListener = new UDP_Listener_BLL(dataQueue);
+            UDP_Consumer udpConsumer = new UDP_Consumer(dataQueue, _subject);
+            Thread t2 = new Thread(udpListener.startUDPListener);
+            Thread t3 = new Thread(udpConsumer.UpdateChart);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -155,17 +122,6 @@ namespace PresentationLayer
             );
         }
 
-
-        public void PrepMainWindow()
-        {
-            Dispatcher.Invoke(() =>     //Dispatcher behøves ikke
-                {
-                    _subject.Add(_filter);
-                    _filter.Add(logFile);
-                }
-            );
-        }
-
         public void BatteryStatus(string text)
         {
             Dispatcher.Invoke(() =>     //Dispatcher behøves ikke
@@ -180,20 +136,19 @@ namespace PresentationLayer
         {
             _calibrateW = new CalibrateWindow(this, _subject);
             PrepCalibrateWindow();
-            this.Hide(); //Når der klikkes på Kalibrer-knappen, lukker hovedvindue
-            //this.Close();
-            _loginW.ShowDialog(); //og Loginvindue vises
+            this.Hide();
+            _loginW.ShowDialog(); 
 
             if (LoginOk)
             {
-                _calibrateW.ShowDialog(); //Hvis Login er ok, fuldføres login, og vi til kalibreringsvindue
+                _calibrateW.ShowDialog(); 
               
             }
         }
 
         private void Close_button_Click(object sender, RoutedEventArgs e)
         {
-            Environment.Exit(0); //Program lukker, når der trkkes på Luk-knappen
+            Environment.Exit(0); 
         }
 
         public void UpdatePulseTextBox(string text)
@@ -207,10 +162,10 @@ namespace PresentationLayer
                 );
         }
 
-        public void AddDisplayValues(double bp) //BloodPressureData bp
+        public void AddDisplayValues(BloodPressureData bp) 
         {
-            //double value = Convert.ToDouble(bp.Værdi);
-            double calValue = (A * bp) + B; //value i stedet for bp
+            double value = Convert.ToDouble(bp.Værdi);
+            double calValue = (A * value) + B; 
 
             YValues.Add(calValue); //SKAL add'e værdi!!!
             if (YValues.Count > 200)
@@ -230,7 +185,6 @@ namespace PresentationLayer
                     double diaCalibrate = (A * dia) + B;  //Omregner ADC værdi (Systolisk) til mmHg
 
                     BP_value_box.Text = Convert.ToString(Convert.ToInt16(sysCalibrate)) + "/" + Convert.ToString(Convert.ToInt16(diaCalibrate));
-                    //BP_value_box.Text = Convert.ToString((A * sys) + B) + "/" + Convert.ToString((A * dia) + B);
                 }
             );
         }

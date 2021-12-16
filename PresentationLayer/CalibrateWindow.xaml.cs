@@ -24,13 +24,11 @@ namespace PresentationLayer
     public partial class CalibrateWindow : Window
     {
         private readonly MainWindow _mainRef; //Reference til Main                                                                                          
-        private GetADCvalues _getAdc; //Test                                                                                    
         private List<int> pressureValue; //de ønskede trykværdier (defineret i UC1) findes her
         private List<double> _pressureValuesList; //indtastede trykværdier gemmes her                                                                                       
         private List<double> _adcValuesList; //aflæste ADC-værdier gemmes her                                                                                             
         private readonly ChartValues<Point> _values; //kalibreringspunkter til graf gemmes i denne variabel
         private CalibrateObserver calibrateObserver; //Oberser der attacher sig til bpSubject, for at få ADC-værdier (DTO.Værdi)
-        //private CalibrateValuesFile calibrateFile;
         private CalibrateValuesFile calibrateFile;
         private CalibrateData calibrateData;
         public BloodPressureSubject _subject;
@@ -52,7 +50,6 @@ namespace PresentationLayer
 
             calibrateObserver = new CalibrateObserver(bp, this); //før bp, this
             calibrateFile = new CalibrateValuesFile();
-            _getAdc = new GetADCvalues();
 
         }
 
@@ -63,11 +60,6 @@ namespace PresentationLayer
             insertValues_Box.Text = "Indstil tryk til 0 mmHg";
             Date_Box.Text = DateTime.Now.ToString("dd/MM/yyyy");
             calibrateButton.IsEnabled = true;
-            
-            //_getAdc = new GetADCvalues(_mainRef._filter, _mainRef._subject); //Test med testtråd
-            //_getAdc = new GetADCvalues(); //Til test med random værdier
-
-
         }
 
         //Graf - se beskrivelse i bunden
@@ -107,9 +99,6 @@ namespace PresentationLayer
             {
                 PressureInput = Values_box.Text;  //Tryk input gemmes i en property
                 double userInput = Convert.ToDouble(PressureInput); //Tryk konverteres til double
-                //double adcValue = Convert.ToDouble(_getAdc.getADCvaluesFromDataLayer()); //til at teste adc værdi random 
-                //double adcValue = Convert.ToDouble(_getAdc.GetADCvaluesFromDataLayer()); //til at teste adc værdi fra rpi
-
                 double adcValue = ADCValue; //ADC værdi fra bpSubject (observermønster) gemmes i en variabel
 
                 var point = new Point() { X = adcValue, Y = userInput}; //Der oprettes et nyt punkt. X = adc-værdi, Y = indtastet trykværdi
@@ -132,7 +121,7 @@ namespace PresentationLayer
             }
             else
             {
-                Fejlmeddelese_Box.Text = "Indtast trykværdi";
+                Fejlmeddelese_Box.Text = "Indtast gyldig trykværdi";
                 Values_box.Clear();
                 Values_box.Focus();
             }
@@ -184,14 +173,6 @@ namespace PresentationLayer
         {
             
             Environment.Exit(0);
-            //this.Hide(); //Når der logges af, skjules kalibreringsvindue                                                                                                          
-
-            //_subject.Remove(calibrateObserver);
-            //_mainRef.PrepMainWindow(); //filter-observer tilføjes igen
-            //_mainRef.ShowDialog();     
-            //_mainRef.Show();
-            
-
         }
     }
 }

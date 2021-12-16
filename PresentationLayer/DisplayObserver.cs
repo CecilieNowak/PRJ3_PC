@@ -38,10 +38,10 @@ namespace PresentationLayer
             DateTime now = DateTime.Now;
             BloodPressureData bp = new BloodPressureData();
             CalibrateData cd = new CalibrateData();
-            bp = _filter.getDTOSample();           //Parameterne er a og b fra regression 
+            bp = _filter.getDTOSample();           
 
 
-            mw.AddDisplayValues(Convert.ToDouble(bp.Værdi)); //bp
+            mw.AddDisplayValues(bp); 
 
             mw.XValues.Add(now.ToString());
 
@@ -50,9 +50,9 @@ namespace PresentationLayer
             mw.UpdatePulseTextBox(Convert.ToString(Convert.ToInt32(bp.Værdi)));
             mw.UpdateDiaSysTextbox(bp.Systolic, bp.Diastolic);
 
-            //string batteri = Convert.ToString(bp.battery);
-            //mw.BatteryStatus(batteri);
-            //mw.updateBatteryBar((bp.battery));
+            string batteri = Convert.ToString(bp.battery);
+            mw.BatteryStatus(batteri);
+            mw.updateBatteryBar(bp.battery);
 
         }
     }
