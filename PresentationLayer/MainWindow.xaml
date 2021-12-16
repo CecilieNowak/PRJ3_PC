@@ -41,7 +41,7 @@
                     </lvc:CartesianChart.Series>
 
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="[mmHg]" FontSize="14" Foreground="White" MaxValue="250" MinValue="0">
+                        <lvc:Axis Title="[mmHg]" FontSize="14" Foreground="White" MaxValue="200" MinValue="0">
                             <lvc:Axis.Separator>
                                 <lvc:Separator StrokeThickness="0" />
 

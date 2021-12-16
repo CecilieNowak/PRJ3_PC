@@ -168,7 +168,7 @@ namespace PresentationLayer
             double calValue = (A * value) + B; 
 
             YValues.Add(calValue); //SKAL add'e værdi!!!
-            if (YValues.Count > 200)
+            if (YValues.Count > 100)
             {
                 YValues.RemoveAt(0);
             }
